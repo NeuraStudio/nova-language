@@ -2,51 +2,77 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nova Hub - Package Manager</title>
     <style>
-        body { background: #fcfcfd; font-family: -apple-system, sans-serif; margin: 0; color: #111;}
+        body { background: #fcfcfd; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; color: #111;}
+        
+        /* Navbar */
         .nav { position: sticky; top:0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 100; box-sizing: border-box;}
         .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #111; text-decoration: none;}
-        .nav-logo img { width: 35px; margin-right: 12px; border-radius: 8px; }
+        .nav-logo img { width: 40px; margin-right: 12px; }
         .nav-links a { margin: 0 15px; text-decoration: none; color: #555; font-weight: 600; font-size: 14px; transition: 0.2s;}
         .nav-links a:hover { color: #0a84ff; }
+        .btn { background: #0a84ff; color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: bold;}
 
+        /* Header */
         .header { text-align: center; padding: 60px 20px 30px; }
         .header h1 { font-size: 3.5em; margin: 0; color: #101828; letter-spacing: -1.5px;}
         .header h1 span { color: #0a84ff; }
         .header p { color: #667085; font-size: 1.2em; margin-top: 10px; }
 
+        /* Search Bar */
         .search-container { max-width: 600px; margin: 0 auto 50px auto; position: relative;}
-        #search-box { width: 100%; padding: 18px 25px; border-radius: 40px; border: 1px solid #eaebed; font-size: 16px; outline: none; box-shadow: 0 4px 20px rgba(0,0,0,0.05); box-sizing: border-box;}
+        #search-box { width: 100%; padding: 18px 25px; border-radius: 40px; border: 1px solid #eaebed; font-size: 16px; outline: none; box-shadow: 0 4px 20px rgba(0,0,0,0.05); box-sizing: border-box; font-family: inherit;}
         #search-box:focus { border-color: #0a84ff; }
         .search-btn { position: absolute; right: 8px; top: 8px; background: #010409; color: #fff; border: none; padding: 10px 24px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.2s;}
         .search-btn:hover { background: #0a84ff; }
 
+        /* Package Grid */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 20px 100px; }
         .pkg-card { background: #fff; border: 1px solid #eaebed; border-radius: 16px; padding: 25px; text-align: center; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.02);}
         .pkg-card:hover { border-color: #0a84ff; box-shadow: 0 10px 20px rgba(10,132,255,0.1); transform: translateY(-3px);}
         .pkg-icon { height: 60px; margin-bottom: 15px; object-fit: contain; }
-        .pkg-title { font-weight: 700; font-size: 1.1em; color: #101828; margin-bottom: 20px; }
-        .code-snippet { background: #0d1117; color: #c9d1d9; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 0.9em; display: flex; justify-content: space-between; align-items: center; cursor: pointer;}
-        .code-snippet:hover { border: 1px solid #58a6ff; }
+        .pkg-title { font-weight: 900; font-size: 1.2em; color: #101828; margin-bottom: 20px; }
         
-        #toast { visibility: hidden; min-width: 250px; background-color: #27c93f; color: #fff; text-align: center; border-radius: 30px; padding: 12px; position: fixed; z-index: 1000; bottom: 30px; left: 50%; transform: translateX(-50%); font-weight: bold; box-shadow: 0 10px 20px rgba(39,201,63,0.3);}
-        #toast.show { visibility: visible; animation: fadein 0.5s, fadeout 0.5s 2.5s; }
-        @keyframes fadein { from {bottom: 0; opacity: 0;} to {bottom: 30px; opacity: 1;} }
-        @keyframes fadeout { from {bottom: 30px; opacity: 1;} to {bottom: 0; opacity: 0;} }
+        /* Code Snippet */
+        .code-snippet { background: #0d1117; color: #a5d6ff; padding: 12px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 0.9em; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: bold; border: 1px solid #30363d;}
+        .code-snippet:hover { border: 1px solid #58a6ff; }
+        .copy-icon { font-size: 1.2em; }
+
+        /* Toast Notification */
+        #toast { visibility: hidden; min-width: 250px; background-color: #238636; color: #fff; text-align: center; border-radius: 30px; padding: 12px; position: fixed; z-index: 1000; bottom: 30px; left: 50%; transform: translateX(-50%); font-weight: bold; font-size: 16px; box-shadow: 0 10px 30px rgba(35,134,54,0.4); opacity: 0; transition: opacity 0.3s, bottom 0.3s;}
+        #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
     </style>
 </head>
 <body>
     <div class="nav">
-        <a href="index.html" class="nav-logo"><img src="neura-logo.svg"> NEURA STUDIO</a>
-        <div class="nav-links"><a href="index.html">Overview</a><a href="hub.html" style="color: #0a84ff;">Nova Hub</a><a href="#">Pro</a></div>
+        <a href="index.html" class="nav-logo"><img src="neura-logo.svg" alt="Logo"> NEURA STUDIO</a>
+        <div class="nav-links">
+            <a href="index.html">Overview</a>
+            <a href="hub.html" style="color: #0a84ff;">For Developers</a>
+        </div>
+        <a href="installer.html" class="btn">Download Engine</a>
     </div>
-    <div class="header"><h1>Nova Hub <span>📦</span></h1><p>The Universal Package Manager. Search and install from 3,560,000+ packages.</p></div>
-    <div class="search-container"><input type="text" id="search-box" placeholder="Search Python, JS, Rust packages..." onkeyup="filterPackages()"><button class="search-btn">Search</button></div>
-    <div class="grid" id="pkg-grid"></div>
-    <div id="toast">Copied to clipboard!</div>
+
+    <div class="header">
+        <h1>Nova Hub <span>📦</span></h1>
+        <p>The Universal Package Manager. Search and install from 3,560,000+ packages across ALL languages.</p>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="search-box" placeholder="Search Python, JS, Rust packages (e.g. Django, React)..." oninput="filterPackages()">
+        <button class="search-btn">Search</button>
+    </div>
+
+    <div class="grid" id="pkg-grid">
+        <!-- Javascript renders items here -->
+    </div>
+
+    <div id="toast">✅ Command Copied!</div>
 
     <script>
+        // Real Package Data
         const packages = [
             { name: "python:tensorflow", img: "https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg", cmd: 'Nova.import("python:tensorflow")' },
             { name: "js:react", img: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg", cmd: 'Nova.import("js:react")' },
@@ -62,29 +88,78 @@
             { name: "csharp:dotnet", img: "https://upload.wikimedia.org/wikipedia/commons/e/ee/.NET_Core_Logo.svg", cmd: 'Nova.import("csharp:dotnet")' },
             { name: "swift:ui", img: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift_logo.svg", cmd: 'Nova.import("swift:ui")' },
             { name: "dart:flutter", img: "https://upload.wikimedia.org/wikipedia/commons/1/17/Google-flutter-logo.png", cmd: 'Nova.import("dart:flutter")' },
-            { name: "js:vue", img: "https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg", cmd: 'Nova.import("js:vue")' }
+            { name: "js:vue", img: "https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg", cmd: 'Nova.import("js:vue")' },
+            { name: "nova:quantum-core", img: "neura-logo.svg", cmd: 'Nova.import("nova:quantum")' }
         ];
 
         const grid = document.getElementById('pkg-grid');
-        packages.forEach(pkg => {
-            const card = document.createElement('div');
-            card.className = 'pkg-card';
-            card.setAttribute('data-name', pkg.name.toLowerCase());
-            card.innerHTML = `<img src="${pkg.img}" class="pkg-icon"><div class="pkg-title">${pkg.name}</div><div class="code-snippet" onclick="copyText('${pkg.cmd}')"><span>${pkg.cmd}</span><span>📋</span></div>`;
-            grid.appendChild(card);
-        });
 
+        // Render Cards initially
+        function renderCards() {
+            grid.innerHTML = '';
+            packages.forEach(pkg => {
+                const card = document.createElement('div');
+                card.className = 'pkg-card';
+                card.setAttribute('data-name', pkg.name.toLowerCase());
+                card.innerHTML = `
+                    <img src="${pkg.img}" class="pkg-icon" alt="${pkg.name}">
+                    <div class="pkg-title">${pkg.name}</div>
+                    <div class="code-snippet" onclick="copyText('${pkg.cmd}')">
+                        <span>${pkg.cmd}</span>
+                        <span class="copy-icon">📋</span>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Live Search Filter (Works immediately as you type)
         function filterPackages() {
             let input = document.getElementById('search-box').value.toLowerCase();
             let cards = document.getElementsByClassName('pkg-card');
             for (let i = 0; i < cards.length; i++) {
-                cards[i].style.display = cards[i].getAttribute('data-name').includes(input) ? "" : "none";
+                let name = cards[i].getAttribute('data-name');
+                if (name.includes(input)) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
             }
         }
 
+        // Bulletproof Copy Function (Works on Mobile/Termux)
+        function copyText(text) {
+            if (navigator.clipboard && window.isSecureContext) {
+                // For modern browsers
+                navigator.clipboard.writeText(text).then(() => showToast());
+            } else {
+                // Fallback for older browsers or mobile webviews
+                let textArea = document.createElement("textarea");
+                textArea.value = text;
+                textArea.style.position = "fixed";
+                textArea.style.left = "-999999px";
+                textArea.style.top = "-999999px";
+                document.body.appendChild(textArea);
+                textArea.focus();
+                textArea.select();
+                try {
+                    document.execCommand('copy');
+                    showToast();
+                } catch (err) {
+                    console.error('Copy fallback failed', err);
+                }
+                textArea.remove();
+            }
         }
-function copyText(text) { if (navigator.clipboard) { navigator.clipboard.writeText(text).then(showToast); } else { let ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta); showToast(); } }
-function showToast() { let toast = document.getElementById("toast"); toast.className = "show"; setTimeout(() => toast.className = toast.className.replace("show", ""), 3000); }
+
+        function showToast() {
+            let toast = document.getElementById("toast");
+            toast.className = "show";
+            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 2500);
+        }
+
+        // Initialize
+        renderCards();
     </script>
 </body>
 </html>
