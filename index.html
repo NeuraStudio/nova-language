@@ -2,146 +2,61 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neura Studio | Nova</title>
     <style>
-        body { background-color: #ffffff; color: #111; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; overflow-x: hidden; }
-        
+        body { background-color: #ffffff; color: #111; font-family: -apple-system, sans-serif; margin: 0; overflow-x: hidden; }
         #preloader { position: fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; }
-        .loader-circle { width: 50px; height: 50px; border: 4px solid #f0f0f0; border-top: 4px solid #0a84ff; border-radius: 50%; animation: spin 1s linear infinite; margin-top: 20px;}
-        #count { font-size: 4em; font-weight: 900; color: #111; font-variant-numeric: tabular-nums; letter-spacing: -2px;}
-        #explosion-logo { display: none; width: 120px; opacity: 1; transition: transform 0.6s cubic-bezier(0.1, 0.8, 0.2, 1), opacity 0.6s ease-out; }
-        .explode { transform: scale(40); opacity: 0 !important; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        .nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100;}
+        #explosion-logo { display: none; width: 120px; transition: transform 0.6s, opacity 0.6s; }
+        .explode { transform: scale(40); opacity: 0; }
+        .nav { display: flex; justify-content: space-between; padding: 15px 50px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #111; text-decoration: none;}
         .nav-logo img { width: 35px; margin-right: 12px; border-radius: 8px; }
-        .nav-links a { margin: 0 15px; text-decoration: none; color: #555; font-weight: 600; font-size: 14px; transition: 0.2s;}
-        .nav-links a:hover { color: #0a84ff; }
-        .btn { background: #0a84ff; color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 14px; transition: 0.3s;}
-        .btn:hover { background: #0070e0; }
-
-        .main-content { opacity: 0; transition: opacity 0.8s ease-in; }
-        .hero { text-align: center; padding: 80px 20px 40px; }
-        h1.title { font-size: 4.5em; margin: 0 0 10px 0; font-weight: 900; letter-spacing: -2px;}
-        p.subtitle { color: #666; font-size: 1.4em; max-width: 600px; margin: 0 auto 40px auto; line-height: 1.5; }
-        
-        .ide-wrapper { max-width: 800px; margin: 0 auto; padding: 0 20px; }
-        .ide-box { background: #0d1117; color: #c9d1d9; padding: 25px; border-radius: 12px; font-family: 'Courier New', Courier, monospace; height: 350px; overflow-y: auto; box-shadow: 0 25px 50px rgba(0,0,0,0.15); border: 1px solid #30363d; text-align: left;}
-        .ide-header { display: flex; gap: 8px; margin-bottom: 20px; }
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .dot.r { background: #ff5f56; } .dot.y { background: #ffbd2e; } .dot.g { background: #27c93f; }
-        
-        .ide-input-row { display: flex; margin-top: 15px; align-items: center;}
-        .ide-input-row span { color: #58a6ff; font-weight: bold; margin-right: 10px;}
-        #ide-input { background: transparent; border: none; color: #fff; width: 100%; outline: none; font-family: inherit; font-size: 15px;}
-        .output-line { margin: 8px 0; line-height: 1.4;}
-        .sys-msg { color: #3fb950; font-weight: bold;}
-        .err-msg { color: #f85149; }
-        .val-msg { color: #a5d6ff; }
+        .nav-links a { margin: 0 15px; text-decoration: none; color: #555; font-weight: 600;}
+        .btn { background: #0a84ff; color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: bold;}
+        .ide-wrapper { max-width: 800px; margin: 40px auto; padding: 25px; background: #0d1117; color: #c9d1d9; border-radius: 12px; font-family: monospace; height: 350px; overflow-y: auto; }
+        .ide-input-row { display: flex; margin-top: 15px; }
+        .ide-input-row span { color: #58a6ff; font-weight: bold; margin-right: 10px; }
+        #ide-input { background: transparent; border: none; color: #fff; width: 100%; outline: none; font-family: monospace; font-size: 15px; }
+        .val-msg { color: #a5d6ff; margin-top: 5px; } .sys-msg { color: #3fb950; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div id="preloader">
-        <div id="count">0%</div>
-        <div class="loader-circle" id="spinner"></div>
-        <img src="neura-logo.svg" id="explosion-logo">
-    </div>
-
-    <div class="main-content" id="main">
-        <div class="nav">
-            <a href="index.html" class="nav-logo"><img src="neura-logo.svg"> NEURA STUDIO</a>
-            <div class="nav-links">
-                <a href="index.html" style="color: #0a84ff;">Overview</a>
-                <a href="hub.html">Nova Hub</a>
-                <a href="#">Pro</a>
-            </div>
-            <a href="installer.html" class="btn">Download Engine</a>
-        </div>
-        
-        <div class="hero">
-            <h1 class="title">Make your code<br>faster.</h1>
-            <p class="subtitle">Nova is the ultimate God-Mode alternative to Python, Java, and C++. Built for AI, Robotics, and Quantum computing with real-time OS control.</p>
-        </div>
-
-        <div class="ide-wrapper">
-            <div class="ide-box" id="ide-box" onclick="document.getElementById('ide-input').focus()">
-                <div class="ide-header"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div></div>
-                <div style="color:#8b949e; margin-bottom:15px;">// Nova Web IDE (Zero-Latency Core) v1.0.0</div>
-                <div id="outputs"></div>
-                <div class="ide-input-row">
-                    <span>nova>>></span>
-                    <input type="text" id="ide-input" autocomplete="off" spellcheck="false">
-                </div>
-            </div>
-        </div>
+    <div id="preloader"><img src="neura-logo.png" id="explosion-logo" style="display:block;"></div>
+    <div class="nav"><a href="index.html" class="nav-logo"><img src="neura-logo.png"> NEURA STUDIO</a><a href="installer.html" class="btn">Download Engine</a></div>
+    
+    <div class="ide-wrapper" id="ide-box" onclick="document.getElementById('ide-input').focus()">
+        <div style="color:#8b949e; margin-bottom:15px;">// Nova Web IDE (Zero-Latency Core) v1.0.0</div>
+        <div id="outputs"></div>
+        <div class="ide-input-row"><span>nova>>></span><input type="text" id="ide-input" autocomplete="off"></div>
     </div>
 
     <script>
-        let count = 0;
-        let counterElement = document.getElementById('count');
-        let spinner = document.getElementById('spinner');
-        let explosionLogo = document.getElementById('explosion-logo');
-        
-        let interval = setInterval(() => {
-            count += Math.floor(Math.random() * 15) + 5;
-            if(count >= 100) {
-                count = 100;
-                clearInterval(interval);
-                counterElement.style.display = 'none';
-                spinner.style.display = 'none';
-                explosionLogo.style.display = 'block';
-                setTimeout(() => {
-                    explosionLogo.classList.add('explode');
-                    setTimeout(() => {
-                        document.getElementById('preloader').style.display = 'none';
-                        document.getElementById('main').style.opacity = '1';
-                        document.getElementById('ide-input').focus();
-                    }, 500);
-                }, 300);
-            }
-            counterElement.innerText = count + '%';
-        }, 80);
+        setTimeout(() => { 
+            let preloader = document.getElementById('preloader');
+            let logo = document.getElementById('explosion-logo');
+            logo.classList.add('explode');
+            setTimeout(() => { preloader.style.display = 'none'; document.getElementById('ide-input').focus(); }, 500);
+        }, 1000);
 
         const input = document.getElementById('ide-input');
-        const outputs = document.getElementById('outputs');
-        
         input.addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 let cmd = input.value.trim();
                 if (cmd === '') return;
+                let output = `<div><span style="color:#58a6ff">nova>>></span> ${cmd}</div>`;
                 
-                let outputHtml = `<div class="output-line"><span style="color:#58a6ff">nova>>></span> ${cmd}</div>`;
-                
-                try {
-                    if (cmd.match(/^Nova\.show\((.*)\)$/)) {
-                        let text = cmd.match(/^Nova\.show\((.*)\)$/)[1].replace(/['"]/g, '');
-                        outputHtml += `<div class="val-msg">${text}</div><div class="sys-msg">✅ Done (0.01ms)</div>`;
-                    } 
-                    else if (cmd.match(/^Nova\.log\.info\((.*)\)$/)) {
-                        let text = cmd.match(/^Nova\.log\.info\((.*)\)$/)[1].replace(/['"]/g, '');
-                        outputHtml += `<div class="val-msg">[NeuraLog™] ${text}</div><div class="sys-msg">✅ Done (0.01ms)</div>`;
-                    }
-                    else if (cmd.includes('Nova.hardware.cpu.alloc')) {
-                        outputHtml += `<div class="val-msg">Allocating dedicated threads... bypassed OS kernel.</div><div class="sys-msg">✅ Hardware Locked (0.01ms)</div>`;
-                    }
-                    else if (cmd === 'clear') {
-                        outputs.innerHTML = '';
-                        input.value = '';
-                        return;
-                    } 
-                    else {
-                        outputHtml += `<div class="err-msg">❌ SyntaxError: Unknown native command. Did you mean Nova.show("...")?</div>`;
-                    }
-                } catch(err) {
-                    outputHtml += `<div class="err-msg">❌ Error executing command.</div>`;
+                // Real Syntax Parsing
+                if (cmd.includes('Nova.show(')) {
+                    let text = cmd.split('(')[1].split(')')[0].replace(/['"]/g, '');
+                    output += `<div class="val-msg">${text}</div><div class="sys-msg">✅ Done (0.01ms)</div>`;
+                } else if (cmd === 'clear') {
+                    document.getElementById('outputs').innerHTML = ''; input.value = ''; return;
+                } else {
+                    output += `<div style="color:#f85149">❌ Error: Invalid syntax</div>`;
                 }
-                
-                outputs.innerHTML += outputHtml;
+                document.getElementById('outputs').innerHTML += output;
                 input.value = '';
-                let box = document.getElementById('ide-box');
-                box.scrollTop = box.scrollHeight;
+                document.getElementById('ide-box').scrollTop = document.getElementById('ide-box').scrollHeight;
             }
         });
     </script>

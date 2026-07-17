@@ -38,7 +38,7 @@
 </head>
 <body>
     <div class="nav">
-        <a href="index.html" class="nav-logo"><img src="neura-logo.svg"> NEURA STUDIO</a>
+        <a href="index.html" class="nav-logo"><img src="neura-logo.png"> NEURA STUDIO</a>
         <div class="nav-links"><a href="index.html">Overview</a><a href="hub.html" style="color: #0a84ff;">Nova Hub</a><a href="#">Pro</a></div>
     </div>
     <div class="header"><h1>Nova Hub <span>📦</span></h1><p>The Universal Package Manager. Search and install from 3,560,000+ packages.</p></div>
@@ -82,13 +82,9 @@
             }
         }
 
-        function copyText(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                let toast = document.getElementById("toast");
-                toast.className = "show";
-                setTimeout(() => toast.className = toast.className.replace("show", ""), 3000);
-            });
         }
+function copyText(text) { if (navigator.clipboard) { navigator.clipboard.writeText(text).then(showToast); } else { let ta = document.createElement("textarea"); ta.value = text; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta); showToast(); } }
+function showToast() { let toast = document.getElementById("toast"); toast.className = "show"; setTimeout(() => toast.className = toast.className.replace("show", ""), 3000); }
     </script>
 </body>
 </html>
