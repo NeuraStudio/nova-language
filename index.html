@@ -4,92 +4,172 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neura Studio | Nova</title>
+    <!-- PDF Generation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        body { background-color: #f8f9fa; color: #111; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; }
+        body { background-color: #f8f9fa; color: #111; font-family: -apple-system, sans-serif; margin: 0; }
+        
+        /* Navbar - PRO Removed */
         .nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #111; text-decoration: none;}
         .nav-logo img { width: 40px; margin-right: 12px; }
         .nav-links a { margin: 0 15px; text-decoration: none; color: #555; font-weight: 600; font-size: 14px;}
         .nav-links a:hover { color: #0a84ff; }
-        .btn { background: #0a84ff; color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 14px;}
+        .btn { background: #0a84ff; color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: bold; cursor: pointer; border: none;}
         
-        .hero { text-align: center; padding: 60px 20px 40px; }
-        h1.title { font-size: 4.5em; margin: 0 0 20px 0; font-weight: 900; color: #111;}
-        
-        /* Real Images Section */
-        .image-row { display: flex; justify-content: center; gap: 20px; max-width: 1000px; margin: 0 auto 50px auto; }
-        .image-row img { border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); object-fit: cover;}
-        .img-1 { width: 300px; height: 200px; }
-        .img-2 { width: 400px; height: 250px; z-index: 10; transform: scale(1.05); }
-        .img-3 { width: 300px; height: 200px; }
+        /* Header & PDFs */
+        .hero { text-align: center; padding: 50px 20px 20px; }
+        h1.title { font-size: 4em; margin: 0 0 10px 0; font-weight: 900;}
+        .pdf-section { margin: 30px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;}
+        .pdf-btn { background: #111; color: #fff; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; border: none; transition: 0.2s;}
+        .pdf-btn:hover { background: #333; transform: translateY(-2px);}
 
-        /* Code Block */
-        .code-block { background: #181a1f; color: #abb2bf; border-radius: 12px; max-width: 800px; margin: 0 auto; padding: 25px; font-family: monospace; text-align: left; box-shadow: 0 20px 40px rgba(0,0,0,0.15); line-height: 1.6;}
-        .code-header { display: flex; gap: 8px; margin-bottom: 20px; align-items: center;}
-        .dot { width: 12px; height: 12px; border-radius: 50%; } .r { background: #ff5f56; } .y { background: #ffbd2e; } .g { background: #27c93f; }
-        .keyword { color: #c678dd; } .method { color: #61afef; } .string { color: #98c379; } .comment { color: #7f848e; font-style: italic; }
-
-        /* Speed Section */
-        .speed-section { background: #fff; max-width: 800px; margin: 50px auto; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .speed-section h2 { text-align: center; font-size: 2em; margin-bottom: 30px;}
-        .bar-container { margin-bottom: 20px; }
-        .bar-label { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 8px;}
-        .bar-bg { background: #eaebed; border-radius: 10px; height: 12px; width: 100%; overflow: hidden;}
-        .bar-fill { height: 100%; border-radius: 10px; }
+        /* Proper Code Editor (VS Code Style) */
+        .editor-container { max-width: 900px; margin: 40px auto; background: #1e1e1e; border-radius: 12px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.2); text-align: left;}
+        .editor-header { background: #2d2d2d; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; color: #ccc; font-size: 14px; font-family: monospace;}
+        .run-btn { background: #238636; color: white; padding: 6px 15px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;}
+        .run-btn:hover { background: #2ea043; }
         
-        .testimonials { display: flex; justify-content: center; gap: 40px; margin: 60px auto; max-width: 800px; text-align: center;}
-        .testimonials div { flex: 1; }
-        .testimonials h3 { margin-bottom: 10px; font-weight: 900;}
-        .testimonials p { color: #666; font-style: italic; }
+        .workspace { display: flex; height: 350px; }
+        .code-area { flex: 1; padding: 20px; background: #1e1e1e; color: #d4d4d4; font-family: 'Courier New', monospace; font-size: 16px; border: none; outline: none; resize: none; line-height: 1.5; border-right: 1px solid #333;}
+        .output-area { flex: 1; padding: 20px; background: #0d1117; color: #c9d1d9; font-family: monospace; font-size: 15px; overflow-y: auto;}
+        
+        .out-success { color: #3fb950; margin-bottom: 5px;}
+        .out-text { color: #58a6ff; margin-bottom: 5px;}
     </style>
 </head>
 <body>
     <div class="nav">
         <a href="index.html" class="nav-logo"><img src="neura-logo.svg"> NEURA STUDIO</a>
-        <div class="nav-links"><a href="index.html">Overview</a><a href="hub.html">For Developers</a><a href="#">Pro</a></div>
+        <div class="nav-links">
+            <a href="index.html">Overview</a>
+            <a href="hub.html">For Developers</a>
+        </div>
         <a href="installer.html" class="btn">Download Engine</a>
     </div>
     
     <div class="hero">
-        <h1 class="title">Make your code<br>faster.</h1>
-        <div class="image-row">
-            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80" class="img-1">
-            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" class="img-2">
-            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&q=80" class="img-3">
+        <h1 class="title">The Apex Engine.</h1>
+        <p style="color: #666; font-size: 1.2em;">Download the official documentation below.</p>
+        
+        <!-- 3 PDF Buttons -->
+        <div class="pdf-section">
+            <button class="pdf-btn" onclick="generatePDF('learn')">📄 Learn Nova.pdf</button>
+            <button class="pdf-btn" onclick="generatePDF('info')">📄 Nova Features.pdf</button>
+            <button class="pdf-btn" onclick="generatePDF('syntax')">📄 All Syntax.pdf</button>
         </div>
+    </div>
 
-        <div class="code-block">
-            <div class="code-header"><div class="dot r"></div><div class="dot y"></div><div class="dot g"></div> <span style="margin-left:10px; color:#5c6370; font-size:12px;">main.nova - Neura Studio Engine</span></div>
-            <span class="comment">// 1. Direct OS Override & Hardware Allocation</span><br>
-            <span class="method">Nova</span>.os.kernel_bypass(<span class="keyword">true</span>)<br>
-            <span class="method">Nova</span>.hardware.cpu.alloc(16, <span class="string">"threads"</span>)<br><br>
-            <span class="comment">// 2. Native AI Compilation</span><br>
-            <span class="keyword">async fn</span> <span class="method">train_logic</span>() {<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="method">Nova</span>.ai.think(<span class="string">"Optimize neural networks natively"</span>)<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="method">Nova</span>.show(<span class="string">"God-Mode Activated."</span>)<br>
+    <!-- Proper Code Editor -->
+    <div class="editor-container">
+        <div class="editor-header">
+            <span>main.nova - Web IDE</span>
+            <button class="run-btn" onclick="runNovaCode()">▶ Run Code</button>
+        </div>
+        <div class="workspace">
+            <textarea class="code-area" id="nova-code" spellcheck="false">
+// Write your Nova code here
+Nova.show("Hello, Neura Studio!")
+Nova.hardware.cpu.alloc(16)
+Nova.ai.think("Optimize Code")
+</textarea>
+            <div class="output-area" id="nova-output">
+                <div style="color: #8b949e; margin-bottom: 10px;">// Compiler Output will appear here...</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. No Error Compiler Logic ---
+        function runNovaCode() {
+            let code = document.getElementById('nova-code').value;
+            let out = document.getElementById('nova-output');
+            out.innerHTML = ""; // Clear old output
+            
+            let lines = code.split('\n');
+            out.innerHTML += `<div class="out-success">⚙️ [NeuraVM] Compiling...</div>`;
+            
+            lines.forEach(line => {
+                line = line.trim();
+                if(!line || line.startsWith("//")) return;
+                
+                // Smart parsing without strict errors
+                if(line.includes('Nova.show(')) {
+                    let textMatch = line.match(/\((.*?)\)/);
+                    let text = textMatch ? textMatch[1].replace(/['"]/g, '') : "null";
+                    out.innerHTML += `<div class="out-text">> ${text}</div>`;
+                } else {
+                    // Accept EVERYTHING gracefully (God-Mode)
+                    out.innerHTML += `<div class="out-success">✅ Executed: ${line}</div>`;
+                }
+            });
+            out.innerHTML += `<div class="out-success" style="margin-top:10px;">✨ Process finished in 0.01ms</div>`;
+        }
+
+        // --- 2. Real PDF Generation Logic ---
+        function generatePDF(type) {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            doc.setFontSize(22);
+            doc.setTextColor(10, 132, 255); // Neura Blue
+            doc.text("Neura Studio - Nova Engine", 20, 20);
+            
+            doc.setFontSize(14);
+            doc.setTextColor(0, 0, 0);
+            
+            let content = [];
+            let filename = "";
+            
+            if(type === 'learn') {
+                filename = "Learn_Nova.pdf";
+                content = [
+                    "Topic: Learn Nova Language",
+                    "-----------------------------------------",
+                    "Nova is built for absolute speed and hardware control.",
+                    "It bypasses traditional OS kernels to execute commands",
+                    "in 0.01ms. There is no GIL (Global Interpreter Lock).",
+                    "",
+                    "Step 1: Install Nova via Terminal",
+                    "Step 2: Create a file named main.nova",
+                    "Step 3: Run using 'nova main.nova'"
+                ];
+            } else if(type === 'info') {
+                filename = "Nova_Features_and_Info.pdf";
+                content = [
+                    "Topic: Information & Features",
+                    "-----------------------------------------",
+                    "1. Zero-Latency Execution (0.01ms)",
+                    "2. Native AI Processing (TPU/GPU direct link)",
+                    "3. Universal Package Hub (Py, JS, C++ integration)",
+                    "4. Military-Grade Sandbox Security",
+                    "5. Hardware Level Thread Allocation"
+                ];
+            } else if(type === 'syntax') {
+                filename = "Nova_All_Syntax.pdf";
+                content = [
+                    "Topic: Nova Master Syntax Sheet",
+                    "-----------------------------------------",
+                    "Print to console:",
+                    "  Nova.show(\"Hello World\")",
+                    "",
+                    "Hardware Allocation:",
+                    "  Nova.hardware.cpu.alloc(16)",
+                    "",
+                    "Kernel Bypass:",
+                    "  Nova.os.kernel_bypass(true)",
+                    "",
+                    "AI Integration:",
+                    "  Nova.ai.think(\"Task Name\")",
+                    "",
+                    "Importing Foreign Packages:",
+                    "  Nova.import(\"python:tensorflow\")"
+                ];
             }
-        </div>
-    </div>
-
-    <div class="speed-section">
-        <h2>Unrivaled Execution Speed</h2>
-        <div class="bar-container">
-            <div class="bar-label"><span>Nova (Native Bytecode)</span><span style="color:#0a84ff">0.01ms</span></div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 100%; background: #0a84ff;"></div></div>
-        </div>
-        <div class="bar-container">
-            <div class="bar-label"><span>C++ (GCC 03)</span><span style="color:#666">0.05ms</span></div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 50%; background: #667085;"></div></div>
-        </div>
-        <div class="bar-container">
-            <div class="bar-label"><span>Python 3.11</span><span style="color:#ff3b30">5.20ms</span></div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 15%; background: #ff3b30;"></div></div>
-        </div>
-    </div>
-
-    <div class="testimonials">
-        <div><h3>Forbes</h3><p>"Nova is just so clean and powerful. I don't really anticipate a learning curve for new developers."</p></div>
-        <div><h3>TechRadar</h3><p>"It has everything in terms of offering a friendly experience to those coming from Python or Java."</p></div>
-    </div>
+            
+            doc.text(content, 20, 40);
+            doc.save(filename);
+        }
+    </script>
 </body>
 </html>
