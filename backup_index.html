@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Neura Studio | Nova</title>
+    <style>
+        body { background-color: #ffffff; color: #111; font-family: -apple-system, sans-serif; margin: 0; overflow-x: hidden; }
+        
+        /* PRELOADER */
+        #preloader { position: fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+        .loader-circle { width: 50px; height: 50px; border: 5px solid #eee; border-top: 5px solid #0a84ff; border-radius: 50%; animation: spin 1s linear infinite; margin-top: 20px;}
+        #count { font-size: 3em; font-weight: 900; color: #111; font-variant-numeric: tabular-nums;}
+        #explosion-logo { display: none; width: 100px; opacity: 1; transition: transform 0.8s cubic-bezier(0.1, 0.8, 0.2, 1), opacity 0.8s ease-out; }
+        .explode { transform: scale(30); opacity: 0 !important; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .main-content { opacity: 0; transition: opacity 1s; padding: 50px; }
+        
+        /* IDE */
+        .ide-box { background: #1e1e1e; color: #0f0; padding: 20px; border-radius: 12px; font-family: monospace; height: 350px; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); margin-top: 30px;}
+        .ide-input-row { display: flex; margin-top: 10px; }
+        .ide-input-row span { color: #0a84ff; font-weight: bold; }
+        #ide-input { background: transparent; border: none; color: #fff; width: 100%; outline: none; font-family: monospace; margin-left: 10px; font-size: 16px;}
+        .output-line { margin: 5px 0; color: #ccc; }
+        .sys-msg { color: #0f0; }
+        .err-msg { color: #ff453a; }
+
+        .nav { display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 24px; }
+        .nav-logo img { width: 40px; margin-right: 15px; border-radius: 10px; }
+        .btn { background: #0a84ff; color: #fff; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div id="preloader">
+        <div id="count">0%</div>
+        <div class="loader-circle" id="spinner"></div>
+        <img src="neura-logo.svg" id="explosion-logo">
+    </div>
+
+    <div class="main-content" id="main">
+        <div class="nav">
+            <div class="nav-logo"><img src="neura-logo.svg"> NEURA STUDIO</div>
+            <a href="installer.html" class="btn">Install Nova</a>
+        </div>
+        
+        <h1 style="font-size: 4em; text-align: center; margin-top: 50px;">The Apex Engine.</h1>
+        <p style="text-align: center; color: #666; font-size: 1.5em;">Experience zero-latency execution directly in your browser.</p>
+
+        <div class="ide-box" id="ide-box" onclick="document.getElementById('ide-input').focus()">
+            <div class="sys-msg">Nova OS [Version 1.0.0-Apex]</div>
+            <div class="sys-msg">(c) 2026 Neura Studio. All rights reserved.</div><br>
+            <div id="outputs"></div>
+            <div class="ide-input-row">
+                <span>nova>>></span>
+                <input type="text" id="ide-input" autocomplete="off">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Preloader Logic
+        let count = 0;
+        let counterElement = document.getElementById('count');
+        let spinner = document.getElementById('spinner');
+        let explosionLogo = document.getElementById('explosion-logo');
+        
+        let interval = setInterval(() => {
+            count += Math.floor(Math.random() * 10) + 5;
+            if(count >= 100) {
+                count = 100;
+                clearInterval(interval);
+                counterElement.style.display = 'none';
+                spinner.style.display = 'none';
+                explosionLogo.style.display = 'block';
+                
+                setTimeout(() => {
+                    explosionLogo.classList.add('explode');
+                    setTimeout(() => {
+                        document.getElementById('preloader').style.display = 'none';
+                        document.getElementById('main').style.opacity = '1';
+                    }, 600);
+                }, 200);
+            }
+            counterElement.innerText = count + '%';
+        }, 100);
+
+        // IDE Logic
+        const input = document.getElementById('ide-input');
+        const outputs = document.getElementById('outputs');
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                let cmd = input.value.trim();
+                if (cmd === '') return;
+                
+                let outputHtml = `<div class="output-line"><span style="color:#0a84ff">nova>>></span> ${cmd}</div>`;
+                
+                if (cmd === 'nova --version') {
+                    outputHtml += `<div class="sys-msg">Nova Apex Engine v1.0.0</div>`;
+                } else if (cmd.startsWith('nova run')) {
+                    outputHtml += `<div class="sys-msg">⚡ [NovaLex] Scanning...<br>🌳 [NeuraParse] Building Tree...<br>✅ Execution Successful (0.01ms)</div>`;
+                } else if (cmd === 'clear') {
+                    outputs.innerHTML = '';
+                    input.value = '';
+                    return;
+                } else {
+                    outputHtml += `<div class="err-msg">Error: '${cmd}' is not recognized as an internal or external command.</div>`;
+                }
+                
+                outputs.innerHTML += outputHtml;
+                input.value = '';
+                document.getElementById('ide-box').scrollTop = document.getElementById('ide-box').scrollHeight;
+            }
+        });
+    </script>
+</body>
+</html>
