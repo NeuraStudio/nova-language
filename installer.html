@@ -3,49 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuraInstaller Setup</title>
+    <title>NeuraInstaller™ | Nova Engine</title>
     <style>
-        body { background-color: #f0f0f0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .window { background: #ffffff; width: 600px; border-radius: 8px; box-shadow: 0 15px 50px rgba(0,0,0,0.2); overflow: hidden; border: 1px solid #ccc; }
-        .title-bar { background: #001f3f; color: white; padding: 10px 15px; font-size: 0.9em; display: flex; justify-content: space-between; align-items: center; }
-        .content { padding: 30px; display: flex; gap: 20px; }
-        .sidebar { width: 150px; border-right: 1px solid #eee; padding-right: 20px; }
-        .sidebar h2 { font-size: 1.5em; margin-top: 0; color: #0a84ff; }
-        .main-area { flex: 1; }
-        .checkbox-group { margin: 20px 0; font-size: 0.9em; line-height: 1.8; }
-        .footer { background: #f9f9f9; padding: 15px 30px; border-top: 1px solid #eee; display: flex; justify-content: flex-end; gap: 10px; }
-        .btn { padding: 8px 25px; border: 1px solid #ccc; background: white; border-radius: 4px; cursor: pointer; }
-        .btn.primary { background: #0a84ff; color: white; border: none; font-weight: bold; }
-        .btn.primary:hover { background: #0070df; }
+        body { background-color: #f4f5f7; color: #333; font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .installer-box { background: #fff; width: 600px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); overflow: hidden; display: flex; flex-direction: column; }
+        .header { background: #010409; color: white; padding: 15px 20px; font-weight: bold; display: flex; align-items: center; }
+        .header img { height: 25px; margin-right: 10px; border-radius: 5px; }
+        .content { display: flex; flex: 1; }
+        .sidebar { background: #f8f9fa; width: 150px; padding: 20px; border-right: 1px solid #e1e4e8; }
+        .sidebar h3 { color: #0a84ff; margin: 0 0 10px 0; font-size: 1.2em; }
+        .sidebar p { font-size: 0.85em; color: #666; }
+        .main-panel { padding: 20px; flex: 1; }
+        .main-panel h2 { margin-top: 0; font-size: 1.3em; color: #111; }
+        
+        .grid { display: flex; gap: 10px; margin-bottom: 20px; }
+        .card { flex: 1; border: 2px solid #e1e4e8; border-radius: 8px; padding: 15px; text-align: center; cursor: pointer; transition: 0.2s; font-weight: bold; background: #fff; }
+        .card:hover { border-color: #0a84ff; background: #f0f8ff; }
+        .card.active { border-color: #0a84ff; background: #e6f2ff; box-shadow: 0 0 10px rgba(10, 132, 255, 0.2); }
+        .card img { height: 30px; margin-bottom: 5px; display: block; margin: 0 auto 10px auto; }
+
+        .footer { background: #f8f9fa; padding: 15px 20px; text-align: right; border-top: 1px solid #e1e4e8; }
+        .btn { padding: 8px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-left: 10px; }
+        .btn-cancel { background: #e1e4e8; color: #333; }
+        .btn-install { background: #0a84ff; color: white; }
+        .btn-install:hover { background: #0066cc; }
     </style>
 </head>
 <body>
-    <div class="window">
-        <div class="title-bar">
-            <span>NeuraInstaller™ - Setup</span>
-            <span style="cursor:pointer;">✖</span>
+    <div class="installer-box">
+        <div class="header">
+            <img src="neura-logo.png" alt="Logo"> NeuraInstaller™ - Setup
         </div>
         <div class="content">
             <div class="sidebar">
-                <h2>Nova<br>v1.0.0</h2>
-                <img src="6639.png" width="100" style="border-radius:10px; margin-top:20px;">
+                <h3>Nova<br>v1.0.0</h3>
+                <p>Apex-Level Language Engine</p>
             </div>
-            <div class="main-area">
-                <h3>Install Nova Engine (God-Mode)</h3>
-                <p style="color: #666; font-size: 0.9em;">Select the features you want to install. Nova operates independently and requires no external compilers (No C++/Python required).</p>
-                
-                <div class="checkbox-group">
-                    <label><input type="checkbox" checked disabled> <b>NeuraVM™ Core Runtime</b> (Required)</label><br>
-                    <label><input type="checkbox" checked> Install <b>Nova Hub</b> (Package Manager)</label><br>
-                    <label><input type="checkbox" checked> Add <code>nova</code> to System PATH</label><br>
-                    <label><input type="checkbox" checked> Install <b>NeuraLSP™</b> for VS Code / PyCharm</label>
+            <div class="main-panel">
+                <h2>1. Select Operating System</h2>
+                <div class="grid" id="os-grid">
+                    <div class="card active" onclick="selectCard('os-grid', this)">🪟<br>Windows</div>
+                    <div class="card" onclick="selectCard('os-grid', this)">🍎<br>macOS</div>
+                    <div class="card" onclick="selectCard('os-grid', this)">🐧<br>Linux / Unix</div>
                 </div>
+
+                <h2>2. Select IDE / Editor Integration</h2>
+                <div class="grid" id="ide-grid">
+                    <div class="card active" onclick="selectCard('ide-grid', this)">📘<br>VS Code</div>
+                    <div class="card" onclick="selectCard('ide-grid', this)">🐍<br>PyCharm</div>
+                    <div class="card" onclick="selectCard('ide-grid', this)">💻<br>Terminal</div>
+                </div>
+                
+                <p style="font-size: 0.9em; color: #555;"><i>* NeuraVM™, Nova Hub, and PATH variables will be configured automatically for your selection.</i></p>
             </div>
         </div>
         <div class="footer">
-            <button class="btn">Cancel</button>
-            <button class="btn primary" onclick="alert('Installing Native Engine... Done! Welcome to Nova.')">Install Now</button>
+            <button class="btn btn-cancel" onclick="window.location.href='index.html'">Cancel</button>
+            <button class="btn btn-install" onclick="startInstall()">Install Engine</button>
         </div>
     </div>
+
+    <script>
+        function selectCard(gridId, element) {
+            let cards = document.getElementById(gridId).getElementsByClassName('card');
+            for(let i=0; i<cards.length; i++) { cards[i].classList.remove('active'); }
+            element.classList.add('active');
+        }
+        function startInstall() {
+            let btn = document.querySelector('.btn-install');
+            btn.innerHTML = "Downloading NeuraVM...";
+            btn.style.background = "#28a745";
+            setTimeout(() => { btn.innerHTML = "Installed Successfully!"; }, 2000);
+        }
+    </script>
 </body>
 </html>
