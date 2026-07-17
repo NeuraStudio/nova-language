@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nova Language - A to Z Syntax Guide</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #fff; color: #000; padding: 40px; max-width: 800px; margin: auto; }
+        h1 { color: #0a84ff; border-bottom: 2px solid #0a84ff; padding-bottom: 10px;}
+        h2 { color: #333; margin-top: 30px;}
+        pre { background: #f4f4f4; padding: 15px; border-left: 4px solid #0a84ff; border-radius: 5px; font-family: monospace; font-size: 14px; overflow-x: auto;}
+        .print-btn { background: #0a84ff; color: #fff; padding: 10px 20px; border: none; font-size: 16px; cursor: pointer; border-radius: 5px; float: right;}
+        @media print { .print-btn { display: none; } body { padding: 0; } }
+    </style>
+</head>
+<body>
+    <button class="print-btn" onclick="window.print()">Download as PDF</button>
+    <h1>Nova Language - Official Syntax Guide</h1>
+    <p>Version: 1.0.0-Apex | Neura Studio</p>
+
+    <h2>1. Variables & Data Types</h2>
+    <pre>
+// Variables are dynamic but memory-safe
+name = "Javed"
+age = 22
+is_developer = true
+speed = 0.01 // Float
+    </pre>
+
+    <h2>2. Output & Logging</h2>
+    <pre>
+Nova.show("Hello World!")
+Nova.log.info("System is booting...")
+    </pre>
+
+    <h2>3. Functions</h2>
+    <pre>
+function calculate_speed(distance, time) {
+    result = distance / time
+    return result
+}
+    </pre>
+
+    <h2>4. Async & Multi-threading (NeuraSync)</h2>
+    <pre>
+async fn heavy_task() {
+    Nova.show("Running on separate CPU thread...")
+}
+    </pre>
+
+    <h2>5. Native AI Core (NeuraThink)</h2>
+    <pre>
+// Train neural networks directly
+Nova.ai.think("Analyze image data")
+    </pre>
+
+    <h2>6. Hardware Allocation</h2>
+    <pre>
+// Bypass OS and control hardware
+Nova.os.kernel_bypass(true)
+Nova.hardware.cpu.alloc(16, "threads")
+    </pre>
+
+    <h2>7. Package Import (Foreign Function Interface)</h2>
+    <pre>
+// Import Python/JS packages without installing them
+Nova.import("python:tensorflow")
+Nova.import("js:react")
+    </pre>
+
+    <h2>8. Cloud Deployment</h2>
+    <pre>
+// Deploy directly to NovaCloud
+Nova.network.start_server(8080)
+    </pre>
+</body>
+</html>

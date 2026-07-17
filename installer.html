@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuraInstaller Setup</title>
+    <style>
+        body { background-color: #f0f0f0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .window { background: #ffffff; width: 600px; border-radius: 8px; box-shadow: 0 15px 50px rgba(0,0,0,0.2); overflow: hidden; border: 1px solid #ccc; }
+        .title-bar { background: #001f3f; color: white; padding: 10px 15px; font-size: 0.9em; display: flex; justify-content: space-between; align-items: center; }
+        .content { padding: 30px; display: flex; gap: 20px; }
+        .sidebar { width: 150px; border-right: 1px solid #eee; padding-right: 20px; }
+        .sidebar h2 { font-size: 1.5em; margin-top: 0; color: #0a84ff; }
+        .main-area { flex: 1; }
+        .checkbox-group { margin: 20px 0; font-size: 0.9em; line-height: 1.8; }
+        .footer { background: #f9f9f9; padding: 15px 30px; border-top: 1px solid #eee; display: flex; justify-content: flex-end; gap: 10px; }
+        .btn { padding: 8px 25px; border: 1px solid #ccc; background: white; border-radius: 4px; cursor: pointer; }
+        .btn.primary { background: #0a84ff; color: white; border: none; font-weight: bold; }
+        .btn.primary:hover { background: #0070df; }
+    </style>
+</head>
+<body>
+    <div class="window">
+        <div class="title-bar">
+            <span>NeuraInstaller™ - Setup</span>
+            <span style="cursor:pointer;">✖</span>
+        </div>
+        <div class="content">
+            <div class="sidebar">
+                <h2>Nova<br>v1.0.0</h2>
+                <img src="6639.png" width="100" style="border-radius:10px; margin-top:20px;">
+            </div>
+            <div class="main-area">
+                <h3>Install Nova Engine (God-Mode)</h3>
+                <p style="color: #666; font-size: 0.9em;">Select the features you want to install. Nova operates independently and requires no external compilers (No C++/Python required).</p>
+                
+                <div class="checkbox-group">
+                    <label><input type="checkbox" checked disabled> <b>NeuraVM™ Core Runtime</b> (Required)</label><br>
+                    <label><input type="checkbox" checked> Install <b>Nova Hub</b> (Package Manager)</label><br>
+                    <label><input type="checkbox" checked> Add <code>nova</code> to System PATH</label><br>
+                    <label><input type="checkbox" checked> Install <b>NeuraLSP™</b> for VS Code / PyCharm</label>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <button class="btn">Cancel</button>
+            <button class="btn primary" onclick="alert('Installing Native Engine... Done! Welcome to Nova.')">Install Now</button>
+        </div>
+    </div>
+</body>
+</html>

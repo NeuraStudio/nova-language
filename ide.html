@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nova Web IDE | Neura Cloud</title>
+    <style>
+        body { margin: 0; background: #0d1117; color: #c9d1d9; font-family: monospace; display: flex; flex-direction: column; height: 100vh;}
+        .header { background: #010409; padding: 15px 20px; font-weight: bold; color: white; display:flex; justify-content: space-between; align-items:center; border-bottom: 1px solid #30363d;}
+        .header img { height: 35px; margin-right: 15px; vertical-align: middle; border-radius: 8px;}
+        .main { display: flex; flex: 1; }
+        .editor-container { flex: 1; display: flex; flex-direction: column; border-right: 1px solid #30363d;}
+        textarea { flex: 1; background: #0d1117; color: #58a6ff; font-family: 'Courier New', Courier, monospace; font-size: 16px; border: none; padding: 20px; outline: none; resize: none; }
+        .output { flex: 1; background: #010409; color: #3fb950; padding: 20px; overflow-y: auto; font-size: 15px;}
+        button { background: #238636; color: white; border: none; padding: 10px 20px; cursor: pointer; font-weight: bold; border-radius: 6px; font-size: 14px;}
+        button:hover { background: #2ea043; }
+        .title-bar { background: #161b22; padding: 5px 20px; font-size: 12px; color: #8b949e; border-bottom: 1px solid #30363d;}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div><img src="nova-logo.svg"> Nova Web IDE (Zero-Latency Core)</div>
+        <button onclick="runCode()">▶ Run Native Code</button>
+    </div>
+    <div class="main">
+        <div class="editor-container">
+            <div class="title-bar">main.nv</div>
+            <textarea id="code">Nova.log.info("Hello from Nova Web IDE!");
+Nova.show("Connecting to NeuraVM™ Engine...");
+Nova.hardware.cpu.alloc(8, "threads");</textarea>
+        </div>
+        <div class="editor-container">
+            <div class="title-bar">Terminal Output</div>
+            <div class="output" id="output">> NeuraVM™ Ready. Waiting for execution...<br></div>
+        </div>
+    </div>
+    <script>
+        function runCode() {
+            let code = document.getElementById('code').value;
+            let out = document.getElementById('output');
+            out.innerHTML += "<br><span style='color:#8b949e'>> Compiling to Bytecode...</span>";
+            setTimeout(() => {
+                out.innerHTML += "<br>ℹ️ [NeuraLog™] Execution Started";
+                out.innerHTML += "<br><span style='color:#58a6ff'>" + code.replace(/\n/g, "<br>") + "</span>";
+                out.innerHTML += "<br>✅ Done (0.01ms)<br>";
+                out.scrollTop = out.scrollHeight;
+            }, 300);
+        }
+    </script>
+</body>
+</html>
