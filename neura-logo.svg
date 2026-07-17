@@ -1,14 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
     <defs>
         <radialGradient id="glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stop-color="#ffffff" />
-            <stop offset="30%" stop-color="#0a84ff" />
+            <stop offset="0%" stop-color="#8fd3ff" />
+            <stop offset="20%" stop-color="#0a84ff" />
             <stop offset="100%" stop-color="#000000" />
         </radialGradient>
+        <linearGradient id="ring1" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#8a2be2" />
+            <stop offset="100%" stop-color="#4b0082" />
+        </linearGradient>
+        <linearGradient id="ring2" x1="0%" y1="100%" x2="100%" y2="0%">
+            <stop offset="0%" stop-color="#00f2fe" />
+            <stop offset="100%" stop-color="#4facfe" />
+        </linearGradient>
     </defs>
-    <rect width="200" height="200" fill="#000000" rx="40"/>
-    <circle cx="100" cy="100" r="35" fill="url(#glow)"/>
-    <path d="M 100 45 L 110 85 L 150 95 L 110 105 L 100 145 L 90 105 L 50 95 L 90 85 Z" fill="#ffffff"/>
-    <path d="M 40 140 C 10 70, 70 20, 160 50" fill="none" stroke="#8a2be2" stroke-width="12" stroke-linecap="round" />
-    <path d="M 160 60 C 190 130, 130 180, 40 150" fill="none" stroke="#0a84ff" stroke-width="12" stroke-linecap="round" />
+    
+    <!-- Black Background -->
+    <rect width="400" height="400" fill="#000000" rx="40" />
+    
+    <!-- Glowing Core -->
+    <circle cx="200" cy="160" r="50" fill="url(#glow)"/>
+    
+    <!-- Shining Star -->
+    <path d="M 200 125 L 205 155 L 235 160 L 205 165 L 200 195 L 195 165 L 165 160 L 195 155 Z" fill="#ffffff" opacity="0.9"/>
+    
+    <!-- Purple & Blue Orbit Rings -->
+    <path d="M 100 230 C 40 120, 140 40, 270 90" fill="none" stroke="url(#ring1)" stroke-width="18" stroke-linecap="round" />
+    <path d="M 300 90 C 360 200, 260 280, 130 230" fill="none" stroke="url(#ring2)" stroke-width="18" stroke-linecap="round" />
+    <path d="M 90 210 C 60 160, 120 90, 230 100" fill="none" stroke="#8a2be2" stroke-width="6" stroke-linecap="round" />
+    <path d="M 310 110 C 340 160, 280 230, 170 220" fill="none" stroke="#00f2fe" stroke-width="6" stroke-linecap="round" />
+    
+    <!-- Neura Studio Text (Exact Match) -->
+    <text x="65" y="320" font-family="-apple-system, sans-serif" font-size="48" font-weight="900" fill="#ffffff" letter-spacing="-1">Neura</text>
+    <text x="210" y="320" font-family="-apple-system, sans-serif" font-size="48" font-weight="900" fill="#4facfe" letter-spacing="-1">Studio</text>
+    <text x="365" y="290" font-family="-apple-system, sans-serif" font-size="14" font-weight="bold" fill="#ffffff">TM</text>
 </svg>
