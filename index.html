@@ -2,92 +2,116 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neura Studio | Nova</title>
     <style>
-        body { background-color: #000000; color: #ffffff; font-family: -apple-system, sans-serif; margin: 0; padding: 0; overflow-x: hidden; }
-        #preloader { position: fixed; top:0; left:0; width:100%; height:100%; background:#000; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; transition:0.8s; }
-        .pulse-logo { width: 120px; animation: pulse 1.5s infinite alternate; }
-        .loading-text { margin-top: 20px; font-family: monospace; color: #58a6ff; font-size: 1.2em; animation: blink 1s infinite; }
-        @keyframes pulse { 0% { transform: scale(1); filter: drop-shadow(0 0 10px #0a84ff); } 100% { transform: scale(1.1); filter: drop-shadow(0 0 30px #8a2be2); } }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
-        .fade-in { opacity: 0; animation: fadeInUp 1s forwards; animation-delay: 2.5s; }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-
-        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(0,0,0,0.8); backdrop-filter: blur(10px); position: sticky; top: 0; border-bottom: 1px solid #333; z-index:100;}
-        .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 1.2em; color: white;}
-        .nav-logo img { width: 40px; margin-right: 10px; border-radius: 8px; }
-        .nav-links a { margin: 0 15px; text-decoration: none; color: #aaa; transition: 0.3s; }
-        .nav-links a:hover, .nav-links a.active { color: #0a84ff; }
-        .btn-download { background: #0a84ff; color: white; padding: 10px 25px; text-decoration: none; border-radius: 20px; font-weight: bold; }
-
-        .hero { text-align: center; padding: 80px 20px; background: radial-gradient(circle at center, #111 0%, #000 100%); }
-        h1 { font-size: 4em; margin-bottom: 10px; color: #fff; text-shadow: 0 0 20px rgba(10, 132, 255, 0.5); }
-        .tagline { font-size: 1.5em; color: #888; margin-bottom: 40px;}
-
-        .section-title { text-align: center; font-size: 2.5em; margin: 40px 0; }
-        .comparison { width: 70%; margin: 0 auto 80px auto; text-align: left; }
-        .bar-container { margin-bottom: 20px; }
-        .bar-label { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 8px; font-size: 1.1em;}
-        .bar-bg { background: #222; border-radius: 10px; height: 15px; width: 100%; overflow: hidden; }
-        .bar-fill { height: 100%; border-radius: 10px; box-shadow: inset 0 0 10px rgba(0,0,0,0.5); }
+        body { background-color: #ffffff; color: #111; font-family: -apple-system, sans-serif; margin: 0; overflow-x: hidden; }
         
-        .capabilities { display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; margin-bottom: 80px; padding: 0 50px;}
-        .cap-card { background: #0d1117; border: 1px solid #30363d; padding: 25px; border-radius: 15px; width: 300px; text-align: left; transition:0.3s;}
-        .cap-card:hover { border-color: #0a84ff; box-shadow: 0 10px 30px rgba(10, 132, 255, 0.2); }
-        .cap-card h3 { color: #58a6ff; margin-top: 0; }
+        /* PRELOADER */
+        #preloader { position: fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+        .loader-circle { width: 50px; height: 50px; border: 5px solid #eee; border-top: 5px solid #0a84ff; border-radius: 50%; animation: spin 1s linear infinite; margin-top: 20px;}
+        #count { font-size: 3em; font-weight: 900; color: #111; font-variant-numeric: tabular-nums;}
+        #explosion-logo { display: none; width: 100px; opacity: 1; transition: transform 0.8s cubic-bezier(0.1, 0.8, 0.2, 1), opacity 0.8s ease-out; }
+        .explode { transform: scale(30); opacity: 0 !important; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        .main-content { opacity: 0; transition: opacity 1s; padding: 50px; }
+        
+        /* IDE */
+        .ide-box { background: #1e1e1e; color: #0f0; padding: 20px; border-radius: 12px; font-family: monospace; height: 350px; overflow-y: auto; box-shadow: 0 20px 40px rgba(0,0,0,0.2); margin-top: 30px;}
+        .ide-input-row { display: flex; margin-top: 10px; }
+        .ide-input-row span { color: #0a84ff; font-weight: bold; }
+        #ide-input { background: transparent; border: none; color: #fff; width: 100%; outline: none; font-family: monospace; margin-left: 10px; font-size: 16px;}
+        .output-line { margin: 5px 0; color: #ccc; }
+        .sys-msg { color: #0f0; }
+        .err-msg { color: #ff453a; }
+
+        .nav { display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 24px; }
+        .nav-logo img { width: 40px; margin-right: 15px; border-radius: 10px; }
+        .btn { background: #0a84ff; color: #fff; padding: 12px 25px; border-radius: 30px; text-decoration: none; font-weight: bold; }
     </style>
 </head>
 <body>
-    <div id="preloader"><img src="neura-logo.svg" class="pulse-logo"><div class="loading-text">BOOTING NEURAVM™ CORE...</div></div>
+    <div id="preloader">
+        <div id="count">0%</div>
+        <div class="loader-circle" id="spinner"></div>
+        <img src="neura-logo.svg" id="explosion-logo">
+    </div>
 
-    <div class="fade-in">
-        <nav class="navbar">
+    <div class="main-content" id="main">
+        <div class="nav">
             <div class="nav-logo"><img src="neura-logo.svg"> NEURA STUDIO</div>
-            <div class="nav-links"><a href="index.html" class="active">Overview</a><a href="hub.html">For Developers</a><a href="ide.html">Web IDE</a></div>
-            <a href="installer.html" class="btn-download">Download Engine</a>
-        </nav>
-
-        <div class="hero">
-            <h1>Nova Language</h1>
-            <div class="tagline">The Apex-Level Language. Bypassing OS Limits.</div>
+            <a href="installer.html" class="btn">Install Nova</a>
         </div>
+        
+        <h1 style="font-size: 4em; text-align: center; margin-top: 50px;">The Apex Engine.</h1>
+        <p style="text-align: center; color: #666; font-size: 1.5em;">Experience zero-latency execution directly in your browser.</p>
 
-        <h2 class="section-title">What Can Nova Do?</h2>
-        <div class="capabilities">
-            <div class="cap-card"><h3>🧠 Native AI Training</h3><p>Direct GPU/TPU allocation. Train neural networks locally without Python or TensorFlow overhead.</p></div>
-            <div class="cap-card"><h3>🌐 NeuraStack Web Server</h3><p>Launch APIs and full-stack websites at 0.01ms latency without Node.js or Django.</p></div>
-            <div class="cap-card"><h3>⚙️ Direct Hardware Control</h3><p>Bypass the OS kernel. Control CPU threads, RAM allocation, and Robotics directly.</p></div>
-            <div class="cap-card"><h3>📦 FFI (Foreign Import)</h3><p>Run Python, JS, and Rust packages natively inside Nova without installing their compilers.</p></div>
-            <div class="cap-card"><h3>⚡ Multi-Threading</h3><p>No GIL (Global Interpreter Lock). Run 100+ concurrent threads effortlessly.</p></div>
-            <div class="cap-card"><h3>🛡️ NeuraShield Security</h3><p>Military-grade sandboxing. Your code is isolated and threat-proof by default.</p></div>
-        </div>
-
-        <div class="comparison">
-            <h2 class="section-title">The Real Speed Test (Execution Latency)</h2>
-            
-            <div class="bar-container">
-                <div class="bar-label"><span>Nova (NeuraVM™ Native)</span><span style="color:#a5d6ff;">0.01ms</span></div>
-                <div class="bar-bg"><div class="bar-fill" style="background: linear-gradient(90deg, #0a84ff, #8a2be2); width: 98%;"></div></div>
-            </div>
-            <div class="bar-container">
-                <div class="bar-label"><span>Mojo 🔥 (Modular)</span><span style="color:#ff9900;">0.02ms</span></div>
-                <div class="bar-bg"><div class="bar-fill" style="background: #ff9900; width: 85%;"></div></div>
-            </div>
-            <div class="bar-container">
-                <div class="bar-label"><span>C++ (GCC O3)</span><span style="color:#86868b;">0.05ms</span></div>
-                <div class="bar-bg"><div class="bar-fill" style="background: #86868b; width: 60%;"></div></div>
-            </div>
-            <div class="bar-container">
-                <div class="bar-label"><span>Rust</span><span style="color:#e43716;">0.06ms</span></div>
-                <div class="bar-bg"><div class="bar-fill" style="background: #e43716; width: 55%;"></div></div>
-            </div>
-            <div class="bar-container">
-                <div class="bar-label"><span>Python 3.11</span><span style="color:#ff453a;">5.20ms</span></div>
-                <div class="bar-bg"><div class="bar-fill" style="background: #ff453a; width: 8%;"></div></div>
+        <div class="ide-box" id="ide-box" onclick="document.getElementById('ide-input').focus()">
+            <div class="sys-msg">Nova OS [Version 1.0.0-Apex]</div>
+            <div class="sys-msg">(c) 2026 Neura Studio. All rights reserved.</div><br>
+            <div id="outputs"></div>
+            <div class="ide-input-row">
+                <span>nova>>></span>
+                <input type="text" id="ide-input" autocomplete="off">
             </div>
         </div>
     </div>
-    <script>window.onload=()=>{setTimeout(()=>{document.getElementById('preloader').style.display='none';}, 2500);}</script>
+
+    <script>
+        // Preloader Logic
+        let count = 0;
+        let counterElement = document.getElementById('count');
+        let spinner = document.getElementById('spinner');
+        let explosionLogo = document.getElementById('explosion-logo');
+        
+        let interval = setInterval(() => {
+            count += Math.floor(Math.random() * 10) + 5;
+            if(count >= 100) {
+                count = 100;
+                clearInterval(interval);
+                counterElement.style.display = 'none';
+                spinner.style.display = 'none';
+                explosionLogo.style.display = 'block';
+                
+                setTimeout(() => {
+                    explosionLogo.classList.add('explode');
+                    setTimeout(() => {
+                        document.getElementById('preloader').style.display = 'none';
+                        document.getElementById('main').style.opacity = '1';
+                    }, 600);
+                }, 200);
+            }
+            counterElement.innerText = count + '%';
+        }, 100);
+
+        // IDE Logic
+        const input = document.getElementById('ide-input');
+        const outputs = document.getElementById('outputs');
+        input.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                let cmd = input.value.trim();
+                if (cmd === '') return;
+                
+                let outputHtml = `<div class="output-line"><span style="color:#0a84ff">nova>>></span> ${cmd}</div>`;
+                
+                if (cmd === 'nova --version') {
+                    outputHtml += `<div class="sys-msg">Nova Apex Engine v1.0.0</div>`;
+                } else if (cmd.startsWith('nova run')) {
+                    outputHtml += `<div class="sys-msg">⚡ [NovaLex] Scanning...<br>🌳 [NeuraParse] Building Tree...<br>✅ Execution Successful (0.01ms)</div>`;
+                } else if (cmd === 'clear') {
+                    outputs.innerHTML = '';
+                    input.value = '';
+                    return;
+                } else {
+                    outputHtml += `<div class="err-msg">Error: '${cmd}' is not recognized as an internal or external command.</div>`;
+                }
+                
+                outputs.innerHTML += outputHtml;
+                input.value = '';
+                document.getElementById('ide-box').scrollTop = document.getElementById('ide-box').scrollHeight;
+            }
+        });
+    </script>
 </body>
 </html>

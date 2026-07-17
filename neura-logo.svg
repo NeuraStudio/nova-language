@@ -6,12 +6,9 @@
             <stop offset="100%" stop-color="#000000" />
         </radialGradient>
     </defs>
-    <!-- Black Background -->
-    <rect width="200" height="200" fill="#000000" rx="30"/>
-    <!-- Glowing Core -->
-    <circle cx="100" cy="100" r="30" fill="url(#glow)"/>
-    <polygon points="100,50 108,85 145,95 108,105 100,140 92,105 55,95 92,85" fill="#ffffff" opacity="0.8"/>
-    <!-- Purple & Blue Orbit Rings -->
-    <path d="M 50 140 C 20 80, 80 30, 150 60" fill="none" stroke="#8a2be2" stroke-width="12" stroke-linecap="round" />
-    <path d="M 150 60 C 180 120, 120 170, 50 140" fill="none" stroke="#0a84ff" stroke-width="12" stroke-linecap="round" />
+    <rect width="200" height="200" fill="#000000" rx="40"/>
+    <circle cx="100" cy="100" r="35" fill="url(#glow)"/>
+    <path d="M 100 45 L 110 85 L 150 95 L 110 105 L 100 145 L 90 105 L 50 95 L 90 85 Z" fill="#ffffff"/>
+    <path d="M 40 140 C 10 70, 70 20, 160 50" fill="none" stroke="#8a2be2" stroke-width="12" stroke-linecap="round" />
+    <path d="M 160 60 C 190 130, 130 180, 40 150" fill="none" stroke="#0a84ff" stroke-width="12" stroke-linecap="round" />
 </svg>

@@ -2,80 +2,131 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NeuraInstaller™ | Nova Engine</title>
+    <title>Nova Installer</title>
     <style>
-        body { background-color: #f4f5f7; color: #333; font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .installer-box { background: #fff; width: 650px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); overflow: hidden; display: flex; flex-direction: column; }
-        .header { background: #010409; color: white; padding: 15px 20px; font-weight: bold; display: flex; align-items: center; }
-        .header img { height: 25px; margin-right: 10px; border-radius: 5px; }
-        .content { display: flex; flex: 1; }
-        .sidebar { background: #f8f9fa; width: 150px; padding: 20px; border-right: 1px solid #e1e4e8; }
-        .sidebar h3 { color: #0a84ff; margin: 0 0 10px 0; font-size: 1.2em; }
-        .sidebar p { font-size: 0.85em; color: #666; }
-        .main-panel { padding: 20px; flex: 1; }
-        .main-panel h2 { margin-top: 0; font-size: 1.2em; color: #111; margin-bottom: 15px;}
+        body { background: #f9f9fb; font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .box { background: #fff; width: 700px; padding: 40px; border-radius: 20px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); text-align: center; }
+        h1 { font-size: 2em; margin-bottom: 30px; color: #111; }
+        .step { display: none; animation: fadeIn 0.4s ease; }
+        .step.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .grid { display: flex; justify-content: center; gap: 20px; }
+        .card { border: 2px solid #eee; padding: 30px; border-radius: 15px; cursor: pointer; transition: 0.3s; flex: 1; }
+        .card:hover { border-color: #0a84ff; background: #f0f8ff; transform: translateY(-5px); }
+        .card img { height: 60px; margin-bottom: 15px; }
+        .card h3 { margin: 0; color: #333; }
 
-        /* Updated Grid for 6 Items */
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 25px; }
-        .card { border: 2px solid #e1e4e8; border-radius: 8px; padding: 15px; text-align: center; cursor: pointer; transition: 0.2s; font-weight: bold; background: #fff; font-size: 0.9em;}
-        .card:hover { border-color: #0a84ff; background: #f0f8ff; }
-        .card.active { border-color: #0a84ff; background: #e6f2ff; box-shadow: 0 0 10px rgba(10, 132, 255, 0.2); }
-        .card span { font-size: 24px; display: block; margin-bottom: 5px; }
-
-        .footer { background: #f8f9fa; padding: 15px 20px; text-align: right; border-top: 1px solid #e1e4e8; }
-        .btn { padding: 8px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; margin-left: 10px; }
-        .btn-cancel { background: #e1e4e8; color: #333; }
-        .btn-install { background: #0a84ff; color: white; }
-        .btn-install:hover { background: #0066cc; }
+        .code-box { background: #111; color: #0f0; padding: 20px; border-radius: 10px; font-family: monospace; font-size: 1.1em; text-align: left; }
+        .btn { background: #0a84ff; color: #fff; padding: 15px 30px; border: none; border-radius: 30px; font-size: 1.1em; cursor: pointer; font-weight: bold; margin-top: 20px;}
     </style>
 </head>
 <body>
-    <div class="installer-box">
-        <div class="header">
-            <img src="neura-logo.svg" alt="Logo"> NeuraInstaller™ - Setup
-        </div>
-        <div class="content">
-            <div class="sidebar">
-                <h3>Nova<br>v1.0.0</h3>
-                <p>Apex-Level Language Engine</p>
-            </div>
-            <div class="main-panel">
-                <h2>1. Select Operating System</h2>
-                <div class="grid" id="os-grid">
-                    <div class="card active" onclick="selectCard('os-grid', this)"><span>🪟</span>Windows</div>
-                    <div class="card" onclick="selectCard('os-grid', this)"><span>🍎</span>macOS</div>
-                    <div class="card" onclick="selectCard('os-grid', this)"><span>🐧</span>Linux / Unix</div>
+    <div class="box">
+        <!-- STEP 1: OS Selection -->
+        <div id="step-1" class="step active">
+            <h1>Choose your Operating System</h1>
+            <div class="grid">
+                <div class="card" onclick="nextStep(2)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple">
+                    <h3>macOS</h3>
                 </div>
+                <div class="card" onclick="nextStep(2)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2012.svg" alt="Windows">
+                    <h3>Windows</h3>
+                </div>
+                <div class="card" onclick="nextStep(2)">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg" alt="Linux">
+                    <h3>Linux / Unix</h3>
+                </div>
+            </div>
+        </div>
 
-                <h2>2. Select IDE / Editor Integration</h2>
-                <div class="grid" id="ide-grid">
-                    <div class="card active" onclick="selectCard('ide-grid', this)"><span>📘</span>VS Code</div>
-                    <div class="card" onclick="selectCard('ide-grid', this)"><span>🐍</span>JetBrains</div>
-                    <div class="card" onclick="selectCard('ide-grid', this)"><span>🟧</span>Sublime Text</div>
-                    <div class="card" onclick="selectCard('ide-grid', this)"><span>🟩</span>Vim / Neovim</div>
-                    <div class="card" onclick="selectCard('ide-grid', this)"><span>💻</span>CLI Terminal</div>
-                    <div class="card" onclick="selectCard('ide-grid', this)"><span>🌐</span>Universal LSP<br><small>(All Editors)</small></div>
+        <!-- STEP 2: IDE Selection -->
+        <div id="step-2" class="step">
+            <h1>Select your Code Editor</h1>
+            <div class="grid">
+                <div class="card" onclick="nextStep(3)">
+                    <h1 style="font-size: 3em; margin:0;">📘</h1>
+                    <h3>VS Code</h3>
+                </div>
+                <div class="card" onclick="showInstall('cmd')">
+                    <h1 style="font-size: 3em; margin:0;">💻</h1>
+                    <h3>Terminal (CLI)</h3>
+                </div>
+                <div class="card" onclick="nextStep(3)">
+                    <h1 style="font-size: 3em; margin:0;">🐍</h1>
+                    <h3>PyCharm</h3>
                 </div>
             </div>
         </div>
-        <div class="footer">
-            <button class="btn btn-cancel" onclick="window.location.href='index.html'">Cancel</button>
-            <button class="btn btn-install" onclick="startInstall()">Install Engine</button>
+
+        <!-- STEP 3: Install Method -->
+        <div id="step-3" class="step">
+            <h1>Choose Installation Method</h1>
+            <div class="grid">
+                <div class="card" onclick="showInstall('cmd')">
+                    <h1 style="font-size: 3em; margin:0;">>_</h1>
+                    <h3>Run Command</h3>
+                </div>
+                <div class="card" onclick="showInstall('download')">
+                    <h1 style="font-size: 3em; margin:0;">⬇️</h1>
+                    <h3>Download Installer</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- STEP 4: Final Result -->
+        <div id="step-4" class="step">
+            <div id="cmd-result" style="display:none;">
+                <h1>Run this in your Terminal:</h1>
+                <div class="code-box">
+                    curl -sL https://neurastudio.github.io/install.sh | bash
+                </div>
+                <p style="color:#666; margin-top:15px;">Nova will be automatically added to your PATH.</p>
+                <button class="btn" onclick="window.location.href='index.html'">Go to Home</button>
+            </div>
+            
+            <div id="dl-result" style="display:none;">
+                <h1>Downloading Installer...</h1>
+                <div style="background: #eee; border-radius: 10px; height: 20px; overflow: hidden; margin: 30px 0;">
+                    <div id="progress-bar" style="background: #0a84ff; width: 0%; height: 100%; transition: width 2s;"></div>
+                </div>
+                <p id="dl-text" style="color:#666; font-weight:bold;">0%</p>
+            </div>
         </div>
     </div>
 
     <script>
-        function selectCard(gridId, element) {
-            let cards = document.getElementById(gridId).getElementsByClassName('card');
-            for(let i=0; i<cards.length; i++) { cards[i].classList.remove('active'); }
-            element.classList.add('active');
+        function nextStep(step) {
+            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
+            document.getElementById('step-' + step).classList.add('active');
         }
-        function startInstall() {
-            let btn = document.querySelector('.btn-install');
-            btn.innerHTML = "Downloading NeuraVM...";
-            btn.style.background = "#28a745";
-            setTimeout(() => { btn.innerHTML = "Installed Successfully!"; }, 2000);
+        
+        function showInstall(type) {
+            nextStep(4);
+            if(type === 'cmd') {
+                document.getElementById('cmd-result').style.display = 'block';
+                document.getElementById('dl-result').style.display = 'none';
+            } else {
+                document.getElementById('cmd-result').style.display = 'none';
+                document.getElementById('dl-result').style.display = 'block';
+                let pb = document.getElementById('progress-bar');
+                let txt = document.getElementById('dl-text');
+                setTimeout(() => { pb.style.width = '100%'; }, 100);
+                
+                let count = 0;
+                let int = setInterval(() => {
+                    count += 5;
+                    txt.innerText = count + '%';
+                    if(count >= 100) {
+                        clearInterval(int);
+                        txt.innerText = "Download Complete! Check your downloads folder.";
+                        txt.style.color = "#28a745";
+                        setTimeout(() => window.location.href='index.html', 3000);
+                    }
+                }, 100);
+            }
         }
     </script>
 </body>
