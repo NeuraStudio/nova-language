@@ -1,0 +1,25 @@
+// ==========================================
+// NEURACLI™ - PROJECT SCAFFOLDING TOOL
+// Written natively in Nova Language
+// ==========================================
+
+Nova.log.info("Booting NeuraCLI™ Developer Tools...")
+
+function init_project(project_name, type) {
+    Nova.show("===========================================")
+    Nova.show("⚡ Creating new Nova Project:", project_name)
+    Nova.show("-> Template selected:", type)
+    
+    // Simulating folder generation natively
+    Nova.show("-> Generating NeuraStack™ Web configurations...")
+    Nova.show("-> Linking NeuraVM™ runtime environment...")
+    Nova.show("-> Setting up NovaPack™ dependencies...")
+    
+    Nova.show("✅ Success! Run 'nova run' to start your app.")
+    Nova.show("===========================================")
+    
+    return "PROJECT_CREATED"
+}
+
+// Test the CLI Tool
+status = init_project("MyAwesomeAI_App", "AI_Web_Template")

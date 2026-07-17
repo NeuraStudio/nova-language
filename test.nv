@@ -1,0 +1,1 @@
+Nova.show("✅ Nova Apex-Engine is LIVE! AI Response:", Nova.ai.think("System Status?"))

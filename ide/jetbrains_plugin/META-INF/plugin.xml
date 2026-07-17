@@ -1,0 +1,20 @@
+<idea-plugin>
+  <id>com.neurastudio.nova</id>
+  <name>Nova Language Support</name>
+  <version>1.0.0-Apex</version>
+  <vendor email="javed@neurastudio.com" url="https://neurastudio.com">Neura Studio</vendor>
+  
+  <description><![CDATA[
+      <h1>Nova Language (Neura Studio)</h1>
+      <p>Official PyCharm support for Nova - The Ultimate God-Mode Language.</p>
+      <ul>
+          <li>Advanced Syntax Highlighting (NeuraLex™)</li>
+          <li>Live Code Auto-Completion</li>
+          <li>NeuraVM™ Integration</li>
+      </ul>
+  ]]></description>
+
+  <extensions defaultExtensionNs="com.intellij">
+    <fileType name="Nova File" language="Nova" extensions="nv" implementationClass="com.neurastudio.NovaFileType"/>
+  </extensions>
+</idea-plugin>

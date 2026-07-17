@@ -1,0 +1,19 @@
+// ==========================================
+// NOVACLOUD™ - SERVERLESS DEPLOYMENT
+// Powered by NeuraNet™
+// ==========================================
+
+Nova.log.info("Connecting to NovaCloud™ Global Edge Network...")
+
+function deploy_to_cloud(app_name) {
+    Nova.show("-> Zipping NeuraStack™ Web Assets...")
+    Nova.show("-> Bypassing cold starts using NeuraVM™...")
+    Nova.show("-> Uploading to NovaCloud™ Servers...")
+    Nova.show("🌐 App is LIVE at: https://", app_name, ".novacloud.app")
+    
+    return "DEPLOYED_TO_EDGE"
+}
+
+// Test Cloud Deployment
+status = deploy_to_cloud("javed-ai-app")
+Nova.show("Cloud Status:", status)

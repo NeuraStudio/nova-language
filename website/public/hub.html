@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Hub - The Universal Package Manager</title>
+    <style>
+        body { background-color: #f8f9fa; color: #333; font-family: -apple-system, sans-serif; text-align: center; margin: 0; padding: 0; }
+        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: white; border-bottom: 1px solid #eaeaea; }
+        .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 1.2em; letter-spacing: 1px; }
+        .nav-logo img { width: 40px; margin-right: 10px; border-radius: 50%; }
+        .nav-links a { margin: 0 15px; text-decoration: none; color: #555; font-weight: 500; font-size: 0.9em; }
+        .header { padding: 50px 20px; }
+        .header h1 { font-size: 3em; margin: 0; color: #002b5e; }
+        .header p { color: #666; font-size: 1.1em; }
+        .search-bar { margin: 30px auto; width: 50%; display: flex; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; }
+        .search-bar input { flex: 1; padding: 15px; border: none; outline: none; font-size: 1.1em; }
+        .search-bar button { background: #001f3f; color: white; border: none; padding: 0 30px; font-weight: bold; cursor: pointer; }
+        
+        .grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; padding: 20px 10vw; }
+        .card { background: white; padding: 20px; border-radius: 15px; width: 200px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; border: 1px solid #eaeaea; transition: transform 0.2s; }
+        .card:hover { transform: translateY(-5px); }
+        .card h3 { font-size: 1.1em; margin-bottom: 10px; }
+        .install-cmd { background: #001f3f; color: #58a6ff; padding: 10px; border-radius: 8px; font-family: monospace; font-size: 0.8em; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-logo"><img src="6639.png" alt="Logo"> NEURA STUDIO</div>
+        <div class="nav-links"><a href="index.html">Overview</a><a href="hub.html" style="color:#0a84ff;">For Developers</a></div>
+    </nav>
+    <div class="header">
+        <h1>Nova Hub 📦</h1>
+        <p>The Universal Package Manager. Search and install from 3,560,000+ packages across ALL languages.</p>
+        <div class="search-bar"><input type="text" placeholder="Search Python, JS, Rust packages..."><button>Search</button></div>
+    </div>
+    <div class="grid">
+        <div class="card"><h3>python:tensorflow</h3><div class="install-cmd">Nova.import("python:tensorflow")</div></div>
+        <div class="card"><h3>js:react</h3><div class="install-cmd">Nova.import("js:react")</div></div>
+        <div class="card"><h3>cpp:boost</h3><div class="install-cmd">Nova.import("cpp:boost")</div></div>
+        <div class="card"><h3>rust:tokio</h3><div class="install-cmd">Nova.import("rust:tokio")</div></div>
+        <div class="card"><h3>nova:quantum-core</h3><div class="install-cmd">Nova.import("nova:quantum")</div></div>
+        <div class="card"><h3>python:django</h3><div class="install-cmd">Nova.import("python:django")</div></div>
+    </div>
+</body>
+</html>

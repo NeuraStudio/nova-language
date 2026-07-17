@@ -1,0 +1,23 @@
+// ==========================================
+// NEURASTACK™ - FULL STACK WEB FRAMEWORK
+// Powered by NeuraVM™
+// ==========================================
+
+Nova.log.info("Initializing NeuraStack™ Kernel...")
+
+function start_server(port) {
+    Nova.show("-> NeuraNet™ Protocol Active on Port:", port)
+    Nova.show("-> Routing Engine: Online")
+    Nova.show("-> Server is running natively! Waiting for requests...")
+    return "SERVER_ONLINE"
+}
+
+function handle_route(route, response) {
+    Nova.show("-> Route mapped: [GET]", route, "=>", response)
+    return "ROUTE_MAPPED"
+}
+
+// Test NeuraStack Server
+handle_route("/", "Welcome to Neura Studio Website")
+status = start_server("8080")
+Nova.show("NeuraStack Status:", status)

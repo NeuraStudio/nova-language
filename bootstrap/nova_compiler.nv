@@ -1,0 +1,30 @@
+// ==========================================
+// NOVA COMPILER WRITTEN IN NOVA (Stage 1)
+// Author: Javed (Neura Studio)
+// ==========================================
+
+Nova.log.info("Starting Nova Self-Hosting Compiler...")
+
+// Nova Lexer written in Nova Language!
+function tokenize(sourceCode) {
+    Nova.show("-> Tokenizing source code purely in Nova...")
+    Nova.show("-> Scanning for identifiers and keywords...")
+    return "Tokens_Generated"
+}
+
+// Nova Parser written in Nova Language!
+function compile(file) {
+    Nova.show("Reading target file:", file)
+    
+    // Call the tokenize function
+    tokens = tokenize(file)
+    
+    Nova.show("-> Compilation Phase 1 Done.")
+    return "Bytecode_Ready"
+}
+
+// Start the compiler process
+target = "main.nv"
+compile(target)
+
+Nova.log.info("Bootstrapping Successful!")

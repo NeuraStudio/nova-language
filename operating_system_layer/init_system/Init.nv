@@ -1,0 +1,18 @@
+// ==========================================
+// NOVA OS LAYER - INIT SYSTEM
+// Written natively in Nova Language
+// ==========================================
+
+Nova.log.info("Starting Nova OS Core Services...")
+
+function start_services() {
+    Nova.show("-> Mounting native fast-filesystem...")
+    Nova.show("-> Loading AI-driven background diagnostics...")
+    Nova.show("-> Activating Hardware IO ports...")
+    
+    return "SERVICES_RUNNING"
+}
+
+// Start Services
+service_status = start_services()
+Nova.show("Init Status:", service_status)

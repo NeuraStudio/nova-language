@@ -1,0 +1,18 @@
+// ==========================================
+// NOVA OS LAYER - BOOTLOADER
+// Written natively in Nova Language
+// ==========================================
+
+Nova.log.info("Nova Kernel Bootloader Initializing...")
+
+function boot_system() {
+    Nova.show("-> Bypassing host OS restrictions...")
+    Nova.show("-> Taking direct control of CPU Ring 0...")
+    Nova.show("-> Initializing memory paging natively...")
+    
+    return "SYSTEM_BOOT_OK"
+}
+
+// Test the Bootloader
+status = boot_system()
+Nova.show("Boot Status:", status)

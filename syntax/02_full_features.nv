@@ -1,0 +1,91 @@
+// NOVA LANGUAGE CORE - FULL SYNTAX EXAMPLES (BY JAVED, NEURA STUDIO)
+
+// 1. VARIABLES / CONSTANTS
+name = "Javed"
+age = 20
+height = 175.5
+online = true
+const PI = 3.1415926535
+const COMPANY = "Neura Studio"
+
+// 2. INPUT / OUTPUT
+Nova.ask.user("Name :" -> name)
+Nova.show(name)
+
+// 3. MATH / COMPARISON / LOGICAL
+Nova.show(A+B) ; Nova.show(A-B) ; Nova.show(A*B) ; Nova.show(A/B) ; Nova.show(A%B) ; Nova.show(A^B)
+A == B, A != B, A > B, A < B, A >= B, A <= B
+&&, ||, !
+
+// 4. IF / SWITCH
+if age >= 18 { Nova.show("Adult") } else { Nova.show("Child") }
+switch(day) { case "Monday": Nova.show("Work") break default: Nova.show("Unknown") }
+
+// 5. LOOPS
+for i=1 to 100 { Nova.show(i) }
+while health>0 { health-- }
+repeat 10 { Nova.show("Hello") }
+foreach player in players { Nova.show(player) }
+
+// 6. FUNCTIONS
+function Welcome(name) { Nova.show(name) }
+function Add(a,b) { return a+b }
+
+// 7. COLLECTIONS
+players = ["Javed", "Ali"]
+List users
+users.add("Javed")
+user = { name:"Javed", age:20 }
+Set fruits
+Tuple location=(20,40)
+
+// 8. OOP
+class Human { name function Speak() { Nova.show("Hello") } }
+human = Human()
+human.Speak()
+class Student : Human { roll }
+interface Animal { function Speak() }
+enum Status { Online, Offline, Busy }
+struct User { name, age }
+
+// 9. MODULES
+module Login { function Start() { Nova.show("Login") } }
+import Nova.ai
+export Login
+
+// 10. ERROR HANDLING / CONCURRENCY / EVENTS
+try { Nova.file.read("data.txt") } catch(error) { Nova.show(error) } finally { Nova.show("Done") }
+thread Download { Nova.network.download(file) }
+async function Load() { await Nova.database.find() }
+on.start { Nova.show("Started") }
+
+// 11. GENERICS / LAMBDAS / PATTERN MATCH
+List<String> users
+function Print<T>(value) { Nova.show(value) }
+square = (x) => x*x
+user?.name
+value ?? "Unknown"
+
+// 12. ANNOTATIONS
+@Public, @Optimize("O3")
+macro LOG(message) { Nova.log.info(message) }
+
+// 13. COMMENTS (ALL 3 TYPES)
+// This is a standard single line comment
+# This is a legacy/scripting single line comment (Python/Termux style)
+/* This is a 
+   multi-line block comment */
+
+// 14. MEMORY MODES (THE 3 ERAS)
+// Mode 1: Managed (Default)
+x = 10 // GC tracked
+
+// Mode 2: Unsafe (Manual Memory for OS/Hardware)
+unsafe {
+    ptr = Nova.memory.allocate(1024)
+    Nova.memory.free(ptr)
+}
+
+// Mode 3: Borrow/Own (Verified Rust-style)
+function Process(own data: Buffer) { }
+function Peek(borrow data: Buffer) { }

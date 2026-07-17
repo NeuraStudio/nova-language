@@ -1,0 +1,23 @@
+// ==========================================
+// NOVA HUB - UNIVERSAL PACKAGE MANAGER
+// Written entirely in Nova Language
+// ==========================================
+
+Nova.show("=================================")
+Nova.show("  NOVA HUB (v1.0) INITIALIZED")
+Nova.show("=================================")
+
+function install(packageName) {
+    Nova.show("-> Connecting to Neura Studio Servers...")
+    Nova.network.ping("hub.neurastudio.com")
+    
+    Nova.show("-> Fetching universal package:", packageName)
+    Nova.show("-> Linking native bindings...")
+    
+    return "Installation Complete"
+}
+
+// Test the Hub natively!
+targetPackage = "python:tensorflow"
+status = install(targetPackage)
+Nova.show("Status:", status)

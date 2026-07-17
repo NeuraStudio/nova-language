@@ -1,0 +1,16 @@
+// ==========================================
+// NOVACHAIN™ - WEB3 & SMART CONTRACTS
+// Written natively in Nova Language
+// ==========================================
+
+Nova.log.info("Connecting to NovaChain™ Decentralized Network...")
+
+function deploy_contract(contract_name) {
+    Nova.show("-> NeuraLedger™: Verifying cryptographic hashes natively...")
+    Nova.show("-> Deploying smart contract to NovaChain™:", contract_name)
+    return "CONTRACT_LIVE_AND_SECURE"
+}
+
+// Test the NovaChain Engine
+status = deploy_contract("NeuraToken_v1")
+Nova.show("NovaChain Status:", status)

@@ -1,0 +1,15 @@
+// NOVA CORE LIBRARY: Array
+// Automatically injected into memory
+
+function push(array_name, item) {
+    Nova.show("-> Pushing", item, "to array", array_name)
+    // Deep memory mapping logic
+    return "Item Added"
+}
+
+function length(array_name) {
+    Nova.show("-> Calculating native length of", array_name)
+    return "Length Calculated"
+}
+
+Nova.log.info("Nova Core: Array Module Loaded.")

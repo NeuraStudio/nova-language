@@ -1,0 +1,25 @@
+{
+  "name": "nova-language",
+  "displayName": "Nova",
+  "description": "Official Nova Language Support by Neura Studio",
+  "version": "1.0.0",
+  "publisher": "NeuraStudio",
+  "icon": "nova-logo.svg",
+  "engines": {
+    "vscode": "^1.60.0"
+  },
+  "categories": ["Programming Languages"],
+  "contributes": {
+    "languages": [{
+      "id": "nova",
+      "aliases": ["Nova", "nova"],
+      "extensions": [".nv"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "nova",
+      "scopeName": "source.nova",
+      "path": "./syntaxes/nova.tmLanguage.json"
+    }]
+  }
+}

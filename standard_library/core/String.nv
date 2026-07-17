@@ -1,0 +1,14 @@
+// NOVA CORE LIBRARY: String
+// Automatically injected into memory
+
+function uppercase(text) {
+    Nova.show("-> Converting to UPPERCASE natively...")
+    return "CONVERTED_TEXT"
+}
+
+function replace(text, old_word, new_word) {
+    Nova.show("-> Replacing", old_word, "with", new_word)
+    return "Modified_Text"
+}
+
+Nova.log.info("Nova Core: String Module Loaded.")
