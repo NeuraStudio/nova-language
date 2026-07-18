@@ -7,8 +7,17 @@
     <style>
         body { background-color: #f8f9fa; color: #111; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; overflow-x: hidden;}
         
-        /* THE REAL ORIGINAL LOGO (NO CIRCLE, NO BORDER) */
-        .real-logo { width: 45px; height: 45px; object-fit: contain; margin-right: 12px; }
+        /* 🔵 तीसरी फोटो वाला गोल और डार्क ग्लो लोगो 🔵 */
+        .premium-logo { 
+            width: 45px; 
+            height: 45px; 
+            border-radius: 50%; 
+            box-shadow: 0 0 15px rgba(10, 132, 255, 0.8), inset 0 0 8px rgba(10, 132, 255, 0.5); 
+            border: 2px solid #00CFFF;
+            object-fit: cover;
+            background: #000;
+            margin-right: 12px;
+        }
 
         /* Navbar */
         .nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100;}
@@ -18,7 +27,8 @@
         .btn { background: linear-gradient(135deg, #00CFFF, #3B82F6); color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 14px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);}
         
         /* Hero Section */
-        .hero { text-align: center; padding: 20px 20px 0; }
+        .hero { text-align: center; padding: 60px 20px 0; }
+        h1.title { font-size: 4.5em; font-weight: 900; letter-spacing: -2px; margin-bottom: 20px;}
         
         /* 3 Real Images */
         .image-row { display: flex; justify-content: center; gap: 20px; max-width: 1000px; margin: 40px auto; align-items: center;}
@@ -29,12 +39,14 @@
 
         /* macOS Style Code Editor (Exact Match) */
         .editor-container { max-width: 900px; margin: 60px auto 40px; background: #121826; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.2); text-align: left;}
-        .editor-header { background: #1a2235; padding: 12px 20px; display: flex; align-items: center; color: #8b949e; font-family: monospace; font-size: 13px; border-bottom: 1px solid #2d3748;}
-        .mac-dots { display: flex; gap: 8px; margin-right: 20px; }
+        .editor-header { background: #1a2235; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; color: #8b949e; font-family: monospace; font-size: 13px; border-bottom: 1px solid #2d3748;}
+        .mac-dots { display: flex; gap: 8px; }
         .dot { width: 12px; height: 12px; border-radius: 50%; }
         .dot.red { background: #ff5f56; }
         .dot.yellow { background: #ffbd2e; }
         .dot.green { background: #27c93f; }
+        .run-btn-small { background: #238636; color: white; padding: 4px 12px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-family: sans-serif; display: flex; align-items: center; gap: 5px;}
+        
         .code-area { padding: 30px; background: #121826; color: #e2e8f0; font-family: 'Courier New', Courier, monospace; font-size: 16px; line-height: 1.6;}
         .code-comment { color: #64748b; }
         .code-keyword { color: #38bdf8; font-weight: bold;}
@@ -59,19 +71,19 @@
 <body>
     <div class="nav">
         <a href="index.html" class="nav-logo">
-            <!-- REAL RAW LOGO (NO CIRCLE, NO BACKGROUND) -->
-            <img src="https://raw.githubusercontent.com/Neurastudio/nova-language/main/neura-logo.png" class="real-logo" alt="Logo"> 
+            <!-- यह Placeholder है, Python स्क्रिप्ट इसे असली बाइनरी कोड से बदल देगी -->
+            <img src="LOGO_BASE64_PLACEHOLDER" class="premium-logo" alt="Logo"> 
             NEURA STUDIO
         </a>
         <div class="nav-links">
             <a href="index.html">Overview</a>
             <a href="hub.html">For Developers</a>
-            <a href="#" style="color:#999;">Pro</a>
         </div>
         <a href="installer.html" class="btn">Download Engine</a>
     </div>
     
     <div class="hero">
+        <h1 class="title">Make your code<br>faster.</h1>
         <div class="image-row">
             <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80" class="img-1">
             <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" class="img-2">
@@ -87,7 +99,8 @@
                 <div class="dot yellow"></div>
                 <div class="dot green"></div>
             </div>
-            <span>main.nova - Neura Studio Engine</span>
+            <span style="flex-grow: 1; text-align: center;">main.nova - Neura Studio Engine</span>
+            <button class="run-btn-small">▶ Run</button>
         </div>
         <div class="code-area">
             <span class="code-comment">// 1. Direct OS Override & Hardware Allocation</span><br>
@@ -97,7 +110,7 @@
             <span class="code-comment">// 2. Native AI Compilation</span><br>
             <span class="code-func">async fn</span> <span class="code-keyword">train_logic</span>() {<br>
             &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">Nova</span>.<span class="code-func">ai.think</span>(<span class="code-string">"Optimize neural networks natively"</span>)<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">Nova</span>.<span class="code-func">show</span>(<span class="code-string">"God-Mode Activated."</span>)<br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">Nova</span>.<span class="code-func">show</span>(<span class="code-string">"God-Mode Activated by Javed."</span>)<br>
             }
         </div>
     </div>
