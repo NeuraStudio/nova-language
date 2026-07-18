@@ -2,164 +2,86 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nova Hub - Package Manager</title>
     <style>
-        body { background: #fcfcfd; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; color: #111;}
-        
-        /* Navbar */
-        .nav { position: sticky; top:0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 100; box-sizing: border-box;}
+        body { background: #fcfcfd; font-family: -apple-system, sans-serif; margin: 0; color: #111;}
+        .nav { position: sticky; top:0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 100;}
         .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #111; text-decoration: none;}
-        .nav-logo img { width: 40px; margin-right: 12px; }
-        .nav-links a { margin: 0 15px; text-decoration: none; color: #555; font-weight: 600; font-size: 14px; transition: 0.2s;}
-        .nav-links a:hover { color: #0a84ff; }
-        .btn { background: #0a84ff; color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: bold;}
-
-        /* Header */
-        .header { text-align: center; padding: 60px 20px 30px; }
-        .header h1 { font-size: 3.5em; margin: 0; color: #101828; letter-spacing: -1.5px;}
-        .header h1 span { color: #0a84ff; }
-        .header p { color: #667085; font-size: 1.2em; margin-top: 10px; }
-
-        /* Search Bar */
-        .search-container { max-width: 600px; margin: 0 auto 50px auto; position: relative;}
-        #search-box { width: 100%; padding: 18px 25px; border-radius: 40px; border: 1px solid #eaebed; font-size: 16px; outline: none; box-shadow: 0 4px 20px rgba(0,0,0,0.05); box-sizing: border-box; font-family: inherit;}
-        #search-box:focus { border-color: #0a84ff; }
-        .search-btn { position: absolute; right: 8px; top: 8px; background: #010409; color: #fff; border: none; padding: 10px 24px; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.2s;}
-        .search-btn:hover { background: #0a84ff; }
-
-        /* Package Grid */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 20px 100px; }
-        .pkg-card { background: #fff; border: 1px solid #eaebed; border-radius: 16px; padding: 25px; text-align: center; transition: 0.2s; box-shadow: 0 4px 10px rgba(0,0,0,0.02);}
-        .pkg-card:hover { border-color: #0a84ff; box-shadow: 0 10px 20px rgba(10,132,255,0.1); transform: translateY(-3px);}
-        .pkg-icon { height: 60px; margin-bottom: 15px; object-fit: contain; }
-        .pkg-title { font-weight: 900; font-size: 1.2em; color: #101828; margin-bottom: 20px; }
+        .nav-circle-logo { width: 35px; height: 35px; border-radius: 50%; background: #000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; margin-right: 12px;}
+        .nav-links a { margin: 0 15px; text-decoration: none; color: #555; font-weight: 600;}
         
-        /* Code Snippet */
-        .code-snippet { background: #0d1117; color: #a5d6ff; padding: 12px; border-radius: 8px; font-family: 'Courier New', monospace; font-size: 0.9em; display: flex; justify-content: space-between; align-items: center; cursor: pointer; font-weight: bold; border: 1px solid #30363d;}
-        .code-snippet:hover { border: 1px solid #58a6ff; }
-        .copy-icon { font-size: 1.2em; }
-
-        /* Toast Notification */
-        #toast { visibility: hidden; min-width: 250px; background-color: #238636; color: #fff; text-align: center; border-radius: 30px; padding: 12px; position: fixed; z-index: 1000; bottom: 30px; left: 50%; transform: translateX(-50%); font-weight: bold; font-size: 16px; box-shadow: 0 10px 30px rgba(35,134,54,0.4); opacity: 0; transition: opacity 0.3s, bottom 0.3s;}
-        #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
+        .header { text-align: center; padding: 60px 20px 30px; }
+        .header h1 { font-size: 3.5em; margin: 0;}
+        
+        .search-container { max-width: 600px; margin: 0 auto 50px auto; position: relative;}
+        #search-box { width: 100%; padding: 18px 25px; border-radius: 40px; border: 1px solid #eaebed; font-size: 16px; outline: none;}
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 20px 100px; }
+        .pkg-card { background: #fff; border: 1px solid #eaebed; border-radius: 16px; padding: 25px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02);}
+        .pkg-icon { height: 60px; margin-bottom: 15px; }
+        .pkg-title { font-weight: 900; font-size: 1.2em; margin-bottom: 20px; }
+        
+        /* Pro Copy Button */
+        .code-container { background: #0d1117; padding: 8px 12px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;}
+        .code-text { color: #a5d6ff; font-family: monospace; font-size: 0.9em; font-weight: bold;}
+        .copy-btn { background: #238636; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.8em; transition: 0.3s;}
+        .copy-btn.copied { background: #1f6feb; }
     </style>
 </head>
 <body>
     <div class="nav">
-        <a href="index.html" class="nav-logo"><img src="neura-logo.svg" alt="Logo"> NEURA STUDIO</a>
-        <div class="nav-links">
-            <a href="index.html">Overview</a>
-            <a href="hub.html" style="color: #0a84ff;">For Developers</a>
-        </div>
-        <a href="installer.html" class="btn">Download Engine</a>
+        <a href="index.html" class="nav-logo">
+            <div class="nav-circle-logo"><svg width="20" height="20" viewBox="0 0 200 200"><circle cx="100" cy="100" r="30" fill="#0a84ff"/><path d="M 40 140 C 10 70, 70 20, 160 50" fill="none" stroke="#8a2be2" stroke-width="12" /><path d="M 160 60 C 190 130, 130 180, 40 150" fill="none" stroke="#00f2fe" stroke-width="12" /></svg></div>
+            NEURA STUDIO
+        </a>
+        <div class="nav-links"><a href="index.html">Overview</a><a href="hub.html" style="color: #0a84ff;">For Developers</a></div>
     </div>
 
-    <div class="header">
-        <h1>Nova Hub <span>📦</span></h1>
-        <p>The Universal Package Manager. Search and install from 3,560,000+ packages across ALL languages.</p>
-    </div>
-
-    <div class="search-container">
-        <input type="text" id="search-box" placeholder="Search Python, JS, Rust packages (e.g. Django, React)..." oninput="filterPackages()">
-        <button class="search-btn">Search</button>
-    </div>
-
-    <div class="grid" id="pkg-grid">
-        <!-- Javascript renders items here -->
-    </div>
-
-    <div id="toast">✅ Command Copied!</div>
+    <div class="header"><h1>Nova Hub <span>📦</span></h1></div>
+    <div class="search-container"><input type="text" id="search-box" placeholder="Search Python, JS, Rust packages..." oninput="filterPackages()"></div>
+    <div class="grid" id="pkg-grid"></div>
 
     <script>
-        // Real Package Data
         const packages = [
-            { name: "python:tensorflow", img: "https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg", cmd: 'Nova.import("python:tensorflow")' },
-            { name: "js:react", img: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg", cmd: 'Nova.import("js:react")' },
-            { name: "java:spring", img: "https://upload.wikimedia.org/wikipedia/commons/4/44/Spring_Framework_Logo_2018.svg", cmd: 'Nova.import("java:spring")' },
-            { name: "cpp:boost", img: "https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg", cmd: 'Nova.import("cpp:boost")' },
-            { name: "rust:tokio", img: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Rust_programming_language_black_logo.svg", cmd: 'Nova.import("rust:tokio")' },
-            { name: "python:django", img: "https://upload.wikimedia.org/wikipedia/commons/7/75/Django_logo.svg", cmd: 'Nova.import("python:django")' },
-            { name: "js:node", img: "https://upload.wikimedia.org/wikipedia/commons/d/d9/Node.js_logo.svg", cmd: 'Nova.import("js:node")' },
             { name: "python:pandas", img: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Pandas_logo.svg", cmd: 'Nova.import("python:pandas")' },
-            { name: "ruby:rails", img: "https://upload.wikimedia.org/wikipedia/commons/6/62/Ruby_On_Rails_Logo.svg", cmd: 'Nova.import("ruby:rails")' },
-            { name: "php:laravel", img: "https://upload.wikimedia.org/wikipedia/commons/9/9a/Laravel.svg", cmd: 'Nova.import("php:laravel")' },
-            { name: "go:gin", img: "https://upload.wikimedia.org/wikipedia/commons/0/05/Go_Logo_Blue.svg", cmd: 'Nova.import("go:gin")' },
-            { name: "csharp:dotnet", img: "https://upload.wikimedia.org/wikipedia/commons/e/ee/.NET_Core_Logo.svg", cmd: 'Nova.import("csharp:dotnet")' },
-            { name: "swift:ui", img: "https://upload.wikimedia.org/wikipedia/commons/9/9d/Swift_logo.svg", cmd: 'Nova.import("swift:ui")' },
-            { name: "dart:flutter", img: "https://upload.wikimedia.org/wikipedia/commons/1/17/Google-flutter-logo.png", cmd: 'Nova.import("dart:flutter")' },
-            { name: "js:vue", img: "https://upload.wikimedia.org/wikipedia/commons/9/95/Vue.js_Logo_2.svg", cmd: 'Nova.import("js:vue")' },
-            { name: "nova:quantum-core", img: "neura-logo.svg", cmd: 'Nova.import("nova:quantum")' }
+            { name: "js:react", img: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg", cmd: 'Nova.import("js:react")' },
+            { name: "python:tensorflow", img: "https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg", cmd: 'Nova.import("python:tensorflow")' },
+            { name: "rust:tokio", img: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Rust_programming_language_black_logo.svg", cmd: 'Nova.import("rust:tokio")' }
         ];
 
         const grid = document.getElementById('pkg-grid');
-
-        // Render Cards initially
-        function renderCards() {
-            grid.innerHTML = '';
-            packages.forEach(pkg => {
-                const card = document.createElement('div');
-                card.className = 'pkg-card';
-                card.setAttribute('data-name', pkg.name.toLowerCase());
-                card.innerHTML = `
-                    <img src="${pkg.img}" class="pkg-icon" alt="${pkg.name}">
+        packages.forEach((pkg, index) => {
+            grid.innerHTML += `
+                <div class="pkg-card" data-name="${pkg.name}">
+                    <img src="${pkg.img}" class="pkg-icon">
                     <div class="pkg-title">${pkg.name}</div>
-                    <div class="code-snippet" onclick="copyText('${pkg.cmd}')">
-                        <span>${pkg.cmd}</span>
-                        <span class="copy-icon">📋</span>
+                    <div class="code-container">
+                        <span class="code-text" id="cmd-${index}">${pkg.cmd}</span>
+                        <button class="copy-btn" id="btn-${index}" onclick="copyPro('${pkg.cmd}', 'btn-${index}')">Copy</button>
                     </div>
-                `;
-                grid.appendChild(card);
-            });
-        }
+                </div>`;
+        });
 
-        // Live Search Filter (Works immediately as you type)
         function filterPackages() {
             let input = document.getElementById('search-box').value.toLowerCase();
             let cards = document.getElementsByClassName('pkg-card');
             for (let i = 0; i < cards.length; i++) {
-                let name = cards[i].getAttribute('data-name');
-                if (name.includes(input)) {
-                    cards[i].style.display = "";
-                } else {
-                    cards[i].style.display = "none";
-                }
+                cards[i].style.display = cards[i].getAttribute('data-name').includes(input) ? "" : "none";
             }
         }
 
-        // Bulletproof Copy Function (Works on Mobile/Termux)
-        function copyText(text) {
-            if (navigator.clipboard && window.isSecureContext) {
-                // For modern browsers
-                navigator.clipboard.writeText(text).then(() => showToast());
-            } else {
-                // Fallback for older browsers or mobile webviews
-                let textArea = document.createElement("textarea");
-                textArea.value = text;
-                textArea.style.position = "fixed";
-                textArea.style.left = "-999999px";
-                textArea.style.top = "-999999px";
-                document.body.appendChild(textArea);
-                textArea.focus();
-                textArea.select();
-                try {
-                    document.execCommand('copy');
-                    showToast();
-                } catch (err) {
-                    console.error('Copy fallback failed', err);
-                }
-                textArea.remove();
-            }
+        function copyPro(text, btnId) {
+            let btn = document.getElementById(btnId);
+            navigator.clipboard.writeText(text).catch(() => {
+                let ta = document.createElement("textarea"); ta.value = text;
+                document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+            });
+            
+            // Professional Inline Button Change (No Toast)
+            btn.innerText = "Copied! ✔";
+            btn.classList.add("copied");
+            setTimeout(() => { btn.innerText = "Copy"; btn.classList.remove("copied"); }, 2000);
         }
-
-        function showToast() {
-            let toast = document.getElementById("toast");
-            toast.className = "show";
-            setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 2500);
-        }
-
-        // Initialize
-        renderCards();
     </script>
 </body>
 </html>

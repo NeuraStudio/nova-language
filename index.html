@@ -4,261 +4,201 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Neura Studio | Nova</title>
-    <!-- PDF Generation Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <style>
-        body { background-color: #f8f9fa; color: #111; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; overflow-x: hidden;}
+        body { background-color: #f8f9fa; color: #111; font-family: -apple-system, sans-serif; margin: 0; overflow-x: hidden;}
         
+        /* Preloader: Apple/Google Style Blast */
+        #preloader { position: fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; }
+        .spinner { width: 50px; height: 50px; border: 4px solid #f3f3f3; border-top: 4px solid #0a84ff; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;}
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        
+        /* The Real Logo Code (Circle + Shadow) */
+        .real-logo { width: 120px; height: 120px; border-radius: 50%; box-shadow: 0 15px 35px rgba(0,0,0,0.3); background: #000; display: flex; justify-content: center; align-items: center; transition: all 0.8s cubic-bezier(0.1, 0.8, 0.2, 1); opacity: 0; transform: scale(0.5); border: 2px solid #333;}
+        .real-logo.show { opacity: 1; transform: scale(1); }
+        .real-logo.blast { transform: scale(40); opacity: 0; }
+        
+        /* SVG Code inside the circle */
+        .svg-icon { width: 80%; height: 80%; }
+
         /* Navbar */
         .nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100;}
         .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #111; text-decoration: none;}
-        .nav-logo img { width: 40px; margin-right: 12px; }
-        .nav-links a { margin: 0 15px; text-decoration: none; color: #555; font-weight: 600; font-size: 14px;}
-        .nav-links a:hover { color: #0a84ff; }
+        
+        /* Small Logo for Nav */
+        .nav-circle-logo { width: 35px; height: 35px; border-radius: 50%; background: #000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; margin-right: 12px;}
+        
+        .nav-links a { margin: 0 15px; text-decoration: none; color: #555; font-weight: 600;}
         .btn { background: #0a84ff; color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: bold;}
         
         /* Hero & PDFs */
-        .hero { text-align: center; padding: 60px 20px 40px; }
+        .hero { text-align: center; padding: 60px 20px 20px; }
         h1.title { font-size: 4.5em; margin: 0 0 10px 0; font-weight: 900; letter-spacing: -2px;}
-        p.subtitle { color: #666; font-size: 1.4em; max-width: 600px; margin: 0 auto 30px auto; line-height: 1.5; }
-        
-        .pdf-section { margin: 30px 0 50px 0; display: flex; justify-content: center; gap: 15px; flex-wrap: wrap;}
-        .pdf-btn { background: #111; color: #fff; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; display: flex; align-items: center; gap: 8px; border: none; transition: 0.2s;}
-        .pdf-btn:hover { background: #0a84ff; transform: translateY(-2px); box-shadow: 0 10px 20px rgba(10,132,255,0.2);}
+        .pdf-section { margin: 30px 0 50px 0; display: flex; justify-content: center; gap: 15px;}
+        .pdf-btn { background: #111; color: #fff; padding: 12px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; border: none; transition: 0.2s;}
+        .pdf-btn:hover { background: #0a84ff; transform: translateY(-2px);}
 
-        /* Real Images Section (Restored) */
+        /* 3 Real Images */
         .image-row { display: flex; justify-content: center; gap: 20px; max-width: 1000px; margin: 0 auto 50px auto; align-items: center;}
         .image-row img { border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); object-fit: cover;}
-        .img-1 { width: 300px; height: 200px; }
-        .img-2 { width: 400px; height: 250px; z-index: 10; transform: scale(1.05); }
-        .img-3 { width: 300px; height: 200px; }
+        .img-1 { width: 300px; height: 200px; } .img-2 { width: 400px; height: 250px; z-index: 10; transform: scale(1.05); } .img-3 { width: 300px; height: 200px; }
 
-        /* CMD Editor (Replaces static code block) */
-        .editor-container { max-width: 900px; margin: 40px auto; background: #0d1117; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.2); border: 1px solid #30363d; text-align: left;}
-        .editor-header { background: #161b22; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; color: #c9d1d9; font-size: 14px; font-family: monospace; font-weight: bold; border-bottom: 1px solid #30363d;}
-        .run-btn { background: #238636; color: white; padding: 6px 18px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-family: sans-serif;}
-        .run-btn:hover { background: #2ea043; }
+        /* Video Section */
+        .video-container { max-width: 900px; margin: 0 auto 50px auto; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 4px solid #fff;}
         
+        /* CMD Editor (Pure Output) */
+        .editor-container { max-width: 900px; margin: 40px auto; background: #0d1117; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.2); text-align: left;}
+        .editor-header { background: #161b22; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; color: #c9d1d9; font-family: monospace; font-weight: bold; border-bottom: 1px solid #30363d;}
+        .run-btn { background: #238636; color: white; padding: 6px 18px; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;}
         .workspace { display: flex; height: 350px; }
-        .code-area { flex: 1; padding: 20px; background: #0d1117; color: #c9d1d9; font-family: 'Courier New', monospace; font-size: 16px; border: none; outline: none; resize: none; line-height: 1.5; border-right: 1px solid #30363d;}
-        .output-area { flex: 1; padding: 20px; background: #010409; color: #c9d1d9; font-family: monospace; font-size: 16px; overflow-y: auto;}
-        
-        /* Speed Graph (Restored) */
-        .speed-section { background: #fff; max-width: 800px; margin: 50px auto; padding: 40px; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .speed-section h2 { text-align: center; font-size: 2em; margin-bottom: 30px;}
-        .bar-container { margin-bottom: 20px; }
-        .bar-label { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 8px;}
-        .bar-bg { background: #eaebed; border-radius: 10px; height: 12px; width: 100%; overflow: hidden;}
-        .bar-fill { height: 100%; border-radius: 10px; }
-        
-        /* Testimonials (Restored) */
-        .testimonials { display: flex; justify-content: center; gap: 40px; margin: 60px auto; max-width: 800px; text-align: center;}
-        .testimonials div { flex: 1; }
-        .testimonials h3 { margin-bottom: 10px; font-weight: 900;}
-        .testimonials p { color: #666; font-style: italic; }
+        .code-area { flex: 1; padding: 20px; background: #0d1117; color: #c9d1d9; font-family: monospace; font-size: 16px; border: none; outline: none; resize: none; border-right: 1px solid #30363d;}
+        .output-area { flex: 1; padding: 20px; background: #010409; color: #c9d1d9; font-family: monospace; font-size: 16px;}
     </style>
 </head>
 <body>
-    <div class="nav">
-        <a href="index.html" class="nav-logo"><img src="neura-logo.svg"> NEURA STUDIO</a>
-        <div class="nav-links">
-            <a href="index.html">Overview</a>
-            <a href="hub.html">For Developers</a>
+    <!-- Preloader -->
+    <div id="preloader">
+        <div class="spinner" id="spinner"></div>
+        <div class="real-logo" id="main-logo">
+            <svg class="svg-icon" viewBox="0 0 200 200">
+                <circle cx="100" cy="100" r="30" fill="#0a84ff"/>
+                <path d="M 40 140 C 10 70, 70 20, 160 50" fill="none" stroke="#8a2be2" stroke-width="12" />
+                <path d="M 160 60 C 190 130, 130 180, 40 150" fill="none" stroke="#00f2fe" stroke-width="12" />
+                <path d="M 100 85 L 105 95 L 115 100 L 105 105 L 100 115 L 95 105 L 85 100 L 95 95 Z" fill="#fff"/>
+            </svg>
         </div>
-        <a href="installer.html" class="btn">Download Engine</a>
     </div>
-    
-    <div class="hero">
-        <h1 class="title">Make your code<br>faster.</h1>
-        <p class="subtitle">Nova is the ultimate God-Mode alternative to Python, Java, and C++. Built for AI, Robotics, and Quantum computing.</p>
+
+    <!-- Content -->
+    <div id="content" style="opacity:0; transition: opacity 1s;">
+        <div class="nav">
+            <a href="index.html" class="nav-logo">
+                <div class="nav-circle-logo">
+                    <svg width="20" height="20" viewBox="0 0 200 200">
+                        <circle cx="100" cy="100" r="30" fill="#0a84ff"/>
+                        <path d="M 40 140 C 10 70, 70 20, 160 50" fill="none" stroke="#8a2be2" stroke-width="12" />
+                        <path d="M 160 60 C 190 130, 130 180, 40 150" fill="none" stroke="#00f2fe" stroke-width="12" />
+                    </svg>
+                </div>
+                NEURA STUDIO
+            </a>
+            <div class="nav-links"><a href="index.html">Overview</a><a href="hub.html">For Developers</a></div>
+            <a href="installer.html" class="btn">Download Engine</a>
+        </div>
         
-        <div class="pdf-section">
-            <button class="pdf-btn" onclick="generatePDF('learn')">📄 Learn Nova</button>
-            <button class="pdf-btn" onclick="generatePDF('info')">📄 Features & Arch</button>
-            <button class="pdf-btn" onclick="generatePDF('syntax')">📄 Syntax Master</button>
+        <div class="hero">
+            <h1 class="title">Make your code<br>faster.</h1>
+            <p style="color: #666; font-size: 1.2em; margin-bottom: 30px;">The Ultimate God-Mode Language Engine by Javed.</p>
+            
+            <div class="pdf-section">
+                <button class="pdf-btn" onclick="generatePDF('learn')">📄 Learn Nova (Full Book)</button>
+                <button class="pdf-btn" onclick="generatePDF('syntax')">📄 All Syntax Master</button>
+            </div>
+
+            <!-- YouTube Video Embed -->
+            <div class="video-container">
+                <iframe width="100%" height="450" src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=1&loop=1" frameborder="0" allowfullscreen></iframe>
+            </div>
+
+            <div class="image-row">
+                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80" class="img-1">
+                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" class="img-2">
+                <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&q=80" class="img-3">
+            </div>
         </div>
 
-        <div class="image-row">
-            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80" class="img-1">
-            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" class="img-2">
-            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&q=80" class="img-3">
-        </div>
-    </div>
-
-    <!-- CMD Editor -->
-    <div class="editor-container">
-        <div class="editor-header">
-            <span style="display:flex; align-items:center; gap:8px;">
-                <img src="neura-logo.svg" width="16" style="border-radius:3px;"> CMD - Nova Interpreter
-            </span>
-            <button class="run-btn" onclick="runNovaCode()">▶ Run</button>
-        </div>
-        <div class="workspace">
-            <textarea class="code-area" id="nova-code" spellcheck="false">
+        <!-- Pure Output CMD Editor -->
+        <div class="editor-container">
+            <div class="editor-header">
+                <span>CMD - Nova Interpreter</span>
+                <button class="run-btn" onclick="runNovaCode()">▶ Run</button>
+            </div>
+            <div class="workspace">
+                <textarea class="code-area" id="nova-code" spellcheck="false">
 // Enter your Nova code here
 Nova.show("Hello, Neura Studio!")
-Nova.hardware.cpu.alloc(16)
-Nova.show("System Hacked.")</textarea>
-            <div class="output-area" id="nova-output"></div>
+Nova.show("System Initialized by Javed.")</textarea>
+                <div class="output-area" id="nova-output"></div>
+            </div>
         </div>
-    </div>
-
-    <div class="speed-section">
-        <h2>Unrivaled Execution Speed</h2>
-        <div class="bar-container">
-            <div class="bar-label"><span>Nova (Native Bytecode)</span><span style="color:#0a84ff">0.01ms</span></div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 100%; background: #0a84ff;"></div></div>
-        </div>
-        <div class="bar-container">
-            <div class="bar-label"><span>C++ (GCC 03)</span><span style="color:#666">0.05ms</span></div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 50%; background: #667085;"></div></div>
-        </div>
-        <div class="bar-container">
-            <div class="bar-label"><span>Python 3.11</span><span style="color:#ff3b30">5.20ms</span></div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 15%; background: #ff3b30;"></div></div>
-        </div>
-    </div>
-
-    <div class="testimonials">
-        <div><h3>Forbes</h3><p>"Nova is just so clean and powerful. I don't really anticipate a learning curve for new developers."</p></div>
-        <div><h3>TechRadar</h3><p>"It has everything in terms of offering a friendly experience to those coming from Python or Java."</p></div>
     </div>
 
     <script>
-        // 1. Pure Output CMD Logic (No extra texts, just the raw output)
+        // Apple Style Blast Animation
+        setTimeout(() => {
+            document.getElementById('spinner').style.display = 'none';
+            let logo = document.getElementById('main-logo');
+            logo.classList.add('show');
+            setTimeout(() => {
+                logo.classList.add('blast');
+                setTimeout(() => {
+                    document.getElementById('preloader').style.display = 'none';
+                    document.getElementById('content').style.opacity = '1';
+                }, 600);
+            }, 1000);
+        }, 1500);
+
+        // Pure Output CMD (No fake text, just output)
         function runNovaCode() {
             let code = document.getElementById('nova-code').value;
             let out = document.getElementById('nova-output');
-            out.innerHTML = ""; // Clear
+            out.innerHTML = ""; 
             
             let lines = code.split('\n');
             lines.forEach(line => {
                 line = line.trim();
-                if(!line || line.startsWith("//")) return;
-                
                 if(line.includes('Nova.show(')) {
                     let match = line.match(/\((.*?)\)/);
-                    if(match) {
-                        let text = match[1].replace(/['"]/g, '');
-                        out.innerHTML += `<div>${text}</div>`;
-                    }
+                    if(match) out.innerHTML += `<div>${match[1].replace(/['"]/g, '')}</div>`;
                 }
             });
         }
 
-        // 2. Rich, "Bhara Hua" PDF Generation Logic with Design
+        // Heavy "Tamacha" PDF Generation
         function generatePDF(type) {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+            const { jsPDF } = window.jspdf; const doc = new jsPDF();
             
-            // Rich Header Design for all PDFs
-            doc.setFillColor(10, 132, 255); // Neura Blue Background
-            doc.rect(0, 0, 210, 35, 'F');
-            doc.setTextColor(255, 255, 255);
-            doc.setFontSize(24);
-            doc.setFont("helvetica", "bold");
-            doc.text("NEURA STUDIO", 15, 22);
-            doc.setFontSize(12);
-            doc.setFont("helvetica", "normal");
-            doc.text("Official Nova Engine Documentation", 120, 22);
-
+            doc.setFillColor(0, 0, 0); doc.rect(0, 0, 210, 40, 'F');
+            doc.setTextColor(10, 132, 255); doc.setFontSize(26); doc.setFont("helvetica", "bold");
+            doc.text("NEURA STUDIO", 20, 25);
+            doc.setTextColor(255, 255, 255); doc.setFontSize(12);
+            doc.text("Author: JAVED | The Nova Language Documentation", 20, 32);
+            
             doc.setTextColor(30, 30, 30);
-            
             if(type === 'learn') {
-                doc.setFontSize(22);
-                doc.setFont("helvetica", "bold");
-                doc.text("Learn Nova: The Ultimate Guide", 15, 55);
+                doc.setFontSize(22); doc.text("The Ultimate Guide to Nova", 20, 60);
+                doc.setFontSize(12); doc.setFont("helvetica", "normal");
+                doc.text("Chapter 1: The Apex Engine\n\nNova is an ultra-fast, OS-level bypassing engine built for Quantum and AI environments.\nCreated by Javed, it eliminates the need for Global Interpreter Locks (GIL).", 20, 80);
                 
-                doc.setFontSize(14);
-                doc.text("1. Introduction", 15, 70);
-                doc.setFontSize(11);
-                doc.setFont("helvetica", "normal");
-                doc.text("Nova is a high-performance, Apex-Level programming language designed to replace\nPython and Java in critical AI and hardware environments. It operates without a\nGlobal Interpreter Lock (GIL) and interacts directly with the OS kernel.", 15, 80);
+                doc.setFillColor(240, 240, 240); doc.rect(20, 110, 170, 60, 'F');
+                doc.setFont("courier", "bold"); doc.setTextColor(0, 100, 0);
+                doc.text("// Example of Hardware Threading\nNova.hardware.cpu.alloc(16)\nNova.ai.think(\"Neural Parse\")\nNova.show(\"Success\")", 25, 125);
                 
-                // Code Box Design
-                doc.setFillColor(240, 240, 240);
-                doc.rect(15, 105, 180, 40, 'F');
-                doc.setFont("courier", "bold");
-                doc.setTextColor(10, 132, 255);
-                doc.text("// Your First Nova Program", 20, 115);
-                doc.setTextColor(30, 30, 30);
-                doc.text("Nova.show(\"Hello, World!\")", 20, 125);
-                doc.text("Nova.hardware.cpu.alloc(8)", 20, 135);
-
-                doc.setFont("helvetica", "bold");
-                doc.text("2. Multi-Threading Matrix", 15, 165);
-                doc.setFont("helvetica", "normal");
-                doc.text("Unlike traditional languages, Nova automatically balances loads across CPU and GPU\nclusters in exactly 0.01ms.", 15, 175);
+                doc.addPage();
+                doc.setFont("helvetica", "bold"); doc.setTextColor(30, 30, 30); doc.setFontSize(22);
+                doc.text("Chapter 2: Advanced Integration", 20, 30);
+                doc.setFontSize(12); doc.setFont("helvetica", "normal");
+                doc.text("Nova allows direct connection with Python, Rust, and JavaScript through Nova Hub.\n\nCommand:\nNova.import(\"python:pandas\")\nNova.import(\"js:react\")", 20, 50);
                 
-                doc.save("Learn_Nova_Official.pdf");
-
-            } else if(type === 'info') {
-                doc.setFontSize(22);
-                doc.setFont("helvetica", "bold");
-                doc.text("Nova: Architecture & Features", 15, 55);
+                doc.save("Learn_Nova_Full_Book.pdf");
+            } else {
+                doc.setFontSize(22); doc.text("Nova Syntax Master Sheet", 20, 60);
+                doc.setDrawColor(0); doc.setLineWidth(0.5); doc.line(20, 65, 190, 65);
                 
-                // Grid of features using boxes
-                let y = 70;
-                let features = [
-                    ["Zero-Latency Core", "Executes commands natively at 0.01ms."],
-                    ["OS Kernel Bypass", "Direct hardware access without OS limits."],
-                    ["Universal Package Hub", "Import any Python, JS, or Rust package natively."],
-                    ["Military-Grade Sandboxing", "Threat-proof execution environment."]
+                let y = 80;
+                let cmds = [
+                    ["Print Output", "Nova.show(\"Text\")"],
+                    ["Thread Alloc", "Nova.hardware.cpu.alloc(16)"],
+                    ["Package Import", "Nova.import(\"python:django\")"],
+                    ["Kernel Bypass", "Nova.os.kernel_bypass(true)"]
                 ];
                 
-                features.forEach((feat, index) => {
-                    doc.setFillColor(245, 247, 250);
-                    doc.rect(15, y, 180, 25, 'F');
-                    doc.setFontSize(14);
-                    doc.setFont("helvetica", "bold");
-                    doc.setTextColor(10, 132, 255);
-                    doc.text(feat[0], 20, y + 10);
-                    doc.setFontSize(11);
-                    doc.setFont("helvetica", "normal");
-                    doc.setTextColor(50, 50, 50);
-                    doc.text(feat[1], 20, y + 20);
-                    y += 35;
+                cmds.forEach(cmd => {
+                    doc.setFont("helvetica", "bold"); doc.text(cmd[0], 20, y);
+                    doc.setFont("courier", "normal"); doc.text(cmd[1], 80, y);
+                    doc.line(20, y+5, 190, y+5);
+                    y += 15;
                 });
-                
-                doc.save("Nova_Features_Architecture.pdf");
-
-            } else if(type === 'syntax') {
-                doc.setFontSize(22);
-                doc.setFont("helvetica", "bold");
-                doc.text("Nova Syntax Master Sheet", 15, 55);
-                
-                // Table header
-                doc.setFillColor(30, 30, 30);
-                doc.rect(15, 65, 180, 10, 'F');
-                doc.setTextColor(255, 255, 255);
-                doc.setFontSize(12);
-                doc.text("Action", 20, 72);
-                doc.text("Syntax Code", 85, 72);
-                
-                // Table content
-                let commands = [
-                    ["Print to Console", "Nova.show(\"Text\")"],
-                    ["Bypass Kernel", "Nova.os.kernel_bypass(true)"],
-                    ["Allocate CPU Threads", "Nova.hardware.cpu.alloc(16)"],
-                    ["Import Python Package", "Nova.import(\"python:django\")"],
-                    ["Execute AI Task", "Nova.ai.think(\"Task\")"]
-                ];
-                
-                let yLine = 85;
-                doc.setTextColor(30, 30, 30);
-                commands.forEach(cmd => {
-                    doc.setFont("helvetica", "bold");
-                    doc.text(cmd[0], 20, yLine);
-                    doc.setFont("courier", "normal");
-                    doc.setTextColor(10, 132, 255);
-                    doc.text(cmd[1], 85, yLine);
-                    doc.setTextColor(30, 30, 30);
-                    // Add subtle line
-                    doc.setDrawColor(200, 200, 200);
-                    doc.line(15, yLine + 5, 195, yLine + 5);
-                    yLine += 15;
-                });
-                
                 doc.save("Nova_All_Syntax.pdf");
             }
         }
