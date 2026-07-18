@@ -2,30 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Install Nova</title>
+    <title>Get Nova</title>
     <style>
-        body { background: #f4f6f8; font-family: -apple-system, sans-serif; margin: 0; color: #111;}
+        body { background: #f8f9fa; font-family: -apple-system, sans-serif; margin: 0; color: #111;}
         .nav { display: flex; align-items: center; padding: 15px 50px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #111; text-decoration: none;}
         .premium-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00CFFF; object-fit: cover; margin-right: 12px; }
         
-        .container { max-width: 800px; margin: 50px auto; background: #fff; padding: 50px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center;}
-        h1 { font-size: 2.5em; margin-bottom: 10px;}
-        p { color: #666; margin-bottom: 40px;}
+        .container { max-width: 900px; margin: 60px auto; background: #fff; padding: 50px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); text-align: center; border: 1px solid #eee;}
+        h1 { font-size: 2.8em; margin-bottom: 10px; font-weight: 900;}
+        p { color: #666; margin-bottom: 40px; font-size: 1.1em;}
 
-        /* Terminal Style Block */
-        .terminal-block { background: #0d1117; padding: 20px; border-radius: 12px; text-align: left; margin-bottom: 40px;}
-        .os-tabs { display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px;}
-        .os-tabs button { background: none; border: none; color: #8b949e; cursor: pointer; font-size: 16px; font-weight: bold; padding: 5px 10px;}
-        .os-tabs button.active { color: #00CFFF; border-bottom: 2px solid #00CFFF;}
-        .cmd-box { background: #000; color: #a5d6ff; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 15px;}
+        .grid { display: flex; justify-content: center; gap: 30px; margin-top: 20px;}
         
-        /* Graphical Block */
-        h2 { margin-top: 40px; border-top: 1px solid #eee; padding-top: 40px;}
-        .grid { display: flex; justify-content: center; gap: 25px; margin-top: 20px;}
-        .card { border: 2px solid #eaebed; padding: 30px 20px; border-radius: 16px; cursor: pointer; width: 140px; transition: 0.3s; background: #fff;}
-        .card:hover { border-color: #00CFFF; transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,207,255,0.1); }
-        .card img { height: 60px; margin-bottom: 15px; object-fit: contain; } /* REAL COLORS, NO FILTERS */
+        /* Main Method Selection Cards */
+        .method-card { border: 2px solid #eaebed; padding: 40px 30px; border-radius: 20px; cursor: pointer; width: 250px; transition: 0.3s; background: #fff;}
+        .method-card:hover { border-color: #00CFFF; transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,207,255,0.15); }
+        .method-card img { height: 70px; margin-bottom: 20px; }
+        .method-card h3 { font-size: 1.4em; margin: 0 0 10px; color: #111;}
+        .method-card p { font-size: 0.9em; margin: 0; color: #888;}
+
+        /* OS Cards (Colorful) */
+        .os-card { border: 2px solid #eaebed; padding: 25px 20px; border-radius: 16px; cursor: pointer; width: 140px; transition: 0.3s; background: #fff;}
+        .os-card:hover { border-color: #00CFFF; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
+        .os-card img { height: 55px; margin-bottom: 15px; object-fit: contain; }
+        .os-card h3 { font-size: 1.1em; margin: 0; color: #111;}
+
+        .step { display: none; animation: fadeIn 0.4s ease;}
+        .step.active { display: block; }
+        @keyframes fadeIn { from {opacity: 0; transform: scale(0.95);} to {opacity: 1; transform: scale(1);} }
+
+        /* CLI Code Box */
+        .cmd-box { background: #0d1117; color: #a5d6ff; padding: 20px; border-radius: 12px; font-family: monospace; font-size: 18px; margin-top: 30px; text-align: left; box-shadow: inset 0 0 10px rgba(0,0,0,0.5);}
+        .back-btn { background: none; border: none; color: #888; font-weight: bold; font-size: 16px; cursor: pointer; margin-bottom: 20px; text-align: left; width: 100%;}
+        .back-btn:hover { color: #111; }
     </style>
 </head>
 <body>
@@ -34,59 +44,111 @@
     </div>
 
     <div class="container">
-        <h1>Install Nova Engine</h1>
-        <p>Choose your preferred installation method below.</p>
-
-        <!-- Method 1: Mojo-Style Terminal Install -->
-        <div class="terminal-block">
-            <div class="os-tabs">
-                <button id="btn-mac" class="active" onclick="switchTerm('mac')">macOS</button>
-                <button id="btn-linux" onclick="switchTerm('linux')">Linux</button>
-                <button id="btn-win" onclick="switchTerm('win')">Windows (PowerShell)</button>
-            </div>
-            <div class="cmd-box" id="cmd-text">curl -sL https://get.neurastudio.com/mac | bash</div>
-        </div>
-
-        <!-- Method 2: Graphical Install with REAL Color Logos -->
-        <h2>Or Download Installer</h2>
-        <div class="grid">
-            <div class="card" onclick="downloadGui('mac')">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg">
-                <h3>macOS</h3>
-            </div>
-            <div class="card" onclick="downloadGui('windows')">
-                <!-- Real Colorful Windows Logo -->
-                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2012.svg">
-                <h3>Windows</h3>
-            </div>
-            <div class="card" onclick="downloadGui('linux')">
-                <!-- Real Colorful Linux Penguin -->
-                <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg">
-                <h3>Linux</h3>
+        
+        <!-- STEP 1: Select Installation Method -->
+        <div id="step-method" class="step active">
+            <h1>Get Nova</h1>
+            <p>Select how you want to set up the Nova Engine.</p>
+            <div class="grid">
+                <div class="method-card" onclick="openGUI()">
+                    <img src="https://cdn-icons-png.flaticon.com/512/3233/3233508.png" alt="GUI">
+                    <h3>Nova Quick Install</h3>
+                    <p>Easy guided setup with OS and Editor integration.</p>
+                </div>
+                <div class="method-card" onclick="openCLI()">
+                    <img src="https://cdn-icons-png.flaticon.com/512/919/919853.png" alt="Terminal">
+                    <h3>Nova Shell Setup</h3>
+                    <p>Fast terminal installation (Mojo-style command).</p>
+                </div>
             </div>
         </div>
+
+        <!-- ================= GUI FLOW ================= -->
+        <div id="gui-os" class="step">
+            <button class="back-btn" onclick="goBack()">⬅ Back to Methods</button>
+            <h1>Select Operating System</h1>
+            <div class="grid">
+                <div class="os-card" onclick="selectGUI_OS('mac')"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"><h3>macOS</h3></div>
+                <div class="os-card" onclick="selectGUI_OS('windows')"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2012.svg"><h3>Windows</h3></div>
+                <div class="os-card" onclick="selectGUI_OS('linux')"><img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg"><h3>Linux</h3></div>
+            </div>
+        </div>
+
+        <div id="gui-ide" class="step">
+            <button class="back-btn" onclick="openGUI()">⬅ Back to OS</button>
+            <h1>Select Environment</h1>
+            <div class="grid">
+                <div class="os-card" onclick="finishGUI()"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg"><h3>VS Code</h3></div>
+                <div class="os-card" onclick="finishGUI()"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pycharm/pycharm-original.svg"><h3>PyCharm</h3></div>
+            </div>
+        </div>
+
+        <!-- ================= CLI FLOW (Mojo Style) ================= -->
+        <div id="cli-os" class="step">
+            <button class="back-btn" onclick="goBack()">⬅ Back to Methods</button>
+            <h1>Select Operating System</h1>
+            <p>Choose your OS to generate the installation command.</p>
+            <div class="grid">
+                <div class="os-card" onclick="generateCLI('mac')"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"><h3>macOS</h3></div>
+                <div class="os-card" onclick="generateCLI('windows')"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2012.svg"><h3>Windows</h3></div>
+                <div class="os-card" onclick="generateCLI('linux')"><img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg"><h3>Linux</h3></div>
+            </div>
+        </div>
+
+        <div id="cli-result" class="step">
+            <button class="back-btn" onclick="openCLI()">⬅ Back to OS</button>
+            <h1>Run this command</h1>
+            <p>Paste this directly into your terminal or PowerShell.</p>
+            <div class="cmd-box" id="cli-command"></div>
+        </div>
+
     </div>
 
     <script>
-        function switchTerm(os) {
-            document.getElementById('btn-mac').classList.remove('active');
-            document.getElementById('btn-linux').classList.remove('active');
-            document.getElementById('btn-win').classList.remove('active');
-            document.getElementById('btn-' + os).classList.add('active');
-            
-            let cmd = "";
-            if(os === 'mac') cmd = "curl -sL https://get.neurastudio.com/mac | bash";
-            if(os === 'linux') cmd = "curl -sL https://get.neurastudio.com/linux | bash";
-            if(os === 'win') cmd = "irm https://get.neurastudio.com/win | iex";
-            document.getElementById('cmd-text').innerText = cmd;
+        let chosenOS = '';
+
+        function hideAll() {
+            document.querySelectorAll('.step').forEach(el => el.classList.remove('active'));
         }
 
-        function downloadGui(os) {
-            let ext = (os === 'windows') ? '.exe' : (os === 'mac' ? '.dmg' : '.sh');
+        function goBack() {
+            hideAll();
+            document.getElementById('step-method').classList.add('active');
+        }
+
+        /* --- GUI Logic --- */
+        function openGUI() {
+            hideAll();
+            document.getElementById('gui-os').classList.add('active');
+        }
+        function selectGUI_OS(os) {
+            chosenOS = os;
+            hideAll();
+            document.getElementById('gui-ide').classList.add('active');
+        }
+        function finishGUI() {
+            let ext = (chosenOS === 'windows') ? '.exe' : (chosenOS === 'mac' ? '.dmg' : '.sh');
             let a = document.createElement('a');
-            a.href = "data:text/plain;charset=utf-8,Downloading_Nova...";
+            a.href = "data:text/plain;charset=utf-8,Downloading_Nova_Installer...";
             a.download = "nova-installer" + ext;
             a.click();
+            setTimeout(() => window.location.href = 'index.html', 1000);
+        }
+
+        /* --- CLI Logic --- */
+        function openCLI() {
+            hideAll();
+            document.getElementById('cli-os').classList.add('active');
+        }
+        function generateCLI(os) {
+            hideAll();
+            document.getElementById('cli-result').classList.add('active');
+            let cmd = "";
+            if(os === 'mac') cmd = "$ curl -sL https://get.neurastudio.com/nova-mac | bash";
+            if(os === 'linux') cmd = "$ curl -sL https://get.neurastudio.com/nova-linux | bash";
+            if(os === 'windows') cmd = "PS> irm https://get.neurastudio.com/nova-win | iex";
+            
+            document.getElementById('cli-command').innerText = cmd;
         }
     </script>
 </body>

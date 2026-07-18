@@ -9,13 +9,15 @@
         
         .nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(255, 255, 255, 0.95); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100;}
         .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #111; text-decoration: none;}
-        /* 🔵 Logo Fix: using ./ to force local path 🔵 */
         .premium-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00CFFF; object-fit: cover; margin-right: 12px; }
         
         .nav-links { display: flex; gap: 20px; align-items: center;}
         .nav-links a { text-decoration: none; color: #555; font-weight: 600; font-size: 15px;}
         .nav-links a:hover { color: #00CFFF; }
-        .btn { background: #00CFFF; color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: bold;}
+        
+        /* New "Get Nova" Button */
+        .btn { background: #00CFFF; color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,207,255,0.3);}
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,207,255,0.4);}
         
         .hero { text-align: center; padding: 80px 20px 20px; }
         h1.title { font-size: 4.5em; font-weight: 900; letter-spacing: -2px; margin-bottom: 20px; color: #111;}
@@ -39,14 +41,13 @@
         <div class="nav-links">
             <a href="index.html">Overview</a>
             <a href="hub.html">Nova Hub</a>
-            <!-- 🔵 Fixed 404 Error link 🔵 -->
-            <a href="nova_console.html" style="color:#00CFFF;">Nova Console</a> 
+            <a href="nova_console.html">Nova Console</a> 
         </div>
-        <a href="installer.html" class="btn">Download Engine</a>
+        <a href="installer.html" class="btn">Get Nova</a>
     </div>
     
     <div class="hero">
-        <h1 class="title">Make your code<br>faster.</h1>
+        <h1 class="title">Code at the speed of thought.</h1>
         <div class="image-row">
             <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80" class="img-1">
             <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" class="img-2">
