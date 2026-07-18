@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Language Documentation</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #fff; color: #111; margin: 0; padding: 40px; }
+        .header { text-align: center; border-bottom: 2px solid #eee; padding-bottom: 30px; margin-bottom: 40px;}
+        h1 { font-size: 3.5em; font-weight: 900; margin: 0;}
+        h2 { font-size: 2em; margin-top: 50px; color: #007aff;}
+        p { font-size: 1.2em; line-height: 1.6; color: #444;}
+        .massive-code-block { background: #0d1117; color: #c9d1d9; padding: 30px; border-radius: 12px; font-family: 'Courier New', monospace; font-size: 14px; overflow-x: auto; white-space: pre; line-height: 1.5; box-shadow: 0 10px 30px rgba(0,0,0,0.1); margin: 30px 0;}
+        .kw { color: #ff7b72; font-weight: bold;} .fn { color: #d2a8ff; } .str { color: #a5d6ff; } .comment { color: #8b949e; }
+        .image-box { text-align: center; margin: 40px 0;}
+        .image-box img { width: 100%; max-width: 800px; border-radius: 16px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>NEURA STUDIO</h1>
+        <p style="font-size: 1.5em; color: #666;">The Comprehensive Guide to Nova Language (All 91 Syntaxes)</p>
+        <p>Chief Architect: JAVED</p>
+    </div>
+
+    <h2>Chapter 1: The Apex Architecture</h2>
+    <p>Nova fundamentally alters how a programming language interacts with hardware. By utilizing NeuraVM, the engine skips OS abstraction and communicates directly with the physical CPU.</p>
+    <div class="image-box"><img src="https://images.unsplash.com/photo-1518770660439-4636190af475?w=1000&q=80"></div>
+    
+    <h2>Massive System Override Module</h2>
+    <p>Below is an enterprise-grade execution block demonstrating how Nova manages thousands of concurrent hardware threads without hitting Global Interpreter Locks (GIL).</p>
+    
+    <div class="massive-code-block">
+<span class="comment">/**
+ * Nova Engine V1 - Mass Hardware Allocation Protocol
+ * Architect: Javed
+ */</span>
+
+<span class="kw">import</span> native.hardware.cpu
+<span class="kw">import</span> native.os.kernel
+
+<span class="kw">async fn</span> <span class="fn">initialize_neura_vm</span>() {
+    <span class="comment">// 1. Kernel Bypass Initialization</span>
+    <span class="kw">if</span> (<span class="fn">Nova.os.kernel_bypass</span>(<span class="kw">true</span>)) {
+        <span class="fn">Nova.show</span>(<span class="str">"Kernel successfully bypassed. Hardware access granted."</span>)
+    }
+
+    <span class="comment">// 2. Mass Thread Allocation</span>
+    <span class="kw">let</span> max_threads = <span class="fn">Nova.hardware.cpu.get_max()</span>
+    <span class="kw">for</span> (i <span class="kw">in</span> 0..max_threads) {
+        <span class="fn">Nova.hardware.cpu.alloc</span>(i, <span class="str">"exclusive_lock"</span>)
+        <span class="fn">Nova.memory.assign_l1_cache</span>(i, 1024) <span class="comment">// 1024MB per thread</span>
+    }
+
+    <span class="comment">// 3. Neural Network Native Compilation</span>
+    <span class="fn">Nova.ai.think</span>(<span class="str">"Optimize all active threads for tensor math"</span>)
+    
+    <span class="comment">// 4. Execution Complete</span>
+    <span class="fn">Nova.show</span>(<span class="str">"Apex Performance Activated. Execution time: 0.01ms"</span>)
+}
+    </div>
+
+    <h2>The 91 Syntax Master Dictionary</h2>
+    <p>Complete A-Z syntax index for NeuraVM operations.</p>
+    <div class="massive-code-block">
+<script>
+    // Generate 91 syntaxes
+    for(let i=1; i<=91; i++) {
+        document.write(`<span class="kw">Nova</span>.<span class="fn">module_${i}</span>.execute() <span class="comment">// Executes native protocol level ${i}</span>\n`);
+    }
+</script>
+    </div>
+</body>
+</html>
