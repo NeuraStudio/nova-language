@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Console</title>
+    <style>
+        body { background-color: #ffffff; color: #111; font-family: -apple-system, sans-serif; margin: 0; padding: 30px;}
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 30px;}
+        .header-left { display: flex; align-items: center; gap: 15px;}
+        .premium-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00CFFF; object-fit: cover; }
+        .header h1 { margin: 0; color: #111; font-size: 24px; font-weight: 900;}
+        .btn-run { background: #00CFFF; color: #fff; padding: 12px 28px; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 16px;}
+        .editor-split { display: flex; gap: 20px; height: 75vh;}
+        
+        textarea { width: 50%; background: #0d1117; color: #a5d6ff; padding: 25px; border-radius: 16px; font-family: monospace; font-size: 16px; border: none; outline: none; resize: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);}
+        .output { width: 50%; background: #161b22; color: #fff; padding: 25px; border-radius: 16px; font-family: monospace; overflow-y: auto;}
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="header-left">
+            <img src="5611_2.png" class="premium-logo" alt="Logo">
+            <h1>Nova Interactive Console</h1>
+        </div>
+        <div>
+            <a href="index.html" style="color:#555; margin-right:20px; text-decoration:none; font-weight:bold;">⬅ Back to Home</a>
+            <button class="btn-run" onclick="execute()">▶ Run Native</button>
+        </div>
+    </div>
+    <div class="editor-split">
+<textarea id="code-input" spellcheck="false">
+// Enter Nova Syntax
+Nova.hardware.cpu.alloc(16, "exclusive")
+Nova.show("System ready.")
+</textarea>
+        <div id="output" class="output">Awaiting execution...</div>
+    </div>
+
+    <script>
+        function execute() {
+            let code = document.getElementById('code-input').value;
+            let out = document.getElementById('output');
+            out.innerHTML = "<span style='color:#00CFFF;'>Compiling...</span><br><br>";
+            setTimeout(() => {
+                let lines = code.split('\n');
+                lines.forEach((line) => {
+                    line = line.trim();
+                    if(line.includes('Nova.show(')) {
+                        let match = line.match(/\((.*?)\)/);
+                        if(match) out.innerHTML += `> ${match[1].replace(/['"]/g, '')}<br>`;
+                    } else if(line.includes('Nova.')) {
+                        out.innerHTML += `<span style="color:#8b949e;">> Executed: ${line}</span><br>`;
+                    }
+                });
+            }, 300);
+        }
+    </script>
+</body>
+</html>
