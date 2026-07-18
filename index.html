@@ -8,26 +8,20 @@
     <style>
         body { background-color: #f8f9fa; color: #111; font-family: -apple-system, sans-serif; margin: 0; overflow-x: hidden;}
         
-        /* Preloader: Apple/Google Style Blast */
-        #preloader { position: fixed; top:0; left:0; width:100%; height:100%; background:#fff; z-index:9999; display:flex; flex-direction:column; justify-content:center; align-items:center; }
-        .spinner { width: 50px; height: 50px; border: 4px solid #f3f3f3; border-top: 4px solid #0a84ff; border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;}
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        
-        /* The Real Logo Code (Circle + Shadow) */
-        .real-logo { width: 120px; height: 120px; border-radius: 50%; box-shadow: 0 15px 35px rgba(0,0,0,0.3); background: #000; display: flex; justify-content: center; align-items: center; transition: all 0.8s cubic-bezier(0.1, 0.8, 0.2, 1); opacity: 0; transform: scale(0.5); border: 2px solid #333;}
-        .real-logo.show { opacity: 1; transform: scale(1); }
-        .real-logo.blast { transform: scale(40); opacity: 0; }
-        
-        /* SVG Code inside the circle */
-        .svg-icon { width: 80%; height: 80%; }
+        /* 🔵 THE REAL CIRCULAR BLUE GLOW LOGO 🔵 */
+        .real-circular-logo { 
+            width: 45px; height: 45px; 
+            border-radius: 50%; 
+            box-shadow: 0 0 15px #0a84ff, inset 0 0 10px #0a84ff; 
+            border: 2px solid #0a84ff;
+            object-fit: cover;
+            margin-right: 12px;
+            background: #000;
+        }
 
         /* Navbar */
         .nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100;}
         .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #111; text-decoration: none;}
-        
-        /* Small Logo for Nav */
-        .nav-circle-logo { width: 35px; height: 35px; border-radius: 50%; background: #000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; margin-right: 12px;}
-        
         .nav-links a { margin: 0 15px; text-decoration: none; color: #555; font-weight: 600;}
         .btn { background: #0a84ff; color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: bold;}
         
@@ -43,9 +37,6 @@
         .image-row img { border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); object-fit: cover;}
         .img-1 { width: 300px; height: 200px; } .img-2 { width: 400px; height: 250px; z-index: 10; transform: scale(1.05); } .img-3 { width: 300px; height: 200px; }
 
-        /* Video Section */
-        .video-container { max-width: 900px; margin: 0 auto 50px auto; border-radius: 16px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.2); border: 4px solid #fff;}
-        
         /* CMD Editor (Pure Output) */
         .editor-container { max-width: 900px; margin: 40px auto; background: #0d1117; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.2); text-align: left;}
         .editor-header { background: #161b22; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; color: #c9d1d9; font-family: monospace; font-weight: bold; border-bottom: 1px solid #30363d;}
@@ -56,94 +47,53 @@
     </style>
 </head>
 <body>
-    <!-- Preloader -->
-    <div id="preloader">
-        <div class="spinner" id="spinner"></div>
-        <div class="real-logo" id="main-logo">
-            <svg class="svg-icon" viewBox="0 0 200 200">
-                <circle cx="100" cy="100" r="30" fill="#0a84ff"/>
-                <path d="M 40 140 C 10 70, 70 20, 160 50" fill="none" stroke="#8a2be2" stroke-width="12" />
-                <path d="M 160 60 C 190 130, 130 180, 40 150" fill="none" stroke="#00f2fe" stroke-width="12" />
-                <path d="M 100 85 L 105 95 L 115 100 L 105 105 L 100 115 L 95 105 L 85 100 L 95 95 Z" fill="#fff"/>
-            </svg>
+    <div class="nav">
+        <a href="index.html" class="nav-logo">
+            <!-- CIRCULAR BLUE GLOW LOGO HERE -->
+            <img src="https://raw.githubusercontent.com/Neurastudio/nova-language/main/neura-logo.png" class="real-circular-logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/11204/11204212.png'"> 
+            NEURA STUDIO
+        </a>
+        <div class="nav-links"><a href="index.html">Overview</a><a href="hub.html">For Developers</a></div>
+        <a href="installer.html" class="btn">Download Engine</a>
+    </div>
+    
+    <div class="hero">
+        <h1 class="title">Make your code<br>faster.</h1>
+        <p style="color: #666; font-size: 1.2em; margin-bottom: 30px;">Nova is the ultimate God-Mode alternative to Python, Java, and C++. Built for AI.</p>
+        
+        <div class="pdf-section">
+            <button class="pdf-btn" onclick="generatePDF('learn')">📄 Learn Nova (12 Pages)</button>
+            <button class="pdf-btn" onclick="generatePDF('syntax')">📄 All Syntax Master</button>
+        </div>
+
+        <div class="image-row">
+            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80" class="img-1">
+            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" class="img-2">
+            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&q=80" class="img-3">
         </div>
     </div>
 
-    <!-- Content -->
-    <div id="content" style="opacity:0; transition: opacity 1s;">
-        <div class="nav">
-            <a href="index.html" class="nav-logo">
-                <div class="nav-circle-logo">
-                    <svg width="20" height="20" viewBox="0 0 200 200">
-                        <circle cx="100" cy="100" r="30" fill="#0a84ff"/>
-                        <path d="M 40 140 C 10 70, 70 20, 160 50" fill="none" stroke="#8a2be2" stroke-width="12" />
-                        <path d="M 160 60 C 190 130, 130 180, 40 150" fill="none" stroke="#00f2fe" stroke-width="12" />
-                    </svg>
-                </div>
-                NEURA STUDIO
-            </a>
-            <div class="nav-links"><a href="index.html">Overview</a><a href="hub.html">For Developers</a></div>
-            <a href="installer.html" class="btn">Download Engine</a>
+    <!-- Pure Output CMD Editor -->
+    <div class="editor-container">
+        <div class="editor-header">
+            <span>CMD - Nova Interpreter</span>
+            <button class="run-btn" onclick="runNovaCode()">▶ Run</button>
         </div>
-        
-        <div class="hero">
-            <h1 class="title">Make your code<br>faster.</h1>
-            <p style="color: #666; font-size: 1.2em; margin-bottom: 30px;">The Ultimate God-Mode Language Engine by Javed.</p>
-            
-            <div class="pdf-section">
-                <button class="pdf-btn" onclick="generatePDF('learn')">📄 Learn Nova (Full Book)</button>
-                <button class="pdf-btn" onclick="generatePDF('syntax')">📄 All Syntax Master</button>
-            </div>
-
-            <!-- YouTube Video Embed -->
-            <div class="video-container">
-                <iframe width="100%" height="450" src="https://www.youtube.com/embed/jfKfPfyJRdk?autoplay=1&mute=1&loop=1" frameborder="0" allowfullscreen></iframe>
-            </div>
-
-            <div class="image-row">
-                <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80" class="img-1">
-                <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" class="img-2">
-                <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&q=80" class="img-3">
-            </div>
-        </div>
-
-        <!-- Pure Output CMD Editor -->
-        <div class="editor-container">
-            <div class="editor-header">
-                <span>CMD - Nova Interpreter</span>
-                <button class="run-btn" onclick="runNovaCode()">▶ Run</button>
-            </div>
-            <div class="workspace">
-                <textarea class="code-area" id="nova-code" spellcheck="false">
+        <div class="workspace">
+            <textarea class="code-area" id="nova-code" spellcheck="false">
 // Enter your Nova code here
 Nova.show("Hello, Neura Studio!")
 Nova.show("System Initialized by Javed.")</textarea>
-                <div class="output-area" id="nova-output"></div>
-            </div>
+            <div class="output-area" id="nova-output"></div>
         </div>
     </div>
 
     <script>
-        // Apple Style Blast Animation
-        setTimeout(() => {
-            document.getElementById('spinner').style.display = 'none';
-            let logo = document.getElementById('main-logo');
-            logo.classList.add('show');
-            setTimeout(() => {
-                logo.classList.add('blast');
-                setTimeout(() => {
-                    document.getElementById('preloader').style.display = 'none';
-                    document.getElementById('content').style.opacity = '1';
-                }, 600);
-            }, 1000);
-        }, 1500);
-
-        // Pure Output CMD (No fake text, just output)
+        // Pure Output CMD 
         function runNovaCode() {
             let code = document.getElementById('nova-code').value;
             let out = document.getElementById('nova-output');
             out.innerHTML = ""; 
-            
             let lines = code.split('\n');
             lines.forEach(line => {
                 line = line.trim();
@@ -154,64 +104,43 @@ Nova.show("System Initialized by Javed.")</textarea>
             });
         }
 
-        // Heavy "Tamacha" PDF Generation
+        // 12-PAGE PDF GENERATOR
         function generatePDF(type) {
             const { jsPDF } = window.jspdf; const doc = new jsPDF();
             
-            doc.setFillColor(0, 0, 0); doc.rect(0, 0, 210, 40, 'F');
-            doc.setTextColor(10, 132, 255); doc.setFontSize(26); doc.setFont("helvetica", "bold");
-            doc.text("NEURA STUDIO", 20, 25);
-            doc.setTextColor(255, 255, 255); doc.setFontSize(12);
-            doc.text("Author: JAVED | The Nova Language Documentation", 20, 32);
-            
-            doc.setTextColor(30, 30, 30);
-            if(type === "learn") {
+            if(type === 'learn') {
                 for(let i=1; i<=12; i++) {
-                    doc.setFontSize(22); doc.text("Chapter " + i + ": Master Guide", 20, 60);
+                    doc.setFillColor(0, 0, 0); doc.rect(0, 0, 210, 40, 'F');
+                    doc.setTextColor(10, 132, 255); doc.setFontSize(26); doc.setFont("helvetica", "bold");
+                    doc.text("NEURA STUDIO", 20, 25);
+                    doc.setTextColor(255, 255, 255); doc.setFontSize(12);
+                    doc.text("Author: JAVED | The Nova Language - Page " + i, 20, 32);
+                    
+                    doc.setTextColor(30, 30, 30); doc.setFontSize(22);
+                    
+                    let title = ""; let content = "";
+                    if(i===1) { title = "Chapter 1: The Apex Engine"; content = "Nova is an ultra-fast, OS-level bypassing engine built for Quantum and AI environments.\nCreated by Javed, it eliminates the need for Global Interpreter Locks (GIL)."; }
+                    else if(i===2) { title = "Chapter 2: Variables & Data"; content = "In Nova, memory is allocated directly at the hardware level.\nExample:\nNova.var.create('speed', '0.01ms')"; }
+                    else if(i===3) { title = "Chapter 3: Hardware Threading"; content = "Allocate CPU threads directly:\nNova.hardware.cpu.alloc(16)\nThis bypasses the Windows/Mac/Linux kernel limitations."; }
+                    else if(i===12) { title = "Chapter 12: Conclusion"; content = "Congratulations. You have mastered Nova.\nYou are now an Apex-Level Developer ready to build the future of AI."; }
+                    else { title = "Chapter " + i + ": Advanced Concepts"; content = "This chapter covers advanced memory management and real-time execution protocols\nengineered specifically for Nova."; }
+
+                    doc.text(title, 20, 60);
                     doc.setFontSize(12); doc.setFont("helvetica", "normal");
-                    if(i==1) doc.text("Introduction to Nova Engine (Built by Javed).", 20, 80);
-                    else if(i==2) doc.text("Understanding Hardware Allocation without GIL.", 20, 80);
-                    else if(i==3) doc.text("Variables and Data Types in Nova.", 20, 80);
-                    else if(i==12) doc.text("Conclusion: You are now an Apex-Level Developer.", 20, 80);
-                    else doc.text("Detailed explanation for Chapter " + i + "...", 20, 80);
+                    doc.text(content, 20, 80);
+
                     if(i < 12) doc.addPage();
                 }
                 doc.save("Learn_Nova_12_Pages.pdf");
-
-                doc.setFontSize(22); doc.text("The Ultimate Guide to Nova", 20, 60);
-                doc.setFontSize(12); doc.setFont("helvetica", "normal");
-                doc.text("Chapter 1: The Apex Engine\n\nNova is an ultra-fast, OS-level bypassing engine built for Quantum and AI environments.\nCreated by Javed, it eliminates the need for Global Interpreter Locks (GIL).", 20, 80);
-                
-                doc.setFillColor(240, 240, 240); doc.rect(20, 110, 170, 60, 'F');
-                doc.setFont("courier", "bold"); doc.setTextColor(0, 100, 0);
-                doc.text("// Example of Hardware Threading\nNova.hardware.cpu.alloc(16)\nNova.ai.think(\"Neural Parse\")\nNova.show(\"Success\")", 25, 125);
-                
-                doc.addPage();
-                doc.setFont("helvetica", "bold"); doc.setTextColor(30, 30, 30); doc.setFontSize(22);
-                doc.text("Chapter 2: Advanced Integration", 20, 30);
-                doc.setFontSize(12); doc.setFont("helvetica", "normal");
-                doc.text("Nova allows direct connection with Python, Rust, and JavaScript through Nova Hub.\n\nCommand:\nNova.import(\"python:pandas\")\nNova.import(\"js:react\")", 20, 50);
-                
-                doc.save("Learn_Nova_Full_Book.pdf");
             } else {
-                doc.setFontSize(22); doc.text("Nova Syntax Master Sheet", 20, 60);
-                doc.setDrawColor(0); doc.setLineWidth(0.5); doc.line(20, 65, 190, 65);
-                
-                let y = 80;
-                let cmds = [
-                    ["Print Output", "Nova.show(\"Text\")"],
-                    ["Thread Alloc", "Nova.hardware.cpu.alloc(16)"],
-                    ["Package Import", "Nova.import(\"python:django\")"],
-                    ["Kernel Bypass", "Nova.os.kernel_bypass(true)"]
-                ];
-                
-                cmds.forEach(cmd => {
-                    doc.setFont("helvetica", "bold"); doc.text(cmd[0], 20, y);
-                    doc.setFont("courier", "normal"); doc.text(cmd[1], 80, y);
-                    doc.line(20, y+5, 190, y+5);
-                    y += 15;
-                });
-                doc.save("Nova_All_Syntax.pdf");
+                // Syntax PDF
+                doc.setFillColor(0, 0, 0); doc.rect(0, 0, 210, 40, 'F');
+                doc.setTextColor(10, 132, 255); doc.setFontSize(26); doc.setFont("helvetica", "bold"); doc.text("NEURA STUDIO", 20, 25);
+                doc.setTextColor(255); doc.setFontSize(12); doc.text("Author: JAVED | Syntax Master Sheet", 20, 32);
+                doc.setTextColor(30); doc.setFontSize(22); doc.text("All Essential Commands", 20, 60);
+                doc.setFontSize(14); doc.setFont("courier", "normal");
+                doc.text("1. Print Output: Nova.show(\"...\")\n2. Kernel Bypass: Nova.os.kernel_bypass(true)\n3. Hardware Alloc: Nova.hardware.cpu.alloc(16)\n4. Import Hub: Nova.import(\"python:django\")", 20, 80);
+                doc.save("Nova_Syntax_Master.pdf");
             }
         }
     </script>

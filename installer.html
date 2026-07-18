@@ -138,7 +138,22 @@
                         document.getElementById('dl-text').innerText = "Download Complete!";
                         document.getElementById('dl-text').style.color = "#27c93f";
                         
-                        // REAL FILE EXTENSION LOGIC
+                        let ext = ".sh";
+                        let mime = "application/x-sh";
+                        if(userOS === "windows") {
+                            ext = ".exe";
+                            mime = "application/x-msdownload";
+                        } else if(userOS === "mac") {
+                            ext = ".dmg";
+                            mime = "application/x-apple-diskimage";
+                        }
+                        const blob = new Blob(["Installing Engine..."], { type: mime });
+                        const a = document.createElement("a");
+                        a.href = URL.createObjectURL(blob);
+                        a.download = "nova-installer" + ext;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
                         let ext = ".sh"; 
                         let mime = "application/x-sh";
                         if(userOS === "windows") { 
