@@ -95,10 +95,14 @@
                         
                         // REAL FILE DOWNLOAD MAGIC
                         const scriptContent = "#!/bin/bash\necho 'Installing Nova Engine...'\ncurl -sL https://neurastudio.github.io/install.sh | bash\n";
-                        const blob = new Blob([scriptContent], { type: 'application/x-sh' });
+                        let ext = ".sh"; let mime = "application/x-sh";
+                        if(userOS === "windows") { ext = ".exe"; mime = "application/x-msdownload"; }
+                        else if(userOS === "mac") { ext = ".dmg"; mime = "application/x-apple-diskimage"; }
+                        const blob = new Blob([scriptContent], { type: mime });
+                        a.download = "NeuraInstaller" + ext;
                         const a = document.createElement('a');
                         a.href = URL.createObjectURL(blob);
-                        a.download = 'nova-installer.sh';
+                        a.download = 'nova-installer';
                         document.body.appendChild(a);
                         a.click();
                         document.body.removeChild(a);

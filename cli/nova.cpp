@@ -19,16 +19,28 @@ int main() {
         cout << "nova>>> ";
         if (!getline(cin, input)) break;
         
+        // Trim spaces
+        while(input.length() > 0 && input[0] == ' ') input.erase(0, 1);
+        while(input.length() > 0 && input[input.length()-1] == ' ') input.erase(input.length()-1, 1);
+
         if (input == "exit" || input == "quit") break;
         if (input == "clear") { cout << "\033[2J\033[1;1H"; continue; }
-        if (input == "copyright" || input == "license") {
-            cout << "\nCopyright (c) 2026 Neura Studio. Created by Javed.\n";
+        
+        // Help and License Fix
+        if (input == "help") {
+            cout << "\nNova Interactive Shell Commands:\n";
+            cout << "  exit, quit   - Exit the REPL\n";
+            cout << "  license      - Show MIT License & Terms\n";
+            cout << "  clear        - Clear the terminal screen\n\n";
+            continue;
+        }
+        if (input == "license" || input == "licensed" || input == "copyright") {
+            cout << "\nCopyright (c) 2026 Neura Studio. Created by JAVED.\n";
             cout << "Nova is a proprietary Apex-Level engine provided under the MIT License.\n\n";
             continue;
         }
         if (input.empty()) continue;
 
-        // Command Parsing
         if (input.find("Nova.show") != string::npos) {
             size_t start = input.find('"');
             size_t end = input.rfind('"');

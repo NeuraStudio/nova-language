@@ -165,7 +165,19 @@ Nova.show("System Initialized by Javed.")</textarea>
             doc.text("Author: JAVED | The Nova Language Documentation", 20, 32);
             
             doc.setTextColor(30, 30, 30);
-            if(type === 'learn') {
+            if(type === "learn") {
+                for(let i=1; i<=12; i++) {
+                    doc.setFontSize(22); doc.text("Chapter " + i + ": Master Guide", 20, 60);
+                    doc.setFontSize(12); doc.setFont("helvetica", "normal");
+                    if(i==1) doc.text("Introduction to Nova Engine (Built by Javed).", 20, 80);
+                    else if(i==2) doc.text("Understanding Hardware Allocation without GIL.", 20, 80);
+                    else if(i==3) doc.text("Variables and Data Types in Nova.", 20, 80);
+                    else if(i==12) doc.text("Conclusion: You are now an Apex-Level Developer.", 20, 80);
+                    else doc.text("Detailed explanation for Chapter " + i + "...", 20, 80);
+                    if(i < 12) doc.addPage();
+                }
+                doc.save("Learn_Nova_12_Pages.pdf");
+
                 doc.setFontSize(22); doc.text("The Ultimate Guide to Nova", 20, 60);
                 doc.setFontSize(12); doc.setFont("helvetica", "normal");
                 doc.text("Chapter 1: The Apex Engine\n\nNova is an ultra-fast, OS-level bypassing engine built for Quantum and AI environments.\nCreated by Javed, it eliminates the need for Global Interpreter Locks (GIL).", 20, 80);
