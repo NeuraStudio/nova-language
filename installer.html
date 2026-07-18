@@ -4,81 +4,54 @@
     <meta charset="UTF-8">
     <title>Download Nova</title>
     <style>
-        body { background: #000; font-family: -apple-system, BlinkMacSystemFont, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; color: #fff; }
+        body { background: #000; font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; color: #fff;}
+        .nav { position: fixed; top: 0; left: 0; width: 100%; display: flex; align-items: center; padding: 15px 50px; background: rgba(20,20,20,0.9); z-index: 100; box-sizing: border-box; }
+        .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #fff; text-decoration: none;}
+        .premium-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00CFFF; object-fit: cover; margin-right: 12px; }
         
-        /* 🔵 Apple-Style Glass Navbar 🔵 */
-        .nav { position: fixed; top: 0; left: 0; width: 100%; display: flex; align-items: center; padding: 15px 50px; background: rgba(20, 20, 20, 0.7); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); border-bottom: 1px solid rgba(255,255,255,0.1); z-index: 100; box-sizing: border-box; }
-        .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #fff; text-decoration: none; letter-spacing: -0.5px;}
-        .premium-logo { width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 0 20px rgba(0, 207, 255, 0.6); border: 2px solid #00CFFF; object-fit: cover; margin-right: 12px; }
-
-        .box { background: #111; width: 750px; padding: 60px; border-radius: 24px; box-shadow: 0 20px 60px rgba(0, 207, 255, 0.1); border: 1px solid #333; text-align: center; margin-top: 60px; }
-        h1 { font-size: 2.5em; margin-bottom: 40px; font-weight: 900;}
-        .grid { display: flex; justify-content: center; gap: 25px; }
-        .card { border: 2px solid #333; padding: 30px 20px; border-radius: 16px; cursor: pointer; width: 140px; transition: all 0.3s ease; background: #050505;}
-        .card:hover { border-color: #00CFFF; transform: translateY(-8px); box-shadow: 0 10px 25px rgba(0,207,255,0.2); }
-        .card img { height: 60px; margin-bottom: 15px; filter: brightness(0) invert(1); }
+        .box { background: #111; width: 750px; padding: 60px; border-radius: 20px; text-align: center; border: 1px solid #333;}
+        h1 { font-size: 2.2em; margin-bottom: 40px; font-weight: 900;}
+        .grid { display: flex; justify-content: center; gap: 20px; }
+        .card { border: 2px solid #333; background: #1a1a1a; padding: 30px 20px; border-radius: 16px; cursor: pointer; width: 150px; transition: 0.3s;}
+        .card:hover { border-color: #00CFFF; transform: translateY(-5px); }
+        .card img { height: 60px; margin-bottom: 15px; object-fit: contain;}
         
-        .step { display: none; animation: fadeIn 0.5s ease;}
-        .step.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        .step { display: none; }
+        .step.active { display: block; animation: fadeIn 0.4s ease;}
+        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
     </style>
 </head>
 <body>
-    <!-- आपका लोगो और नेवबार -->
-    <div class="nav">
-        <a href="index.html" class="nav-logo">
-            <img src="5611_2.png" class="premium-logo" alt="Neura Logo">
-            NEURA STUDIO
-        </a>
-    </div>
+    <div class="nav"><a href="index.html" class="nav-logo"><img src="5611_2.png" class="premium-logo"> NEURA STUDIO</a></div>
 
     <div class="box">
         <div id="step-1" class="step active">
             <h1>Select Operating System</h1>
             <div class="grid">
-                <div class="card" onclick="setOS('mac')">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg">
-                    <h3>macOS</h3>
-                </div>
-                <div class="card" onclick="setOS('windows')">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg">
-                    <h3>Windows</h3>
-                </div>
-                <div class="card" onclick="setOS('linux')">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg">
-                    <h3>Linux</h3>
-                </div>
+                <!-- REAL COLORED LOGOS -->
+                <div class="card" onclick="setOS('mac')"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" style="filter: invert(1);"><h3>macOS</h3></div>
+                <div class="card" onclick="setOS('windows')"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg"><h3>Windows</h3></div>
+                <div class="card" onclick="setOS('linux')"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg"><h3>Linux</h3></div>
             </div>
         </div>
-        
         <div id="step-2" class="step">
-            <h1>Select Environment</h1>
+            <h1>Select Editor</h1>
             <div class="grid">
-                <div class="card" onclick="finish()">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" style="filter: none;">
-                    <h3>VS Code</h3>
-                </div>
-                <div class="card" onclick="finish()">
-                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pycharm/pycharm-original.svg" style="filter: none;">
-                    <h3>PyCharm</h3>
-                </div>
+                <div class="card" onclick="finish()"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg"><h3>VS Code</h3></div>
+                <div class="card" onclick="finish()"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pycharm/pycharm-original.svg"><h3>PyCharm</h3></div>
             </div>
         </div>
     </div>
     <script>
         let selectedOS = '';
-        function setOS(os) { 
-            selectedOS = os; 
-            document.getElementById('step-1').classList.remove('active'); 
-            document.getElementById('step-2').classList.add('active'); 
-        }
+        function setOS(os) { selectedOS = os; document.getElementById('step-1').classList.remove('active'); document.getElementById('step-2').classList.add('active'); }
         function finish() {
             let ext = (selectedOS == 'windows') ? '.exe' : (selectedOS == 'mac' ? '.dmg' : '.sh');
             let a = document.createElement('a');
-            a.href = "data:text/plain;charset=utf-8,Installing_Nova_Native_Engine...";
+            a.href = "data:text/plain;charset=utf-8,Downloading...";
             a.download = "nova-installer" + ext;
             a.click();
-            setTimeout(() => window.location.href = 'index.html', 1000);
+            window.location.href = 'index.html';
         }
     </script>
 </body>

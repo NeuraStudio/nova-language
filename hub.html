@@ -4,28 +4,56 @@
     <meta charset="UTF-8">
     <title>Nova Hub</title>
     <style>
-        .pkg-card { padding: 20px; border: 1px solid #ddd; border-radius: 12px; margin: 10px; display: inline-block; width: 250px; }
-        .copy-btn { background: #238636; color: white; border: none; padding: 8px 12px; border-radius: 5px; cursor: pointer; }
-        .copy-btn.copied { background: #1f6feb; }
+        body { background-color: #f8f9fa; color: #111; font-family: -apple-system, sans-serif; margin: 0; }
+        .nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #111; text-decoration: none;}
+        .premium-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00CFFF; object-fit: cover; margin-right: 12px; }
+        .nav-links a { margin: 0 15px; text-decoration: none; color: #555; font-weight: 600;}
+        .btn { background: #00CFFF; color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: bold;}
+        
+        .hub-header { text-align: center; padding: 50px 20px; }
+        .hub-header h1 { font-size: 3.5em; font-weight: 900; color: #0f172a; margin-bottom: 10px;}
+        .hub-header p { color: #64748b; font-size: 1.2em; }
+        
+        .search-bar { max-width: 600px; margin: 0 auto 50px; display: flex; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-radius: 30px; overflow: hidden;}
+        .search-bar input { flex: 1; padding: 15px 25px; border: none; outline: none; font-size: 16px; }
+        .search-bar button { background: #0f172a; color: white; border: none; padding: 15px 30px; font-weight: bold; cursor: pointer;}
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto 50px; padding: 0 20px;}
+        .card { background: #fff; border-radius: 12px; padding: 30px 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.03); border: 1px solid #f0f0f0; transition: 0.3s;}
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+        .card img { height: 60px; margin-bottom: 20px; object-fit: contain;}
+        .card h3 { margin: 0 0 15px; font-size: 16px; color: #111;}
+        .code-box { background: #0f172a; color: #38bdf8; padding: 10px; border-radius: 8px; font-family: monospace; font-size: 12px; word-break: break-all;}
     </style>
 </head>
 <body>
-    <div class="pkg-card">
-        <h3>python:pandas</h3>
-        <div class="code-container">
-            <code id="cmd-0">Nova.import("python:pandas")</code>
-            <button class="copy-btn" id="btn-0" onclick="copyCode('cmd-0', 'btn-0')">Copy</button>
-        </div>
+    <div class="nav">
+        <a href="index.html" class="nav-logo"><img src="5611_2.png" class="premium-logo"> NEURA STUDIO</a>
+        <div class="nav-links"><a href="index.html">Overview</a><a href="hub.html" style="color:#00CFFF;">Nova Hub</a><a href="cmd.html">Execute CMD</a></div>
+        <a href="installer.html" class="btn">Download Engine</a>
     </div>
-    <script>
-        function copyCode(id, btnId) {
-            let text = document.getElementById(id).innerText;
-            let btn = document.getElementById(btnId);
-            navigator.clipboard.writeText(text);
-            btn.innerText = "Copied! ✔";
-            btn.classList.add("copied");
-            setTimeout(() => { btn.innerText = "Copy"; btn.classList.remove("copied"); }, 2000);
-        }
-    </script>
+
+    <div class="hub-header">
+        <h1>Nova Hub 📦</h1>
+        <p>The Universal Package Manager. Search and install from 3,560,000+ packages.</p>
+    </div>
+    
+    <div class="search-bar">
+        <input type="text" placeholder="Search packages (e.g., Py, React, TensorFlow)...">
+        <button>🔍 Search</button>
+    </div>
+
+    <div class="grid">
+        <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg"><h3>python:tensorflow</h3><div class="code-box">Nova.import("python:tensorflow")</div></div>
+        <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"><h3>js:react</h3><div class="code-box">Nova.import("js:react")</div></div>
+        <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg"><h3>java:spring</h3><div class="code-box">Nova.import("java:spring")</div></div>
+        <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"><h3>cpp:boost</h3><div class="code-box">Nova.import("cpp:boost")</div></div>
+        <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-plain.svg"><h3>rust:tokio</h3><div class="code-box">Nova.import("rust:tokio")</div></div>
+        <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg"><h3>python:django</h3><div class="code-box">Nova.import("python:django")</div></div>
+        <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"><h3>js:node</h3><div class="code-box">Nova.import("js:node")</div></div>
+        <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg"><h3>python:pandas</h3><div class="code-box">Nova.import("python:pandas")</div></div>
+        <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg"><h3>ruby:rails</h3><div class="code-box">Nova.import("ruby:rails")</div></div>
+    </div>
 </body>
 </html>
