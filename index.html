@@ -7,36 +7,38 @@
     <style>
         body { background-color: #f8f9fa; color: #111; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; overflow-x: hidden;}
         
-        /* 🔵 आपका असली लोगो (बिना गोल कटिंग के, जैसा आपने कहा था) 🔵 */
-        .real-logo { width: 45px; height: 45px; object-fit: contain; margin-right: 12px; }
+        /* 🔵 प्रीलोडर और ब्लास्ट एनीमेशन 🔵 */
+        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #0f172a; z-index: 9999; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s ease; }
+        .preloader-content { display: flex; flex-direction: column; align-items: center; }
+        .blast-logo { width: 90px; height: 90px; border-radius: 50%; box-shadow: 0 0 30px #00CFFF, inset 0 0 10px #00CFFF; border: 3px solid #00CFFF; background: #000; object-fit: cover; transition: transform 0.6s cubic-bezier(0.1, 0.8, 0.2, 1), opacity 0.5s ease; }
+        .spinner { margin-top: 35px; width: 45px; height: 45px; border: 4px solid rgba(0, 207, 255, 0.2); border-top: 4px solid #00CFFF; border-radius: 50%; animation: spin 1s linear infinite; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .blast { transform: scale(40); opacity: 0; }
 
-        /* Navbar */
+        /* असली लोगो (गोल और नीले ग्लो के साथ) */
+        .premium-logo { width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 0 15px rgba(10, 132, 255, 0.8), inset 0 0 8px rgba(10, 132, 255, 0.5); border: 2px solid #00CFFF; object-fit: cover; background: #000; margin-right: 12px; }
+
+        /* Navbar & Typography */
         .nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100;}
         .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #111; text-decoration: none; letter-spacing: -0.5px;}
         .nav-links a { margin: 0 15px; text-decoration: none; color: #555; font-weight: 600; font-size: 14px;}
-        .nav-links a:hover { color: #00CFFF; }
-        .btn { background: linear-gradient(135deg, #00CFFF, #3B82F6); color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 14px;}
+        .btn { background: linear-gradient(135deg, #00CFFF, #3B82F6); color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: bold; font-size: 14px; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);}
         
-        /* Hero Section */
         .hero { text-align: center; padding: 60px 20px 0; }
         h1.title { font-size: 4.5em; font-weight: 900; letter-spacing: -2px; margin-bottom: 20px;}
         
         /* 3 Real Images */
         .image-row { display: flex; justify-content: center; gap: 20px; max-width: 1000px; margin: 40px auto; align-items: center;}
         .image-row img { border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); object-fit: cover;}
-        .img-1 { width: 300px; height: 200px; } 
-        .img-2 { width: 400px; height: 250px; z-index: 10; transform: scale(1.05); } 
-        .img-3 { width: 300px; height: 200px; }
+        .img-1 { width: 300px; height: 200px; } .img-2 { width: 400px; height: 250px; z-index: 10; transform: scale(1.05); } .img-3 { width: 300px; height: 200px; }
 
-        /* macOS Style CMD Code Editor */
+        /* macOS CMD Editor */
         .editor-container { max-width: 900px; margin: 60px auto 40px; background: #121826; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.2); text-align: left; scroll-margin-top: 100px;}
         .editor-header { background: #1a2235; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; color: #8b949e; font-family: monospace; font-size: 13px; border-bottom: 1px solid #2d3748;}
         .mac-dots { display: flex; gap: 8px; }
         .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .dot.red { background: #ff5f56; }
-        .dot.yellow { background: #ffbd2e; }
-        .dot.green { background: #27c93f; }
-        .run-btn-small { background: #238636; color: white; padding: 4px 12px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; font-family: sans-serif; display: flex; align-items: center; gap: 5px;}
+        .dot.red { background: #ff5f56; } .dot.yellow { background: #ffbd2e; } .dot.green { background: #27c93f; }
+        .run-btn-small { background: #238636; color: white; padding: 4px 12px; border: none; border-radius: 4px; cursor: pointer; font-weight: bold; display: flex; align-items: center; gap: 5px;}
         
         .code-area { padding: 30px; background: #121826; color: #e2e8f0; font-family: 'Courier New', Courier, monospace; font-size: 16px; line-height: 1.6;}
         .code-input { width: 100%; height: 150px; background: transparent; color: #e2e8f0; border: none; outline: none; font-family: inherit; font-size: 16px; resize: none;}
@@ -44,16 +46,24 @@
     </style>
 </head>
 <body>
+    <!-- Preloader Section -->
+    <div id="preloader">
+        <div class="preloader-content">
+            <!-- डायरेक्ट 5611_2.png का इस्तेमाल -->
+            <img src="5611_2.png" class="blast-logo" id="main-logo" alt="Logo">
+            <div class="spinner" id="spinner"></div>
+        </div>
+    </div>
+
+    <!-- Main Content (Hidden Initially by preloader overlay) -->
     <div class="nav">
         <a href="index.html" class="nav-logo">
-            <!-- आपका लोगो फाइल यहाँ है -->
-            <img src="neura-logo.png" class="real-logo" alt="Logo"> 
+            <img src="5611_2.png" class="premium-logo" alt="Logo"> 
             NEURA STUDIO
         </a>
         <div class="nav-links">
             <a href="index.html">Overview</a>
             <a href="hub.html">For Developers</a>
-            <!-- Pro की जगह CMD आ गया जो सीधे नीचे एडिटर पर ले जाएगा -->
             <a href="#cmd-section" style="color:#00CFFF;">CMD</a> 
         </div>
         <a href="installer.html" class="btn">Download Engine</a>
@@ -68,13 +78,10 @@
         </div>
     </div>
 
-    <!-- macOS Style CMD Code Editor -->
     <div id="cmd-section" class="editor-container">
         <div class="editor-header">
             <div class="mac-dots">
-                <div class="dot red"></div>
-                <div class="dot yellow"></div>
-                <div class="dot green"></div>
+                <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
             </div>
             <span style="flex-grow: 1; text-align: center;">CMD - Neura Studio Engine</span>
             <button class="run-btn-small" onclick="runCmdCode()">▶ Run</button>
@@ -93,12 +100,25 @@ Nova.show("God-Mode Activated by Javed.")
     </div>
 
     <script>
-        // असली CMD टेस्ट फीचर
+        // Blast Animation Logic
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('spinner').style.display = 'none';
+                document.getElementById('main-logo').classList.add('blast');
+                setTimeout(() => {
+                    document.getElementById('preloader').style.opacity = '0';
+                    setTimeout(() => {
+                        document.getElementById('preloader').style.display = 'none';
+                    }, 500);
+                }, 500);
+            }, 1500); // 1.5 seconds loader
+        });
+
+        // CMD Logic
         function runCmdCode() {
             let code = document.getElementById('cmd-input').value;
             let outputDiv = document.getElementById('cmd-output');
             outputDiv.innerHTML = ""; 
-            
             let lines = code.split('\n');
             lines.forEach(line => {
                 line = line.trim();
@@ -107,9 +127,7 @@ Nova.show("God-Mode Activated by Javed.")
                     if(match) outputDiv.innerHTML += `<div>> ${match[1].replace(/['"]/g, '')}</div>`;
                 }
             });
-            if(outputDiv.innerHTML === "") {
-                outputDiv.innerHTML = "> Code executed natively in 0.01ms (No Output)";
-            }
+            if(outputDiv.innerHTML === "") outputDiv.innerHTML = "> Code executed natively in 0.01ms";
         }
     </script>
 </body>
