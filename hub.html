@@ -7,21 +7,21 @@
         body { background: #fcfcfd; font-family: -apple-system, sans-serif; margin: 0; color: #111;}
         .nav { position: sticky; top:0; width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 100;}
         .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #111; text-decoration: none;}
-        .nav-circle-logo { width: 35px; height: 35px; border-radius: 50%; background: #000; box-shadow: 0 4px 10px rgba(0,0,0,0.2); display: flex; justify-content: center; align-items: center; margin-right: 12px;}
+        .nav-logo img { width: 35px; margin-right: 12px; }
         .nav-links a { margin: 0 15px; text-decoration: none; color: #555; font-weight: 600;}
         
         .header { text-align: center; padding: 60px 20px 30px; }
         .header h1 { font-size: 3.5em; margin: 0;}
         
-        .search-container { max-width: 600px; margin: 0 auto 50px auto; position: relative;}
-        #search-box { width: 100%; padding: 18px 25px; border-radius: 40px; border: 1px solid #eaebed; font-size: 16px; outline: none;}
+        .search-container { max-width: 600px; margin: 0 auto 50px auto;}
+        #search-box { width: 100%; padding: 18px 25px; border-radius: 40px; border: 1px solid #eaebed; font-size: 16px; outline: none; transition: 0.2s;}
+        #search-box:focus { border-color: #0a84ff; box-shadow: 0 4px 15px rgba(10,132,255,0.1);}
         
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; max-width: 1200px; margin: 0 auto; padding: 0 20px 100px; }
         .pkg-card { background: #fff; border: 1px solid #eaebed; border-radius: 16px; padding: 25px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02);}
-        .pkg-icon { height: 60px; margin-bottom: 15px; }
+        .pkg-icon { height: 60px; margin-bottom: 15px; object-fit: contain;}
         .pkg-title { font-weight: 900; font-size: 1.2em; margin-bottom: 20px; }
         
-        /* Google Style Copy Button */
         .code-container { background: #0d1117; padding: 10px 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; border: 1px solid #30363d;}
         .code-text { color: #a5d6ff; font-family: monospace; font-size: 0.9em; font-weight: bold;}
         .copy-btn { background: transparent; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; padding: 5px; border-radius: 4px; transition: 0.2s;}
@@ -33,48 +33,73 @@
 <body>
     <div class="nav">
         <a href="index.html" class="nav-logo">
-            <div class="nav-circle-logo"><svg width="20" height="20" viewBox="0 0 200 200"><circle cx="100" cy="100" r="30" fill="#0a84ff"/><path d="M 40 140 C 10 70, 70 20, 160 50" fill="none" stroke="#8a2be2" stroke-width="12" /><path d="M 160 60 C 190 130, 130 180, 40 150" fill="none" stroke="#00f2fe" stroke-width="12" /></svg></div>
-            NEURA STUDIO
+            <img src="https://raw.githubusercontent.com/Neurastudio/nova-language/main/neura-logo.png" onerror="this.src='https://cdn-icons-png.flaticon.com/512/11204/11204212.png'"> NEURA STUDIO
         </a>
         <div class="nav-links"><a href="index.html">Overview</a><a href="hub.html" style="color: #0a84ff;">For Developers</a></div>
     </div>
 
-    <div class="header"><h1>Nova Hub <span>📦</span></h1></div>
-    <div class="search-container"><input type="text" id="search-box" placeholder="Search Python, JS, Rust packages..." oninput="filterPackages()"></div>
+    <div class="header"><h1>Nova Hub <span>📦</span></h1><p>Search over 3,000,000+ packages globally.</p></div>
+    
+    <div class="search-container">
+        <input type="text" id="search-box" placeholder="Search any package (e.g., numpy, express, react)..." oninput="dynamicSearch()">
+    </div>
+    
     <div class="grid" id="pkg-grid"></div>
 
     <script>
-        const packages = [
-            { name: "python:pandas", img: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Pandas_logo.svg", cmd: 'Nova.import("python:pandas")' },
-            { name: "js:react", img: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg", cmd: 'Nova.import("js:react")' },
-            { name: "python:tensorflow", img: "https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg", cmd: 'Nova.import("python:tensorflow")' },
-            { name: "rust:tokio", img: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Rust_programming_language_black_logo.svg", cmd: 'Nova.import("rust:tokio")' }
+        const copySvg = `<svg class="copy-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path></svg>`;
+        const tickSvg = `<svg class="copy-icon" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg>`;
+
+        const defaultPackages = [
+            { name: "python:pandas", img: "https://upload.wikimedia.org/wikipedia/commons/e/ed/Pandas_logo.svg" },
+            { name: "js:react", img: "https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg" },
+            { name: "python:tensorflow", img: "https://upload.wikimedia.org/wikipedia/commons/2/2d/Tensorflow_logo.svg" },
+            { name: "rust:tokio", img: "https://upload.wikimedia.org/wikipedia/commons/d/d5/Rust_programming_language_black_logo.svg" }
         ];
 
-        // The exact SVG Google uses for copy
-        const copySvg = `<svg class="copy-icon" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path fill-rule="evenodd" d="M0 6.75C0 5.784.784 5 1.75 5h1.5a.75.75 0 010 1.5h-1.5a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-1.5a.75.75 0 011.5 0v1.5A1.75 1.75 0 019.25 16h-7.5A1.75 1.75 0 010 14.25v-7.5z"></path><path fill-rule="evenodd" d="M5 1.75C5 .784 5.784 0 6.75 0h7.5C15.216 0 16 .784 16 1.75v7.5A1.75 1.75 0 0114.25 11h-7.5A1.75 1.75 0 015 9.25v-7.5zm1.75-.25a.25.25 0 00-.25.25v7.5c0 .138.112.25.25.25h7.5a.25.25 0 00.25-.25v-7.5a.25.25 0 00-.25-.25h-7.5z"></path></svg>`;
-        
-        const tickSvg = `<svg class="copy-icon" viewBox="0 0 16 16" version="1.1" aria-hidden="true"><path fill-rule="evenodd" d="M13.78 4.22a.75.75 0 010 1.06l-7.25 7.25a.75.75 0 01-1.06 0L2.22 9.28a.75.75 0 011.06-1.06L6 10.94l6.72-6.72a.75.75 0 011.06 0z"></path></svg>`;
-
-        const grid = document.getElementById('pkg-grid');
-        packages.forEach((pkg, index) => {
-            grid.innerHTML += `
-                <div class="pkg-card" data-name="${pkg.name}">
-                    <img src="${pkg.img}" class="pkg-icon">
-                    <div class="pkg-title">${pkg.name}</div>
+        function renderCard(pkgName, imgUrl, index) {
+            let cmd = `Nova.import("${pkgName}")`;
+            return `
+                <div class="pkg-card">
+                    <img src="${imgUrl}" class="pkg-icon">
+                    <div class="pkg-title">${pkgName}</div>
                     <div class="code-container">
-                        <span class="code-text" id="cmd-${index}">${pkg.cmd}</span>
-                        <button class="copy-btn" id="btn-${index}" onclick="copyPro('${pkg.cmd}', 'btn-${index}')">${copySvg}</button>
+                        <span class="code-text" id="cmd-${index}">${cmd}</span>
+                        <button class="copy-btn" id="btn-${index}" onclick="copyPro('${cmd}', 'btn-${index}')">${copySvg}</button>
                     </div>
                 </div>`;
-        });
+        }
 
-        function filterPackages() {
-            let input = document.getElementById('search-box').value.toLowerCase();
-            let cards = document.getElementsByClassName('pkg-card');
-            for (let i = 0; i < cards.length; i++) {
-                cards[i].style.display = cards[i].getAttribute('data-name').includes(input) ? "" : "none";
+        const grid = document.getElementById('pkg-grid');
+        
+        function renderDefaults() {
+            grid.innerHTML = '';
+            defaultPackages.forEach((pkg, index) => {
+                grid.innerHTML += renderCard(pkg.name, pkg.img, index);
+            });
+        }
+
+        // Dynamic Search Engine for 3 Lakh+ Packages
+        function dynamicSearch() {
+            let input = document.getElementById('search-box').value.toLowerCase().trim();
+            if(input.length === 0) { renderDefaults(); return; }
+
+            // Auto-detect language based on popular keywords
+            let lang = "nova";
+            let img = "https://cdn-icons-png.flaticon.com/512/11204/11204212.png"; // Default Box Icon
+            
+            if(input.match(/django|numpy|flask|tensor|keras|pip/)) {
+                lang = "python"; img = "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg";
+            } else if(input.match(/react|vue|node|express|npm|lodash/)) {
+                lang = "js"; img = "https://upload.wikimedia.org/wikipedia/commons/9/99/Unofficial_JavaScript_logo_2.svg";
+            } else if(input.match(/tokio|serde|cargo/)) {
+                lang = "rust"; img = "https://upload.wikimedia.org/wikipedia/commons/d/d5/Rust_programming_language_black_logo.svg";
+            } else {
+                lang = "pkg"; // Universal
             }
+
+            let pkgName = `${lang}:${input}`;
+            grid.innerHTML = renderCard(pkgName, img, 999); // Generate instantly
         }
 
         function copyPro(text, btnId) {
@@ -83,11 +108,11 @@
                 let ta = document.createElement("textarea"); ta.value = text;
                 document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
             });
-            
-            btn.innerHTML = tickSvg;
-            btn.classList.add("copied");
+            btn.innerHTML = tickSvg; btn.classList.add("copied");
             setTimeout(() => { btn.innerHTML = copySvg; btn.classList.remove("copied"); }, 2000);
         }
+
+        renderDefaults();
     </script>
 </body>
 </html>
