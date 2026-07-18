@@ -1,0 +1,48 @@
+Chapter 1: The Apex Engine (Core Foundations)
+Nova is a high-performance language built on the NeuraVM architecture. It is designed to execute at machine code speeds while remaining readable. It operates without a Global Interpreter Lock (GIL), allowing for true multi-threaded parallel execution across all CPU cores.
+
+Chapter 2: Variables & Data Management
+Nova does not use traditional typing systems. Variables are dynamic and memory-allocated at runtime.
+Nova.var.create('speed', '0.01ms')
+Nova.var.update('speed', '0.005ms')
+
+Chapter 3: Hardware-Level Threading
+Nova interacts directly with the CPU/GPU.
+Nova.hardware.cpu.alloc(16) // Allocates 16 threads
+Nova.hardware.gpu.load('high') // Offloads heavy tasks
+
+Chapter 4: Neural Network Native (AI)
+The 'ai' module is built-in.
+Nova.ai.think('Pattern Recognition')
+Nova.ai.predict('Market_Trends')
+
+Chapter 5: Nova Hub (Package Management)
+Import libraries from any ecosystem.
+Nova.import("python:pandas")
+Nova.import("js:react")
+Nova.import("rust:tokio")
+
+Chapter 6: Kernel & OS Bypassing
+Nova allows root-level hardware access.
+Nova.os.kernel_bypass(true)
+
+Chapter 7: Asynchronous Logic
+Nova handles concurrency natively.
+async fn engine_start() { ... }
+
+Chapter 8: Military-Grade Security
+Each Nova script runs in an isolated 'Sandbox' to prevent system breaches.
+
+Chapter 9: The NeuraVM (Architecture)
+The VM translates Nova syntax into native machine code 10x faster than traditional compilers.
+
+Chapter 10: Networking & Sockets
+Zero-overhead networking.
+Nova.net.socket.open(8080)
+Nova.net.socket.send(data)
+
+Chapter 11: Error Diagnostics (AI-Driven)
+Nova doesn't just crash; it uses AI to provide fix-suggestions for runtime errors.
+
+Chapter 12: Apex Level Optimization
+Final performance tuning for production environments using Nova.optimizer().
