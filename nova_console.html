@@ -6,6 +6,11 @@
     <style>
         body { background-color: #050505; color: #fff; font-family: 'SF Mono', 'Courier New', monospace; margin: 0; padding: 20px;}
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; padding-bottom: 15px; margin-bottom: 20px;}
+        
+        /* 🔵 आपका असली लोगो यहाँ ऐड किया गया है 🔵 */
+        .premium-logo { width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 0 20px rgba(0, 207, 255, 0.6); border: 2px solid #00CFFF; object-fit: cover; margin-right: 15px; }
+        
+        .header-left { display: flex; align-items: center; }
         .header h1 { margin: 0; color: #00CFFF; font-size: 22px; font-weight: 900;}
         .btn-run { background: #00CFFF; color: #000; padding: 10px 24px; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; transition: 0.2s;}
         .btn-run:hover { transform: scale(1.05); }
@@ -17,7 +22,10 @@
 </head>
 <body>
     <div class="header">
-        <h1>Nova Native Console</h1>
+        <div class="header-left">
+            <img src="5611_2.png" class="premium-logo" alt="Neura Logo">
+            <h1>Nova Native Console</h1>
+        </div>
         <div>
             <a href="index.html" style="color:#aaa; margin-right:20px; text-decoration:none;">⬅ Home</a>
             <button class="btn-run" onclick="executeNova()">Execute Native</button>
@@ -51,7 +59,7 @@ Nova.show("Apex Performance Activated.")
                         out.innerHTML += `<span style="color:#666;">> ${line} [Executed in 0.01ms]</span><br>`;
                     }
                 });
-            }, 300); // 300ms premium delay simulation
+            }, 300);
         }
     </script>
 </body>
