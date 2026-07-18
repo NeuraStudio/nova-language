@@ -7,71 +7,40 @@
     <style>
         body { background-color: #ffffff; color: #111; font-family: -apple-system, sans-serif; margin: 0; overflow-x: hidden; }
         
-        /* 🔵 Apple-Level White Blast Animation 🔵 */
-        #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #ffffff; z-index: 9999; display: flex; justify-content: center; align-items: center; }
-        .preloader-content { display: flex; flex-direction: column; align-items: center; }
-        .blast-logo { width: 120px; height: 120px; border-radius: 50%; box-shadow: 0 0 40px rgba(0,207,255,0.5); border: 2px solid #00CFFF; object-fit: cover; transition: transform 0.7s cubic-bezier(0.1, 0.8, 0.2, 1), opacity 0.6s ease; }
-        .spinner { margin-top: 40px; width: 50px; height: 50px; border: 5px solid #f0f0f0; border-top: 5px solid #00CFFF; border-radius: 50%; animation: spin 1s linear infinite; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        .blast { transform: scale(50); opacity: 0; }
-
-        /* Navbar (White Theme) */
-        .nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,0.05);}
+        .nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(255, 255, 255, 0.95); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100;}
         .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #111; text-decoration: none;}
+        /* 🔵 Logo Fix: using ./ to force local path 🔵 */
         .premium-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00CFFF; object-fit: cover; margin-right: 12px; }
-        .nav-links { display: flex; align-items: center; gap: 20px;}
+        
+        .nav-links { display: flex; gap: 20px; align-items: center;}
         .nav-links a { text-decoration: none; color: #555; font-weight: 600; font-size: 15px;}
         .nav-links a:hover { color: #00CFFF; }
-        
-        /* CMD Icon in Navbar */
-        .cmd-link { display: flex; align-items: center; gap: 5px; color: #00CFFF !important; font-weight: 900 !important; }
-        .cmd-icon { background: #111; color: #00CFFF; padding: 2px 6px; border-radius: 4px; font-family: monospace; font-size: 12px;}
-
         .btn { background: #00CFFF; color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: bold;}
         
-        .hero { text-align: center; padding: 60px 20px 0; }
+        .hero { text-align: center; padding: 80px 20px 20px; }
         h1.title { font-size: 4.5em; font-weight: 900; letter-spacing: -2px; margin-bottom: 20px; color: #111;}
         
         .image-row { display: flex; justify-content: center; gap: 20px; max-width: 1000px; margin: 40px auto; align-items: center;}
         .image-row img { border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); object-fit: cover;}
         .img-1 { width: 300px; height: 200px; } .img-2 { width: 400px; height: 250px; z-index: 10; transform: scale(1.05); } .img-3 { width: 300px; height: 200px; }
 
-        /* Dark Code Block (As per your image) */
         .editor-container { max-width: 900px; margin: 60px auto 40px; background: #0d1117; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.2); text-align: left;}
-        .editor-header { background: #161b22; padding: 12px 20px; display: flex; align-items: center; color: #8b949e; font-family: monospace; font-size: 13px;}
+        .editor-header { background: #161b22; padding: 12px 20px; display: flex; align-items: center; color: #8b949e; font-family: monospace;}
         .mac-dots { display: flex; gap: 8px; margin-right: 15px;}
         .dot { width: 12px; height: 12px; border-radius: 50%; }
         .dot.red { background: #ff5f56; } .dot.yellow { background: #ffbd2e; } .dot.green { background: #27c93f; }
         .code-area { padding: 30px; color: #e2e8f0; font-family: 'Courier New', monospace; font-size: 15px; line-height: 1.6;}
         .kw { color: #79c0ff; font-weight: bold;} .fn { color: #d2a8ff; } .str { color: #a5d6ff; } .comment { color: #8b949e; }
-
-        /* Speed Graph */
-        .speed-section { background: #f8f9fa; max-width: 900px; margin: 50px auto; padding: 40px 50px; border-radius: 16px; box-shadow: 0 5px 20px rgba(0,0,0,0.05); border: 1px solid #eaeaea;}
-        .speed-section h2 { text-align: center; font-size: 2.2em; margin-bottom: 40px; font-weight: 900; color:#111;}
-        .bar-container { margin-bottom: 25px; }
-        .bar-label { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 8px; font-size: 15px; color:#333;}
-        .bar-bg { background: #eaebed; border-radius: 10px; height: 12px; width: 100%; overflow: hidden;}
-        .bar-fill { height: 100%; border-radius: 10px; }
     </style>
 </head>
 <body>
-    <!-- White Blast Preloader -->
-    <div id="preloader">
-        <div class="preloader-content">
-            <img src="5611_2.png" class="blast-logo" id="main-logo" alt="Logo">
-            <div class="spinner" id="spinner"></div>
-        </div>
-    </div>
-
     <div class="nav">
-        <a href="index.html" class="nav-logo">
-            <img src="5611_2.png" class="premium-logo" alt="Logo"> 
-            NEURA STUDIO
-        </a>
+        <a href="index.html" class="nav-logo"><img src="./5611_2.png" class="premium-logo" alt="Logo"> NEURA STUDIO</a>
         <div class="nav-links">
             <a href="index.html">Overview</a>
             <a href="hub.html">Nova Hub</a>
-            <a href="cmd.html" class="cmd-link"><span class="cmd-icon">C:\></span> Execute CMD</a> 
+            <!-- 🔵 Fixed 404 Error link 🔵 -->
+            <a href="nova_console.html" style="color:#00CFFF;">Nova Console</a> 
         </div>
         <a href="installer.html" class="btn">Download Engine</a>
     </div>
@@ -85,7 +54,6 @@
         </div>
     </div>
 
-    <!-- Dark Code Block -->
     <div class="editor-container">
         <div class="editor-header">
             <div class="mac-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
@@ -95,7 +63,6 @@
             <span class="comment">// 1. Direct OS Override & Hardware Allocation</span><br>
             <span class="kw">Nova</span>.<span class="fn">os.kernel_bypass</span>(<span class="kw">true</span>)<br>
             <span class="kw">Nova</span>.<span class="fn">hardware.cpu.alloc</span>(16, <span class="str">'threads'</span>)<br><br>
-            
             <span class="comment">// 2. Native AI Compilation</span><br>
             <span class="kw">async fn</span> <span class="fn">train_logic</span>() {<br>
             &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">Nova</span>.<span class="fn">ai.think</span>(<span class="str">'Optimize neural networks natively'</span>)<br>
@@ -103,45 +70,5 @@
             }
         </div>
     </div>
-
-    <!-- Real Comparisons -->
-    <div class="speed-section">
-        <h2>Unrivaled Execution Speed</h2>
-        
-        <div class="bar-container">
-            <div class="bar-label"><span>Nova (Native Bytecode)</span><span style="color:#00CFFF">0.01ms</span></div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 100%; background: #00CFFF;"></div></div>
-        </div>
-        <div class="bar-container">
-            <div class="bar-label"><span>Mojo</span><span style="color:#ff8a00">0.02ms</span></div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 80%; background: #ff8a00;"></div></div>
-        </div>
-        <div class="bar-container">
-            <div class="bar-label"><span>C++ (GCC 03)</span><span style="color:#64748b">0.05ms</span></div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 60%; background: #64748b;"></div></div>
-        </div>
-        <div class="bar-container">
-            <div class="bar-label"><span>Java</span><span style="color:#e76f00">1.50ms</span></div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 25%; background: #e76f00;"></div></div>
-        </div>
-        <div class="bar-container">
-            <div class="bar-label"><span>Python 3.11</span><span style="color:#ef4444">5.20ms</span></div>
-            <div class="bar-bg"><div class="bar-fill" style="width: 10%; background: #ef4444;"></div></div>
-        </div>
-    </div>
-
-    <script>
-        // Smooth White Blast Animation
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.getElementById('spinner').style.display = 'none';
-                let logo = document.getElementById('main-logo');
-                logo.classList.add('blast');
-                setTimeout(() => {
-                    document.getElementById('preloader').style.display = 'none';
-                }, 600);
-            }, 1200);
-        });
-    </script>
 </body>
 </html>

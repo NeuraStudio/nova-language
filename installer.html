@@ -2,56 +2,91 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Download Nova</title>
+    <title>Install Nova</title>
     <style>
-        body { background: #000; font-family: -apple-system, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; color: #fff;}
-        .nav { position: fixed; top: 0; left: 0; width: 100%; display: flex; align-items: center; padding: 15px 50px; background: rgba(20,20,20,0.9); z-index: 100; box-sizing: border-box; }
-        .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #fff; text-decoration: none;}
+        body { background: #f4f6f8; font-family: -apple-system, sans-serif; margin: 0; color: #111;}
+        .nav { display: flex; align-items: center; padding: 15px 50px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #111; text-decoration: none;}
         .premium-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00CFFF; object-fit: cover; margin-right: 12px; }
         
-        .box { background: #111; width: 750px; padding: 60px; border-radius: 20px; text-align: center; border: 1px solid #333;}
-        h1 { font-size: 2.2em; margin-bottom: 40px; font-weight: 900;}
-        .grid { display: flex; justify-content: center; gap: 20px; }
-        .card { border: 2px solid #333; background: #1a1a1a; padding: 30px 20px; border-radius: 16px; cursor: pointer; width: 150px; transition: 0.3s;}
-        .card:hover { border-color: #00CFFF; transform: translateY(-5px); }
-        .card img { height: 60px; margin-bottom: 15px; object-fit: contain;}
+        .container { max-width: 800px; margin: 50px auto; background: #fff; padding: 50px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: center;}
+        h1 { font-size: 2.5em; margin-bottom: 10px;}
+        p { color: #666; margin-bottom: 40px;}
+
+        /* Terminal Style Block */
+        .terminal-block { background: #0d1117; padding: 20px; border-radius: 12px; text-align: left; margin-bottom: 40px;}
+        .os-tabs { display: flex; gap: 10px; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px;}
+        .os-tabs button { background: none; border: none; color: #8b949e; cursor: pointer; font-size: 16px; font-weight: bold; padding: 5px 10px;}
+        .os-tabs button.active { color: #00CFFF; border-bottom: 2px solid #00CFFF;}
+        .cmd-box { background: #000; color: #a5d6ff; padding: 15px; border-radius: 8px; font-family: monospace; font-size: 15px;}
         
-        .step { display: none; }
-        .step.active { display: block; animation: fadeIn 0.4s ease;}
-        @keyframes fadeIn { from {opacity: 0;} to {opacity: 1;} }
+        /* Graphical Block */
+        h2 { margin-top: 40px; border-top: 1px solid #eee; padding-top: 40px;}
+        .grid { display: flex; justify-content: center; gap: 25px; margin-top: 20px;}
+        .card { border: 2px solid #eaebed; padding: 30px 20px; border-radius: 16px; cursor: pointer; width: 140px; transition: 0.3s; background: #fff;}
+        .card:hover { border-color: #00CFFF; transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,207,255,0.1); }
+        .card img { height: 60px; margin-bottom: 15px; object-fit: contain; } /* REAL COLORS, NO FILTERS */
     </style>
 </head>
 <body>
-    <div class="nav"><a href="index.html" class="nav-logo"><img src="5611_2.png" class="premium-logo"> NEURA STUDIO</a></div>
+    <div class="nav">
+        <a href="index.html" class="nav-logo"><img src="./5611_2.png" class="premium-logo"> NEURA STUDIO</a>
+    </div>
 
-    <div class="box">
-        <div id="step-1" class="step active">
-            <h1>Select Operating System</h1>
-            <div class="grid">
-                <!-- REAL COLORED LOGOS -->
-                <div class="card" onclick="setOS('mac')"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/apple/apple-original.svg" style="filter: invert(1);"><h3>macOS</h3></div>
-                <div class="card" onclick="setOS('windows')"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/windows8/windows8-original.svg"><h3>Windows</h3></div>
-                <div class="card" onclick="setOS('linux')"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linux/linux-original.svg"><h3>Linux</h3></div>
+    <div class="container">
+        <h1>Install Nova Engine</h1>
+        <p>Choose your preferred installation method below.</p>
+
+        <!-- Method 1: Mojo-Style Terminal Install -->
+        <div class="terminal-block">
+            <div class="os-tabs">
+                <button id="btn-mac" class="active" onclick="switchTerm('mac')">macOS</button>
+                <button id="btn-linux" onclick="switchTerm('linux')">Linux</button>
+                <button id="btn-win" onclick="switchTerm('win')">Windows (PowerShell)</button>
             </div>
+            <div class="cmd-box" id="cmd-text">curl -sL https://get.neurastudio.com/mac | bash</div>
         </div>
-        <div id="step-2" class="step">
-            <h1>Select Editor</h1>
-            <div class="grid">
-                <div class="card" onclick="finish()"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg"><h3>VS Code</h3></div>
-                <div class="card" onclick="finish()"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pycharm/pycharm-original.svg"><h3>PyCharm</h3></div>
+
+        <!-- Method 2: Graphical Install with REAL Color Logos -->
+        <h2>Or Download Installer</h2>
+        <div class="grid">
+            <div class="card" onclick="downloadGui('mac')">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg">
+                <h3>macOS</h3>
+            </div>
+            <div class="card" onclick="downloadGui('windows')">
+                <!-- Real Colorful Windows Logo -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2012.svg">
+                <h3>Windows</h3>
+            </div>
+            <div class="card" onclick="downloadGui('linux')">
+                <!-- Real Colorful Linux Penguin -->
+                <img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg">
+                <h3>Linux</h3>
             </div>
         </div>
     </div>
+
     <script>
-        let selectedOS = '';
-        function setOS(os) { selectedOS = os; document.getElementById('step-1').classList.remove('active'); document.getElementById('step-2').classList.add('active'); }
-        function finish() {
-            let ext = (selectedOS == 'windows') ? '.exe' : (selectedOS == 'mac' ? '.dmg' : '.sh');
+        function switchTerm(os) {
+            document.getElementById('btn-mac').classList.remove('active');
+            document.getElementById('btn-linux').classList.remove('active');
+            document.getElementById('btn-win').classList.remove('active');
+            document.getElementById('btn-' + os).classList.add('active');
+            
+            let cmd = "";
+            if(os === 'mac') cmd = "curl -sL https://get.neurastudio.com/mac | bash";
+            if(os === 'linux') cmd = "curl -sL https://get.neurastudio.com/linux | bash";
+            if(os === 'win') cmd = "irm https://get.neurastudio.com/win | iex";
+            document.getElementById('cmd-text').innerText = cmd;
+        }
+
+        function downloadGui(os) {
+            let ext = (os === 'windows') ? '.exe' : (os === 'mac' ? '.dmg' : '.sh');
             let a = document.createElement('a');
-            a.href = "data:text/plain;charset=utf-8,Downloading...";
+            a.href = "data:text/plain;charset=utf-8,Downloading_Nova...";
             a.download = "nova-installer" + ext;
             a.click();
-            window.location.href = 'index.html';
         }
     </script>
 </body>
