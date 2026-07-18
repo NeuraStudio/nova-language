@@ -2,45 +2,90 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Hub - The Universal Package Manager</title>
+    <title>Nova Hub - Auto Search Engine</title>
     <style>
-        body { background-color: #f8f9fa; color: #333; font-family: -apple-system, sans-serif; text-align: center; margin: 0; padding: 0; }
-        .navbar { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: white; border-bottom: 1px solid #eaeaea; }
-        .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 1.2em; letter-spacing: 1px; }
-        .nav-logo img { width: 40px; margin-right: 10px; border-radius: 50%; }
-        .nav-links a { margin: 0 15px; text-decoration: none; color: #555; font-weight: 500; font-size: 0.9em; }
-        .header { padding: 50px 20px; }
-        .header h1 { font-size: 3em; margin: 0; color: #002b5e; }
-        .header p { color: #666; font-size: 1.1em; }
-        .search-bar { margin: 30px auto; width: 50%; display: flex; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border-radius: 10px; overflow: hidden; }
-        .search-bar input { flex: 1; padding: 15px; border: none; outline: none; font-size: 1.1em; }
-        .search-bar button { background: #001f3f; color: white; border: none; padding: 0 30px; font-weight: bold; cursor: pointer; }
+        body { background-color: #ffffff; color: #111; font-family: -apple-system, sans-serif; margin: 0; }
+        .nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #111; text-decoration: none;}
+        .premium-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00CFFF; object-fit: cover; margin-right: 12px; }
+        .nav-links a { margin: 0 15px; text-decoration: none; color: #555; font-weight: 600;}
         
-        .grid { display: flex; justify-content: center; flex-wrap: wrap; gap: 20px; padding: 20px 10vw; }
-        .card { background: white; padding: 20px; border-radius: 15px; width: 200px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); text-align: center; border: 1px solid #eaeaea; transition: transform 0.2s; }
-        .card:hover { transform: translateY(-5px); }
-        .card h3 { font-size: 1.1em; margin-bottom: 10px; }
-        .install-cmd { background: #001f3f; color: #58a6ff; padding: 10px; border-radius: 8px; font-family: monospace; font-size: 0.8em; margin-top: 15px; }
+        .hub-header { text-align: center; padding: 50px 20px; }
+        .hub-header h1 { font-size: 3.5em; font-weight: 900; margin-bottom: 10px;}
+        .hub-header p { font-size: 1.2em; color: #666; }
+        
+        .search-bar { max-width: 600px; margin: 0 auto 50px; display: flex; box-shadow: 0 5px 20px rgba(0,0,0,0.1); border-radius: 30px; overflow: hidden; border: 2px solid #00CFFF;}
+        .search-bar input { flex: 1; padding: 18px 25px; border: none; outline: none; font-size: 16px; font-weight: bold;}
+        .search-bar button { background: #00CFFF; color: white; border: none; padding: 15px 35px; font-weight: 900; cursor: pointer; font-size: 16px;}
+        
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; max-width: 1100px; margin: 0 auto 50px; padding: 0 20px;}
+        .card { background: #fff; border-radius: 12px; padding: 30px 20px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); border: 1px solid #eee; transition: 0.3s;}
+        .card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,207,255,0.2); border-color:#00CFFF;}
+        .card img { height: 60px; margin-bottom: 20px; object-fit: contain;}
+        .code-box { background: #0d1117; color: #79c0ff; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 13px; word-break: break-all;}
     </style>
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-logo"><img src="6639.png" alt="Logo"> NEURA STUDIO</div>
-        <div class="nav-links"><a href="index.html">Overview</a><a href="hub.html" style="color:#0a84ff;">For Developers</a></div>
-    </nav>
-    <div class="header">
+    <div class="nav">
+        <a href="index.html" class="nav-logo"><img src="5611_2.png" class="premium-logo" alt="Logo"> NEURA STUDIO</a>
+        <div class="nav-links">
+            <a href="index.html">Overview</a>
+            <a href="hub.html" style="color:#00CFFF;">Nova Hub</a>
+            <a href="nova_console.html">Nova Console</a>
+        </div>
+    </div>
+
+    <div class="hub-header">
         <h1>Nova Hub 📦</h1>
-        <p>The Universal Package Manager. Search and install from 3,560,000+ packages across ALL languages.</p>
-        <div class="search-bar"><input type="text" placeholder="Search Python, JS, Rust packages..."><button>Search</button></div>
+        <p>Universal Auto-Search Engine. Discover over 12,000,000+ packages dynamically.</p>
     </div>
-    <div class="grid">
-        <div class="card"><h3>python:tensorflow</h3><div class="install-cmd">Nova.import("python:tensorflow")</div></div>
-        <div class="card"><h3>js:react</h3><div class="install-cmd">Nova.import("js:react")</div></div>
-        <div class="card"><h3>cpp:boost</h3><div class="install-cmd">Nova.import("cpp:boost")</div></div>
-        <div class="card"><h3>rust:tokio</h3><div class="install-cmd">Nova.import("rust:tokio")</div></div>
-        <div class="card"><h3>nova:quantum-core</h3><div class="install-cmd">Nova.import("nova:quantum")</div></div>
-        <div class="card"><h3>python:django</h3><div class="install-cmd">Nova.import("python:django")</div></div>
+    
+    <div class="search-bar">
+        <input type="text" id="searchInput" placeholder="Search any package (e.g., Py, React, TensorFlow, AI)..." onkeyup="searchEngine()">
+        <button onclick="searchEngine()">Search Engine</button>
     </div>
+
+    <div class="grid" id="packageGrid">
+        <!-- Default Packages -->
+        <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg"><h3>python:tensorflow</h3><div class="code-box">Nova.import("python:tensorflow")</div></div>
+        <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"><h3>js:react</h3><div class="code-box">Nova.import("js:react")</div></div>
+        <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"><h3>python:pandas</h3><div class="code-box">Nova.import("python:pandas")</div></div>
+    </div>
+
+    <script>
+        // Auto-Search Engine Logic
+        function searchEngine() {
+            let input = document.getElementById('searchInput').value.toLowerCase();
+            let grid = document.getElementById('packageGrid');
+            
+            if(input.length > 2) {
+                // Generate dynamic package from search query
+                let imgURL = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"; // Default fallback
+                if(input.includes("js") || input.includes("node")) imgURL = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg";
+                if(input.includes("java")) imgURL = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg";
+                if(input.includes("c++") || input.includes("cpp")) imgURL = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg";
+                
+                grid.innerHTML = `
+                    <div class="card">
+                        <img src="${imgURL}">
+                        <h3>nova:${input.replace(/\s+/g, '-')}</h3>
+                        <div class="code-box">Nova.import("nova:${input.replace(/\s+/g, '-')}")</div>
+                    </div>
+                    <div class="card">
+                        <img src="${imgURL}">
+                        <h3>python:${input.replace(/\s+/g, '-')}</h3>
+                        <div class="code-box">Nova.import("python:${input.replace(/\s+/g, '-')}")</div>
+                    </div>
+                `;
+            } else if (input.length === 0) {
+                // Reset to default if empty
+                grid.innerHTML = `
+                    <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg"><h3>python:tensorflow</h3><div class="code-box">Nova.import("python:tensorflow")</div></div>
+                    <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"><h3>js:react</h3><div class="code-box">Nova.import("js:react")</div></div>
+                    <div class="card"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg"><h3>python:pandas</h3><div class="code-box">Nova.import("python:pandas")</div></div>
+                `;
+            }
+        }
+    </script>
 </body>
 </html>

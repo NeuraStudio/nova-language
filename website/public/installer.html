@@ -14,18 +14,30 @@
         p { color: #666; margin-bottom: 40px; font-size: 1.1em;}
 
         .grid { display: flex; justify-content: center; gap: 30px; margin-top: 20px;}
+        
+        /* GUI Card */
         .method-card { border: 2px solid #eaebed; padding: 40px 30px; border-radius: 20px; cursor: pointer; width: 250px; transition: 0.3s; background: #fff;}
         .method-card:hover { border-color: #00CFFF; transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,207,255,0.15); }
         .method-card img { height: 70px; margin-bottom: 20px; }
+        .method-card h3 { font-size: 1.4em; margin: 0 0 10px; color: #111;}
         
+        /* CLI Card Dashboard */
+        .cli-card { border: 2px solid #333; padding: 40px 30px; border-radius: 20px; cursor: pointer; width: 250px; transition: 0.3s; background: #0d1117; color: #fff;}
+        .cli-card:hover { border-color: #27c93f; transform: translateY(-5px); box-shadow: 0 15px 30px rgba(39,201,63,0.2); }
+        .cli-icon { font-size: 40px; font-weight: 900; color: #27c93f; margin-bottom: 15px; font-family: monospace;}
+        .cli-card h3 { font-size: 1.4em; margin: 0 0 10px; color: #fff;}
+        .cli-card p { color: #8b949e; }
+
         .os-card { border: 2px solid #eaebed; padding: 25px 20px; border-radius: 16px; cursor: pointer; width: 140px; transition: 0.3s; background: #fff;}
         .os-card:hover { border-color: #00CFFF; transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.05); }
         .os-card img { height: 55px; margin-bottom: 15px; object-fit: contain; }
 
-        .step { display: none; }
+        .step { display: none; animation: fadeIn 0.4s ease;}
         .step.active { display: block; }
-        .cmd-box { background: #0d1117; color: #a5d6ff; padding: 20px; border-radius: 12px; font-family: monospace; font-size: 18px; margin-top: 30px; text-align: left;}
-        .back-btn { background: none; border: none; color: #888; font-weight: bold; cursor: pointer; text-align: left; width: 100%;}
+        @keyframes fadeIn { from {opacity: 0; transform: scale(0.95);} to {opacity: 1; transform: scale(1);} }
+
+        .cmd-box { background: #0d1117; color: #27c93f; padding: 25px; border-radius: 12px; font-family: monospace; font-size: 18px; margin-top: 30px; text-align: left; box-shadow: inset 0 0 10px rgba(0,0,0,0.8); border: 1px solid #333;}
+        .back-btn { background: none; border: none; color: #888; font-weight: bold; font-size: 16px; cursor: pointer; margin-bottom: 20px; text-align: left; width: 100%;}
     </style>
 </head>
 <body>
@@ -34,23 +46,25 @@
     </div>
 
     <div class="container">
+        
         <div id="step-method" class="step active">
-            <h1>Get Nova</h1>
-            <p>Select how you want to set up the Nova Engine.</p>
+            <h1>Get Nova Engine</h1>
+            <p>Select your deployment architecture.</p>
             <div class="grid">
                 <div class="method-card" onclick="openGUI()">
                     <img src="https://cdn-icons-png.flaticon.com/512/3233/3233508.png">
-                    <h3>Nova Quick Install</h3>
-                    <p>Easy guided setup with OS integration.</p>
+                    <h3>Nova Visual Setup</h3>
+                    <p>Standard graphical installer.</p>
                 </div>
-                <div class="method-card" onclick="openCLI()">
-                    <img src="https://cdn-icons-png.flaticon.com/512/919/919853.png">
-                    <h3>Nova Shell Setup</h3>
-                    <p>Fast terminal installation.</p>
+                <div class="cli-card" onclick="openCLI()">
+                    <div class="cli-icon">[++_]</div>
+                    <h3>Nova Core Shell (NCS)</h3>
+                    <p>Advanced terminal deployment dashboard.</p>
                 </div>
             </div>
         </div>
 
+        <!-- GUI Flow -->
         <div id="gui-os" class="step">
             <button class="back-btn" onclick="goBack()">⬅ Back</button>
             <h1>Select Operating System</h1>
@@ -60,7 +74,6 @@
                 <div class="os-card" onclick="selectGUI_OS('linux')"><img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg"><h3>Linux</h3></div>
             </div>
         </div>
-
         <div id="gui-ide" class="step">
             <button class="back-btn" onclick="openGUI()">⬅ Back</button>
             <h1>Select Environment</h1>
@@ -70,19 +83,21 @@
             </div>
         </div>
 
+        <!-- CLI Flow -->
         <div id="cli-os" class="step">
             <button class="back-btn" onclick="goBack()">⬅ Back</button>
-            <h1>Select Operating System</h1>
+            <h1>NCS Dashboard</h1>
+            <p>Select target architecture for Shell Deployment.</p>
             <div class="grid">
                 <div class="os-card" onclick="generateCLI('mac')"><img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg"><h3>macOS</h3></div>
                 <div class="os-card" onclick="generateCLI('windows')"><img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2012.svg"><h3>Windows</h3></div>
                 <div class="os-card" onclick="generateCLI('linux')"><img src="https://upload.wikimedia.org/wikipedia/commons/3/35/Tux.svg"><h3>Linux</h3></div>
             </div>
         </div>
-
         <div id="cli-result" class="step">
             <button class="back-btn" onclick="openCLI()">⬅ Back</button>
-            <h1>Run this command</h1>
+            <h1>Execute Deployment</h1>
+            <p>Run the following command in your native terminal.</p>
             <div class="cmd-box" id="cli-command"></div>
         </div>
     </div>
@@ -107,7 +122,10 @@
         function generateCLI(os) {
             hideAll();
             document.getElementById('cli-result').classList.add('active');
-            let cmd = (os === 'windows') ? "PS> irm https://get.neurastudio.com/nova-win | iex" : `$ curl -sL https://get.neurastudio.com/nova-${os} | bash`;
+            let cmd = "";
+            if(os === 'mac') cmd = "$ curl -sL https://ncs.neurastudio.com/mac | bash";
+            if(os === 'linux') cmd = "$ curl -sL https://ncs.neurastudio.com/linux | bash";
+            if(os === 'windows') cmd = "PS> irm https://ncs.neurastudio.com/win | iex";
             document.getElementById('cli-command').innerText = cmd;
         }
     </script>
