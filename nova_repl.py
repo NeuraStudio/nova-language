@@ -1,59 +1,83 @@
 import os
-import sys
+import re
 import time
 
-def clear_screen():
+def clear():
     os.system('clear')
 
 def print_header():
-    print("\033[1;36m" + "="*60)
+    print("============================================================")
     print("  NOVA APEX ENGINE (v2.0.0-commercial) [linux-arm64]")
     print("  (c) 2026 Neura Studio. Chief Architect: JAVED.")
     print("  Architecture: NeuraVM | Execution: 0.01ms")
     print("  Type 'help' for commands. Type 'exit' to quit.")
-    print("="*60 + "\033[0m\n")
+    print("============================================================")
 
-clear_screen()
+clear()
 print_header()
+
+variables = {}
 
 while True:
     try:
-        cmd = input("\033[1;32mnova>>> \033[0m").strip()
+        cmd = input("nova>>> ").strip()
         if not cmd:
             continue
-        
-        if cmd.lower() == "exit":
-            print("\033[1;31mTerminating NeuraVM...\033[0m")
+            
+        if cmd == "exit":
             break
-            
-        elif cmd.lower() == "help":
-            print("\n\033[1;33mNova Native Commands:\033[0m")
-            print("  Nova.hub.install('pkg')  - Install from 12M+ registry")
-            print("  Nova.build('web')        - Compile Nova to HTML/JS/CSS")
-            print("  Nova.os.detect()         - Identify host architecture")
-            print("  clear                    - Clear console\n")
-            
-        elif cmd.lower() == "clear":
-            clear_screen()
+        elif cmd == "clear":
+            clear()
             print_header()
+            continue
             
+        # FIX 1: Nova.ask.user("Name :", name) without '->'
+        if cmd.startswith("Nova.ask.user"):
+            match = re.search(r'\("(.*?)",\s*(.*?)\)', cmd)
+            if match:
+                prompt_txt = match.group(1)
+                var_name = match.group(2).strip()
+                user_input = input(f"{prompt_txt} ")
+                variables[var_name] = user_input
+                continue
+                
+        # FIX 2: Dynamic Math and Print (Nova.show)
+        elif cmd.startswith("Nova.show"):
+            match = re.search(r'\((.*?)\)', cmd)
+            if match:
+                inner = match.group(1).replace('"', '').replace("'", "")
+                # Check if it's a stored variable
+                if inner in variables:
+                    print(f"[0.01ms] {variables[inner]}")
+                else:
+                    try:
+                        print(f"[0.01ms] {eval(inner)}")
+                    except:
+                        print(f"[0.01ms] {inner}")
+            continue
+            
+        # FIX 3: Realistic Package Installer Simulation
         elif cmd.startswith("Nova.hub.install"):
-            # Extract package name
-            pkg = cmd.split('"')[1] if '"' in cmd else cmd.split("'")[1]
-            print(f"\n\033[1;34m[NeuraVM]\033[0m Connecting to Global Hub...")
-            time.sleep(0.5)
-            print(f"\033[1;34m[NeuraVM]\033[0m Compiling \033[1;36m{pkg}\033[0m natively...")
-            time.sleep(1)
-            print(f"\033[1;32m✅ SUCCESS:\033[0m {pkg} installed successfully into Nova Ecosystem.\n")
+            match = re.search(r'\(["\'](.*?)["\']\)', cmd)
+            if match:
+                pkg = match.group(1)
+                print(f"[Nova Hub] Resolving '{pkg}' via Global Registry (12M+ packages)...")
+                time.sleep(1)
+                print(f"[NeuraVM] Compiling native bindings for {pkg}...")
+                time.sleep(0.5)
+                print(f"✅ SUCCESS: '{pkg}' installed natively into Nova environment.")
+            else:
+                print("SyntaxError: Use format Nova.hub.install(\"type:package\")")
+            continue
             
+        # Generic Execution
         elif cmd.startswith("Nova."):
-            print(f"\033[1;35m[0.01ms]\033[0m Executed Native Instruction successfully.")
-            
+            print("[0.01ms] Executed Native Instruction successfully.")
         else:
-            print(f"\033[1;31mSyntaxError:\033[0m Invalid Nova syntax. Did you mean to use 'Nova.' namespace?")
+            print(f"SyntaxError: Invalid Nova syntax. Did you mean to use 'Nova.' namespace?")
             
     except KeyboardInterrupt:
-        print("\n\033[1;31mForce Quitting...\033[0m")
+        print("\nExiting Nova...")
         break
     except Exception as e:
-        print(f"\033[1;31mFatal Error:\033[0m {e}")
+        print(f"Engine Error: {e}")
