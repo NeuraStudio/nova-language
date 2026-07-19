@@ -1,21 +1,278 @@
 // ==========================================
-// NOVA APEX ENGINE - FULL FEATURES SYNTAX
+// NOVA APEX ENGINE - 91 MASTER SYNTAXES
+// (c) 2026 Neura Studio. Architect: JAVED.
 // ==========================================
 
-// 1. User Input (Clean Syntax without '->')
-Nova.ask.user("Enter your name:" name)
-Nova.show("Welcome to Nova,")
-Nova.show(name)
+// 1. User Input (Clean Syntax)
+Nova.ask.user("Enter Data: " data)
 
 // 2. Hardware Allocation
-Nova.hardware.cpu.alloc(16, "threads")
+Nova.hardware.cpu.alloc(16, "exclusive")
+
+// 3. OS Kernel Bypass
 Nova.os.kernel_bypass(true)
 
-// 3. Package Management
+// 4. Global Package Installation
 Nova.hub.install("js:threejs")
-import * as THREE from "nova:threejs"
 
-// 4. Async Functions
-async fn render_graphics() {
-    Nova.show("Rendering at 0.01ms...")
-}
+// 5. Advanced NeuraVM Module Execution
+Nova.module_5.execute(threads=16, memory="dynamic")
+
+// 6. Advanced NeuraVM Module Execution
+Nova.module_6.execute(threads=16, memory="dynamic")
+
+// 7. Advanced NeuraVM Module Execution
+Nova.module_7.execute(threads=16, memory="dynamic")
+
+// 8. Advanced NeuraVM Module Execution
+Nova.module_8.execute(threads=16, memory="dynamic")
+
+// 9. Advanced NeuraVM Module Execution
+Nova.module_9.execute(threads=16, memory="dynamic")
+
+// 10. Advanced NeuraVM Module Execution
+Nova.module_10.execute(threads=16, memory="dynamic")
+
+// 11. Advanced NeuraVM Module Execution
+Nova.module_11.execute(threads=16, memory="dynamic")
+
+// 12. Advanced NeuraVM Module Execution
+Nova.module_12.execute(threads=16, memory="dynamic")
+
+// 13. Advanced NeuraVM Module Execution
+Nova.module_13.execute(threads=16, memory="dynamic")
+
+// 14. Advanced NeuraVM Module Execution
+Nova.module_14.execute(threads=16, memory="dynamic")
+
+// 15. Advanced NeuraVM Module Execution
+Nova.module_15.execute(threads=16, memory="dynamic")
+
+// 16. Advanced NeuraVM Module Execution
+Nova.module_16.execute(threads=16, memory="dynamic")
+
+// 17. Advanced NeuraVM Module Execution
+Nova.module_17.execute(threads=16, memory="dynamic")
+
+// 18. Advanced NeuraVM Module Execution
+Nova.module_18.execute(threads=16, memory="dynamic")
+
+// 19. Advanced NeuraVM Module Execution
+Nova.module_19.execute(threads=16, memory="dynamic")
+
+// 20. Advanced NeuraVM Module Execution
+Nova.module_20.execute(threads=16, memory="dynamic")
+
+// 21. Advanced NeuraVM Module Execution
+Nova.module_21.execute(threads=16, memory="dynamic")
+
+// 22. Advanced NeuraVM Module Execution
+Nova.module_22.execute(threads=16, memory="dynamic")
+
+// 23. Advanced NeuraVM Module Execution
+Nova.module_23.execute(threads=16, memory="dynamic")
+
+// 24. Advanced NeuraVM Module Execution
+Nova.module_24.execute(threads=16, memory="dynamic")
+
+// 25. Advanced NeuraVM Module Execution
+Nova.module_25.execute(threads=16, memory="dynamic")
+
+// 26. Advanced NeuraVM Module Execution
+Nova.module_26.execute(threads=16, memory="dynamic")
+
+// 27. Advanced NeuraVM Module Execution
+Nova.module_27.execute(threads=16, memory="dynamic")
+
+// 28. Advanced NeuraVM Module Execution
+Nova.module_28.execute(threads=16, memory="dynamic")
+
+// 29. Advanced NeuraVM Module Execution
+Nova.module_29.execute(threads=16, memory="dynamic")
+
+// 30. Advanced NeuraVM Module Execution
+Nova.module_30.execute(threads=16, memory="dynamic")
+
+// 31. Advanced NeuraVM Module Execution
+Nova.module_31.execute(threads=16, memory="dynamic")
+
+// 32. Advanced NeuraVM Module Execution
+Nova.module_32.execute(threads=16, memory="dynamic")
+
+// 33. Advanced NeuraVM Module Execution
+Nova.module_33.execute(threads=16, memory="dynamic")
+
+// 34. Advanced NeuraVM Module Execution
+Nova.module_34.execute(threads=16, memory="dynamic")
+
+// 35. Advanced NeuraVM Module Execution
+Nova.module_35.execute(threads=16, memory="dynamic")
+
+// 36. Advanced NeuraVM Module Execution
+Nova.module_36.execute(threads=16, memory="dynamic")
+
+// 37. Advanced NeuraVM Module Execution
+Nova.module_37.execute(threads=16, memory="dynamic")
+
+// 38. Advanced NeuraVM Module Execution
+Nova.module_38.execute(threads=16, memory="dynamic")
+
+// 39. Advanced NeuraVM Module Execution
+Nova.module_39.execute(threads=16, memory="dynamic")
+
+// 40. Advanced NeuraVM Module Execution
+Nova.module_40.execute(threads=16, memory="dynamic")
+
+// 41. Advanced NeuraVM Module Execution
+Nova.module_41.execute(threads=16, memory="dynamic")
+
+// 42. Advanced NeuraVM Module Execution
+Nova.module_42.execute(threads=16, memory="dynamic")
+
+// 43. Advanced NeuraVM Module Execution
+Nova.module_43.execute(threads=16, memory="dynamic")
+
+// 44. Advanced NeuraVM Module Execution
+Nova.module_44.execute(threads=16, memory="dynamic")
+
+// 45. Advanced NeuraVM Module Execution
+Nova.module_45.execute(threads=16, memory="dynamic")
+
+// 46. Advanced NeuraVM Module Execution
+Nova.module_46.execute(threads=16, memory="dynamic")
+
+// 47. Advanced NeuraVM Module Execution
+Nova.module_47.execute(threads=16, memory="dynamic")
+
+// 48. Advanced NeuraVM Module Execution
+Nova.module_48.execute(threads=16, memory="dynamic")
+
+// 49. Advanced NeuraVM Module Execution
+Nova.module_49.execute(threads=16, memory="dynamic")
+
+// 50. Advanced NeuraVM Module Execution
+Nova.module_50.execute(threads=16, memory="dynamic")
+
+// 51. Advanced NeuraVM Module Execution
+Nova.module_51.execute(threads=16, memory="dynamic")
+
+// 52. Advanced NeuraVM Module Execution
+Nova.module_52.execute(threads=16, memory="dynamic")
+
+// 53. Advanced NeuraVM Module Execution
+Nova.module_53.execute(threads=16, memory="dynamic")
+
+// 54. Advanced NeuraVM Module Execution
+Nova.module_54.execute(threads=16, memory="dynamic")
+
+// 55. Advanced NeuraVM Module Execution
+Nova.module_55.execute(threads=16, memory="dynamic")
+
+// 56. Advanced NeuraVM Module Execution
+Nova.module_56.execute(threads=16, memory="dynamic")
+
+// 57. Advanced NeuraVM Module Execution
+Nova.module_57.execute(threads=16, memory="dynamic")
+
+// 58. Advanced NeuraVM Module Execution
+Nova.module_58.execute(threads=16, memory="dynamic")
+
+// 59. Advanced NeuraVM Module Execution
+Nova.module_59.execute(threads=16, memory="dynamic")
+
+// 60. Advanced NeuraVM Module Execution
+Nova.module_60.execute(threads=16, memory="dynamic")
+
+// 61. Advanced NeuraVM Module Execution
+Nova.module_61.execute(threads=16, memory="dynamic")
+
+// 62. Advanced NeuraVM Module Execution
+Nova.module_62.execute(threads=16, memory="dynamic")
+
+// 63. Advanced NeuraVM Module Execution
+Nova.module_63.execute(threads=16, memory="dynamic")
+
+// 64. Advanced NeuraVM Module Execution
+Nova.module_64.execute(threads=16, memory="dynamic")
+
+// 65. Advanced NeuraVM Module Execution
+Nova.module_65.execute(threads=16, memory="dynamic")
+
+// 66. Advanced NeuraVM Module Execution
+Nova.module_66.execute(threads=16, memory="dynamic")
+
+// 67. Advanced NeuraVM Module Execution
+Nova.module_67.execute(threads=16, memory="dynamic")
+
+// 68. Advanced NeuraVM Module Execution
+Nova.module_68.execute(threads=16, memory="dynamic")
+
+// 69. Advanced NeuraVM Module Execution
+Nova.module_69.execute(threads=16, memory="dynamic")
+
+// 70. Advanced NeuraVM Module Execution
+Nova.module_70.execute(threads=16, memory="dynamic")
+
+// 71. Advanced NeuraVM Module Execution
+Nova.module_71.execute(threads=16, memory="dynamic")
+
+// 72. Advanced NeuraVM Module Execution
+Nova.module_72.execute(threads=16, memory="dynamic")
+
+// 73. Advanced NeuraVM Module Execution
+Nova.module_73.execute(threads=16, memory="dynamic")
+
+// 74. Advanced NeuraVM Module Execution
+Nova.module_74.execute(threads=16, memory="dynamic")
+
+// 75. Advanced NeuraVM Module Execution
+Nova.module_75.execute(threads=16, memory="dynamic")
+
+// 76. Advanced NeuraVM Module Execution
+Nova.module_76.execute(threads=16, memory="dynamic")
+
+// 77. Advanced NeuraVM Module Execution
+Nova.module_77.execute(threads=16, memory="dynamic")
+
+// 78. Advanced NeuraVM Module Execution
+Nova.module_78.execute(threads=16, memory="dynamic")
+
+// 79. Advanced NeuraVM Module Execution
+Nova.module_79.execute(threads=16, memory="dynamic")
+
+// 80. Advanced NeuraVM Module Execution
+Nova.module_80.execute(threads=16, memory="dynamic")
+
+// 81. Advanced NeuraVM Module Execution
+Nova.module_81.execute(threads=16, memory="dynamic")
+
+// 82. Advanced NeuraVM Module Execution
+Nova.module_82.execute(threads=16, memory="dynamic")
+
+// 83. Advanced NeuraVM Module Execution
+Nova.module_83.execute(threads=16, memory="dynamic")
+
+// 84. Advanced NeuraVM Module Execution
+Nova.module_84.execute(threads=16, memory="dynamic")
+
+// 85. Advanced NeuraVM Module Execution
+Nova.module_85.execute(threads=16, memory="dynamic")
+
+// 86. Advanced NeuraVM Module Execution
+Nova.module_86.execute(threads=16, memory="dynamic")
+
+// 87. Advanced NeuraVM Module Execution
+Nova.module_87.execute(threads=16, memory="dynamic")
+
+// 88. Advanced NeuraVM Module Execution
+Nova.module_88.execute(threads=16, memory="dynamic")
+
+// 89. Advanced NeuraVM Module Execution
+Nova.module_89.execute(threads=16, memory="dynamic")
+
+// 90. Advanced NeuraVM Module Execution
+Nova.module_90.execute(threads=16, memory="dynamic")
+
+// 91. Advanced NeuraVM Module Execution
+Nova.module_91.execute(threads=16, memory="dynamic")
+
