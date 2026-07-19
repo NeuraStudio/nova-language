@@ -1,0 +1,8 @@
+{
+  "scopeName": "source.nova",
+  "patterns": [
+    { "name": "keyword.control.nova", "match": "\\b(async|fn|if|else|import|export)\\b" },
+    { "name": "support.class.nova", "match": "\\bNova\\b" },
+    { "name": "string.quoted.double.nova", "begin": """, "end": """ }
+  ]
+}
