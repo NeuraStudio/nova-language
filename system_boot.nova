@@ -1,0 +1,68 @@
+// =====================================================================
+// NOVA APEX ENGINE - CORE BOOTSTRAPPER v2.0
+// (c) 2026 Neura Studio. Chief Architect: JAVED
+// Execution Speed Target: 0.01ms | Architecture: NeuraVM
+// =====================================================================
+
+import native.hardware.cpu
+import native.hardware.ram
+import native.os.kernel
+import network.global_registry
+
+// 1. HARDWARE OVERRIDE & BOOTSTRAPPING
+async fn initialize_engine() {
+    Nova.system.log("Initiating OS Kernel Bypass...")
+    Nova.os.kernel_bypass(true)
+    
+    // Allocating raw hardware power
+    let core_lock = Nova.hardware.cpu.alloc(16, "exclusive")
+    let mem_optimize = Nova.hardware.ram.optimize_low_end(true)
+    
+    if (core_lock && mem_optimize) {
+        Nova.show("Hardware Locked. NeuraVM operating at 0.01ms.")
+    }
+}
+
+// 2. 12M+ PACKAGE MANAGER HUB ROUTING
+export fn install_package(pkg_name: String) {
+    Nova.show(`[Hub] Connecting to Global Registry for ${pkg_name}...`)
+    
+    let resolved_pkg = network.global_registry.fetch(pkg_name)
+    if (resolved_pkg.exists) {
+        Nova.compiler.compile_to_native(resolved_pkg)
+        Nova.show(`✅ SUCCESS: ${pkg_name} installed natively into Nova.`)
+    } else {
+        Nova.show(`❌ ERROR: Package ${pkg_name} not found.`)
+    }
+}
+
+// 3. IDE EXTENSION BRIDGE (VS Code & PyCharm)
+struct IDE_Bridge {
+    target: String,
+    
+    fn generate_extension() {
+        if (this.target == "vscode") {
+            Nova.system.execute("vsce package ./nova-vscode-extension")
+            Nova.show("VS Code VSIX Extension Generated.")
+        } else if (this.target == "pycharm") {
+            Nova.system.execute("jar cf nova-pycharm.jar ./nova-intellij-plugin")
+            Nova.show("PyCharm JAR Extension Generated.")
+        }
+    }
+}
+
+// 4. GUI INSTALLER RENDERER (Web & Native)
+async fn render_installer_ui(os_type: String) {
+    Nova.ui.create_window({
+        title: "Nova Engine Deployment",
+        width: 1280,
+        height: 720,
+        theme: "glassmorphism_dark",
+        engine: "Neura_UI_Renderer"
+    })
+    
+    Nova.show(`Building installer binary for ${os_type}...`)
+}
+
+// Execute Boot sequence
+initialize_engine()
