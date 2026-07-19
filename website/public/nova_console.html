@@ -4,13 +4,65 @@
     <meta charset="UTF-8">
     <title>Nova Console</title>
     <style>
-        body { background: #000; color: #0f0; font-family: monospace; padding: 20px; }
+        body { background-color: #050505; color: #fff; font-family: 'Courier New', monospace; margin: 0; padding: 0; height: 100vh; display: flex; flex-direction: column;}
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px 40px; background: #111; border-bottom: 1px solid #333;}
+        .premium-logo { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #00CFFF; object-fit: cover; margin-right: 15px;}
+        .header h1 { margin: 0; color: #00CFFF; font-size: 22px; font-weight: 900;}
+        
+        .main-area { flex: 1; padding: 30px; display: flex; gap: 20px;}
+        .editor, .terminal { background: #0d1117; border: 1px solid #333; border-radius: 12px; flex: 1; padding: 20px; box-shadow: inset 0 0 20px rgba(0,0,0,0.5); overflow-y: auto;}
+        
+        textarea { width: 100%; height: 90%; background: transparent; color: #a5d6ff; font-family: inherit; font-size: 16px; border: none; outline: none; resize: none;}
+        .terminal { color: #bbb; line-height: 1.6; }
+        .sys { color: #27c93f; }
+        
+        .btn-run { background: #00CFFF; color: #000; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; cursor: pointer;}
     </style>
 </head>
 <body>
-    <a href="index.html" style="color:#fff;">⬅ Back</a>
-    <h1>>_ NOVA NATIVE CONSOLE</h1>
-    <div id="output">root@nova:~$ System Initialized...</div>
-    <input type="text" style="background:transparent; border:none; color:#0f0; width:100%;" autofocus>
+    <div class="header">
+        <div style="display: flex; align-items: center;">
+            <img src="5611_2.png" class="premium-logo" alt="Logo">
+            <h1>NOVA NATIVE CONSOLE</h1>
+        </div>
+        <div>
+            <a href="index.html" style="color:#888; text-decoration:none; margin-right: 20px;">[ Exit ]</a>
+            <button class="btn-run" onclick="execute()">▶ Run Code</button>
+        </div>
+    </div>
+    
+    <div class="main-area">
+        <div class="editor">
+            <span style="color:#8b949e;">// Enter Nova Syntax</span><br>
+            <textarea id="code" spellcheck="false">
+Nova.hardware.cpu.alloc(16, "exclusive")
+Nova.show("System ready for deployment.")</textarea>
+        </div>
+        <div class="terminal" id="out">
+            <span class="sys">root@nova:~$</span> Terminal connected...<br>
+        </div>
+    </div>
+
+    <script>
+        function execute() {
+            let code = document.getElementById('code').value;
+            let out = document.getElementById('out');
+            out.innerHTML += `<br><span style="color:#00CFFF;">[Compile] Processing via NeuraVM...</span><br>`;
+            
+            setTimeout(() => {
+                let lines = code.split('\n');
+                lines.forEach(line => {
+                    line = line.trim();
+                    if(line.includes('Nova.show(')) {
+                        let match = line.match(/\((.*?)\)/);
+                        if(match) out.innerHTML += `> <strong style="color:#fff;">${match[1].replace(/['"]/g, '')}</strong><br>`;
+                    } else if(line.includes('Nova.')) {
+                        out.innerHTML += `<span style="color:#8b949e;">> Executed [0.01ms]: ${line}</span><br>`;
+                    }
+                });
+                out.scrollTop = out.scrollHeight;
+            }, 400);
+        }
+    </script>
 </body>
 </html>
