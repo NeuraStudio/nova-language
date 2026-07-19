@@ -1,0 +1,19 @@
+// Nova Apex Engine - Test Script
+Nova.os.kernel_bypass(true)
+Nova.hardware.cpu.alloc(16, "threads")
+
+// 12M+ Package Test
+Nova.hub.install("js:threejs")
+Nova.hub.install("python:tensorflow")
+
+async fn build_web_ui() {
+    Nova.ui.create_window({
+        title: "Nova Engine Web",
+        width: 1920,
+        height: 1080,
+        theme: "glassmorphism"
+    })
+    Nova.show("Web Interface Natively Rendered at 0.01ms")
+}
+
+build_web_ui()

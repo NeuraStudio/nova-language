@@ -1,0 +1,14 @@
+{
+  "name": "nova-language",
+  "displayName": "Nova Native Language",
+  "description": "Official syntax highlighting and snippet support for Nova Language by Neura Studio.",
+  "version": "1.0.1",
+  "publisher": "NeuraStudio",
+  "engines": { "vscode": "^1.70.0" },
+  "icon": "5611_2.png",
+  "categories": ["Programming Languages"],
+  "contributes": {
+    "languages": [{ "id": "nova", "extensions": [".nova"], "aliases": ["Nova"] }],
+    "grammars": [{ "language": "nova", "scopeName": "source.nova", "path": "./syntaxes/nova.tmLanguage.json" }]
+  }
+}
