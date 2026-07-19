@@ -3,73 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <title>Neura Studio | Nova</title>
     <style>
-        body { background-color: #ffffff; color: #111; font-family: -apple-system, sans-serif; margin: 0; overflow-x: hidden; }
-        
-        .nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(255, 255, 255, 0.95); box-shadow: 0 2px 10px rgba(0,0,0,0.05); position: sticky; top: 0; z-index: 100;}
-        .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #111; text-decoration: none;}
-        .premium-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00CFFF; object-fit: cover; margin-right: 12px; }
-        
-        .nav-links { display: flex; gap: 20px; align-items: center;}
-        .nav-links a { text-decoration: none; color: #555; font-weight: 600; font-size: 15px;}
+        body { background: #050505; color: #fff; font-family: -apple-system, sans-serif; margin: 0; }
+        .nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; background: rgba(10,10,10,0.8); backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #fff; text-decoration: none; }
+        .logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00CFFF; margin-right: 15px; }
+        .nav-links a { text-decoration: none; color: #aaa; font-weight: 600; margin: 0 15px; transition: 0.3s; }
         .nav-links a:hover { color: #00CFFF; }
+        .btn { background: #00CFFF; color: #000; padding: 10px 25px; border-radius: 30px; font-weight: bold; text-decoration: none; }
         
-        /* New "Get Nova" Button */
-        .btn { background: #00CFFF; color: #fff; padding: 10px 24px; border-radius: 30px; text-decoration: none; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,207,255,0.3);}
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,207,255,0.4);}
+        .hero { text-align: center; padding: 100px 20px; }
+        h1 { font-size: 5em; font-weight: 900; margin-bottom: 20px; background: linear-gradient(to right, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         
-        .hero { text-align: center; padding: 80px 20px 20px; }
-        h1.title { font-size: 4.5em; font-weight: 900; letter-spacing: -2px; margin-bottom: 20px; color: #111;}
+        .code-box { background: #0d1117; color: #e2e8f0; max-width: 800px; margin: 0 auto 50px; border-radius: 12px; padding: 30px; font-family: monospace; text-align: left; border: 1px solid #333; }
+        .kw { color: #00CFFF; } .str { color: #27c93f; }
         
-        .image-row { display: flex; justify-content: center; gap: 20px; max-width: 1000px; margin: 40px auto; align-items: center;}
-        .image-row img { border-radius: 12px; box-shadow: 0 10px 20px rgba(0,0,0,0.1); object-fit: cover;}
-        .img-1 { width: 300px; height: 200px; } .img-2 { width: 400px; height: 250px; z-index: 10; transform: scale(1.05); } .img-3 { width: 300px; height: 200px; }
-
-        .editor-container { max-width: 900px; margin: 60px auto 40px; background: #0d1117; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.2); text-align: left;}
-        .editor-header { background: #161b22; padding: 12px 20px; display: flex; align-items: center; color: #8b949e; font-family: monospace;}
-        .mac-dots { display: flex; gap: 8px; margin-right: 15px;}
-        .dot { width: 12px; height: 12px; border-radius: 50%; }
-        .dot.red { background: #ff5f56; } .dot.yellow { background: #ffbd2e; } .dot.green { background: #27c93f; }
-        .code-area { padding: 30px; color: #e2e8f0; font-family: 'Courier New', monospace; font-size: 15px; line-height: 1.6;}
-        .kw { color: #79c0ff; font-weight: bold;} .fn { color: #d2a8ff; } .str { color: #a5d6ff; } .comment { color: #8b949e; }
+        .comparison { max-width: 900px; margin: 50px auto; padding: 50px; background: rgba(20,20,20,0.5); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
+        .bar-label { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 8px; color: #fff; }
+        .bar-bg { background: rgba(255,255,255,0.1); height: 12px; border-radius: 6px; margin-bottom: 25px; overflow: hidden; }
+        .bar-fill { height: 100%; border-radius: 6px; }
     </style>
 </head>
 <body>
-    <div class="nav">
-        <a href="index.html" class="nav-logo"><img src="./5611_2.png" class="premium-logo" alt="Logo"> NEURA STUDIO</a>
-        <div class="nav-links">
-            <a href="index.html">Overview</a>
-            <a href="hub.html">Nova Hub</a>
-            <a href="nova_console.html">Nova Console</a> 
-        </div>
+    <nav class="nav">
+        <!-- Exact Logo File -->
+        <a href="index.html" class="nav-logo"><img src="5611_2.png" class="logo"> NEURA STUDIO</a>
+        <div class="nav-links"><a href="index.html">Overview</a><a href="hub.html">Nova Hub</a><a href="nova_console.html">Nova Console</a></div>
         <a href="installer.html" class="btn">Get Nova</a>
+    </nav>
+    <section class="hero">
+        <h1>Bypass Reality.</h1>
+        <p style="color:#888; font-size:1.5em;">The ultimate language bridging Web, Apps, and AI.</p>
+    </section>
+    <div class="code-box">
+        <span class="kw">Nova</span>.ui.render_web({ <span class="str">theme</span>: <span class="str">"glass"</span> })<br>
+        <span class="kw">Nova</span>.show(<span class="str">"HTML is dead. Welcome to Nova Native Web."</span>)
     </div>
-    
-    <div class="hero">
-        <h1 class="title">Code at the speed of thought.</h1>
-        <div class="image-row">
-            <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80" class="img-1">
-            <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" class="img-2">
-            <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&q=80" class="img-3">
-        </div>
-    </div>
-
-    <div class="editor-container">
-        <div class="editor-header">
-            <div class="mac-dots"><div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div></div>
-            <span>main.nova - Neura Studio Engine</span>
-        </div>
-        <div class="code-area">
-            <span class="comment">// 1. Direct OS Override & Hardware Allocation</span><br>
-            <span class="kw">Nova</span>.<span class="fn">os.kernel_bypass</span>(<span class="kw">true</span>)<br>
-            <span class="kw">Nova</span>.<span class="fn">hardware.cpu.alloc</span>(16, <span class="str">'threads'</span>)<br><br>
-            <span class="comment">// 2. Native AI Compilation</span><br>
-            <span class="kw">async fn</span> <span class="fn">train_logic</span>() {<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">Nova</span>.<span class="fn">ai.think</span>(<span class="str">'Optimize neural networks natively'</span>)<br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">Nova</span>.<span class="fn">show</span>(<span class="str">'Apex Performance Mode Activated by Javed.'</span>)<br>
-            }
-        </div>
-    </div>
+    <section class="comparison">
+        <h2 style="text-align:center; margin-bottom:40px;">Execution Speed (ms)</h2>
+        <div class="bar-label"><span>Nova (NeuraVM)</span><span style="color:#00CFFF">0.01ms</span></div><div class="bar-bg"><div class="bar-fill" style="width:100%; background:#00CFFF;"></div></div>
+        <div class="bar-label"><span>C</span><span style="color:#10b981">0.015ms</span></div><div class="bar-bg"><div class="bar-fill" style="width:90%; background:#10b981;"></div></div>
+        <div class="bar-label"><span>Mojo</span><span style="color:#ff8a00">0.02ms</span></div><div class="bar-bg"><div class="bar-fill" style="width:80%; background:#ff8a00;"></div></div>
+        <div class="bar-label"><span>C++</span><span style="color:#64748b">0.05ms</span></div><div class="bar-bg"><div class="bar-fill" style="width:60%; background:#64748b;"></div></div>
+        <div class="bar-label"><span>Python 3.11</span><span style="color:#ef4444">5.20ms</span></div><div class="bar-bg"><div class="bar-fill" style="width:10%; background:#ef4444;"></div></div>
+    </section>
 </body>
 </html>
