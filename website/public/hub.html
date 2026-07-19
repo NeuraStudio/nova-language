@@ -27,12 +27,11 @@
         
         .cmd-box { background: #0d1117; color: #a5d6ff; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 13px; margin-bottom: 15px; word-break: break-all;}
         .copy-btn { background: #10b981; color: #fff; border: none; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;}
-        .copy-btn:active { transform: scale(0.95); background: #059669; }
     </style>
 </head>
 <body>
     <div class="nav">
-        <a href="index.html" class="nav-logo"><img src="5611_2.png" class="premium-logo"> NEURA STUDIO</a>
+        <a href="index.html" class="nav-logo"><img src="./5611_2.png" class="premium-logo"> NEURA STUDIO</a>
         <div class="nav-links"><a href="index.html">Overview</a><a href="hub.html" style="color:#00CFFF;">Nova Hub</a><a href="nova_console.html">Nova Console</a></div>
     </div>
 
@@ -46,9 +45,7 @@
         <button onclick="fetchPackages()">Search Global API</button>
     </div>
 
-    <div class="grid" id="results">
-        <!-- Default Popular Packages -->
-    </div>
+    <div class="grid" id="results"></div>
 
     <script>
         const defaults = [
@@ -89,8 +86,8 @@
             resDiv.innerHTML = '<h3 style="grid-column: 1/-1; text-align:center;">Fetching live data from Internet API... ⏳</h3>';
             
             try {
-                // REAL INTERNET API FETCH (NPM Registry)
-                let res = await fetch(`https://registry.npmjs.org/-/v1/search?text=${query}&size=20`);
+                // REAL NPM API
+                let res = await fetch(`https://registry.npmjs.org/-/v1/search?text=${query}&size=12`);
                 let data = await res.json();
                 
                 resDiv.innerHTML = '';
@@ -101,11 +98,10 @@
                 
                 data.objects.forEach(obj => {
                     let p = obj.package;
-                    // Auto generate logo based on keyword
                     let logo = "https://cdn-icons-png.flaticon.com/512/3233/3233508.png";
                     if(p.name.includes("react")) logo = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg";
-                    if(p.name.includes("vue")) logo = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg";
-                    if(p.name.includes("py") || query.includes("py")) logo = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg";
+                    else if(p.name.includes("vue")) logo = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vuejs/vuejs-original.svg";
+                    else if(p.name.includes("py") || query.includes("py")) logo = "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg";
                     
                     resDiv.innerHTML += renderCard(`nova:${p.name}`, p.description || "Official Nova Package Module", logo);
                 });
@@ -121,7 +117,7 @@
             setTimeout(() => { btn.innerText = "Copy Command"; btn.style.background = "#10b981"; }, 2000);
         }
 
-        loadDefaults(); // Load initial
+        loadDefaults();
     </script>
 </body>
 </html>
