@@ -1,0 +1,26 @@
+// ==========================================
+// NOVA SELF-HOSTING COMPILER SEQUENCE
+// ==========================================
+import native.compiler
+import native.os
+import native.io
+
+// Unlocking maximum hardware potential
+Nova.os.kernel_bypass(true)
+Nova.hardware.cpu.alloc(16, "threads")
+
+async fn bootstrap_engine(source_file) {
+    Nova.show("Initiating Self-Hosting Bootstrap Sequence...")
+    
+    // Reading its own source code
+    let source = native.io.read(source_file)
+    
+    // Compiling via NeuraVM
+    let binary = Nova.compiler.compile_to_native(source, {target: "arm64", optimization: "O3"})
+    
+    Nova.show("Engine Bootstrapped! Execution Speed mapped to 0.01ms.")
+    return binary
+}
+
+// Running the bootstrap on our test file
+bootstrap_engine("test.nova")

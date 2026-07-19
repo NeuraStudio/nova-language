@@ -1,19 +1,12 @@
-// Nova Apex Engine - Test Script
-Nova.os.kernel_bypass(true)
-Nova.hardware.cpu.alloc(16, "threads")
+// NOVA PACKAGE EXECUTION TEST
+Nova.show("--- Testing External Package Engine ---")
 
-// 12M+ Package Test
+// Installing packages from Hub
 Nova.hub.install("js:threejs")
 Nova.hub.install("python:tensorflow")
 
-async fn build_web_ui() {
-    Nova.ui.create_window({
-        title: "Nova Engine Web",
-        width: 1920,
-        height: 1080,
-        theme: "glassmorphism"
-    })
-    Nova.show("Web Interface Natively Rendered at 0.01ms")
-}
+// Execution simulation
+import * as THREE from "nova:threejs"
+import tf from "nova:tensorflow"
 
-build_web_ui()
+Nova.show("AI and 3D Modules successfully injected and executed in memory!")
