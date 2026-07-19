@@ -1,0 +1,23 @@
+// ==========================================
+// NOVA COMPREHENSIVE TEST SUITE
+// ==========================================
+
+// 1. Math and Output Test
+Nova.show("Initializing Core Tests...")
+Nova.show(5000 + 5000)
+
+// 2. Variable and User Input Test
+Nova.ask.user("Enter a test code word:" code_word)
+Nova.show("The code word entered is:")
+Nova.show(code_word)
+
+// 3. Native Package Installation Test
+Nova.hub.install("js:threejs")
+Nova.hub.install("python:django")
+
+// 4. Hardware Allocation Test
+Nova.hardware.cpu.alloc(16, "exclusive")
+Nova.os.kernel_bypass(true)
+
+// 5. INTENTIONAL ERROR TEST (To check debugging)
+Print("This should trigger a SyntaxError")

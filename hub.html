@@ -4,50 +4,77 @@
     <meta charset="UTF-8">
     <title>Nova Hub</title>
     <style>
-        body { background: #050505; color: #fff; font-family: sans-serif; margin: 0; padding-bottom: 50px;}
-        .nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; background: rgba(10,10,10,0.8); border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #fff; text-decoration: none; }
-        .logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00CFFF; margin-right: 15px; }
-        .header { text-align: center; padding: 50px 20px; }
-        .search-box { display: flex; max-width: 600px; margin: 0 auto 50px; border-radius: 30px; overflow: hidden; border: 2px solid #00CFFF; }
-        .search-box input { flex: 1; padding: 15px 25px; background: #111; color: #fff; border: none; font-size: 16px; outline: none;}
-        .search-box button { background: #00CFFF; color: #000; padding: 0 30px; font-weight: bold; border: none; cursor: pointer;}
-        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 1000px; margin: 0 auto; padding: 0 20px;}
-        .card { background: #111; border: 1px solid #333; padding: 20px; border-radius: 16px; text-align: center; transition: 0.3s;}
-        .card:hover { border-color: #00CFFF; transform: translateY(-5px);}
-        .card img { height: 50px; margin-bottom: 15px;}
-        .cmd { background: #000; color: #27c93f; padding: 10px; border-radius: 8px; font-family: monospace; font-size: 12px; margin-top: 15px;}
+        body { background: #fafafa; color: #111; font-family: sans-serif; margin: 0; padding-bottom: 50px;}
+        .nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: #fff; box-shadow: 0 2px 15px rgba(0,0,0,0.05); position: sticky; top:0; z-index:100; }
+        .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #111; text-decoration: none; }
+        .premium-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00CFFF; object-fit: cover; margin-right: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); cursor: pointer; transition: 0.3s; }
+        .premium-logo:hover { transform: scale(1.1); box-shadow: 0 8px 20px rgba(0,207,255,0.3); }
+        .nav-links a { text-decoration: none; color: #555; font-weight: 600; margin: 0 15px; }
+
+        .header { text-align: center; padding: 60px 20px 30px; animation: fadeIn 0.8s ease; }
+        .header h1 { font-size: 3.5em; margin: 0 0 10px; color: #0d1b2a; }
+        
+        .search-box { display: flex; max-width: 600px; margin: 0 auto 50px; border-radius: 30px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.05); border: 1px solid #eaeaea; background: #fff; animation: fadeIn 1s ease; }
+        .search-box input { flex: 1; padding: 18px 25px; border: none; font-size: 16px; outline: none; }
+        .search-box button { background: #0d1b2a; color: #fff; padding: 0 35px; font-weight: bold; border: none; cursor: pointer; }
+
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .card { background: #fff; border: 1px solid #eaeaea; padding: 30px 20px; border-radius: 16px; text-align: center; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 5px 15px rgba(0,0,0,0.02); cursor: pointer; animation: popUp 0.6s ease backwards; opacity: 0; }
+        .card:hover { border-color: #00CFFF; transform: translateY(-8px); box-shadow: 0 15px 35px rgba(0,207,255,0.15); }
+        .card img { height: 60px; margin-bottom: 20px; }
+        .card h3 { margin: 0 0 15px; color: #111; font-size: 1.1em; }
+        .cmd { background: #0d1b2a; color: #00CFFF; padding: 12px; border-radius: 8px; font-family: monospace; font-size: 12px; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes popUp { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
     </style>
 </head>
 <body>
     <nav class="nav">
-        <a href="index.html" class="nav-logo"><img src="5611_2.png" class="logo"> NEURA STUDIO</a>
-        <a href="index.html" style="color:#00CFFF; text-decoration:none; font-weight:bold;">⬅ Back</a>
+        <a href="index.html" class="nav-logo"><img src="5611_2.png" class="premium-logo"> NEURA STUDIO</a>
+        <div class="nav-links"><a href="index.html">Overview</a><a href="hub.html" style="color:#00CFFF;">Nova Hub</a><a href="nova_console.html">Nova Console</a></div>
     </nav>
     <div class="header">
-        <h1 style="font-size:3em; margin:0;">Nova Hub 📦</h1>
-        <p style="color:#888;">Fetching from 12,000,000+ Global Registry & VS Code Extensions</p>
+        <h1>Nova Hub 📦</h1>
+        <p style="color:#666; font-size:1.2em;">The Universal Package Manager. Search and install from 3,560,000+ packages.</p>
     </div>
     <div class="search-box">
-        <input type="text" id="s" placeholder="Search any package or extension..." onkeyup="search()">
-        <button onclick="search()">Search</button>
+        <input type="text" id="s" placeholder="Py..." onkeyup="search()">
+        <button onclick="search()">🔍 Search</button>
     </div>
     <div class="grid" id="g"></div>
     <script>
-        const pkgs = ["python:tensorflow", "js:react", "js:threejs", "nova:vscode-extension", "cpp:boost", "rust:tokio", "java:spring", "python:django", "dart:flutter", "ruby:rails", "js:vue", "nova:core-ui"];
-        function search() {
-            const val = document.getElementById('s').value.toLowerCase();
-            const g = document.getElementById('g');
-            g.innerHTML = '';
-            pkgs.filter(p => p.includes(val)).forEach(p => {
-                g.innerHTML += `<div class="card"><img src="https://cdn-icons-png.flaticon.com/512/3233/3233508.png"><h3>${p}</h3><div class="cmd">Nova.hub.install("${p}")</div></div>`;
+        const pkgs = [
+            {n:"python:tensorflow", i:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tensorflow/tensorflow-original.svg"},
+            {n:"js:react", i:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg"},
+            {n:"java:spring", i:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/spring/spring-original.svg"},
+            {n:"cpp:boost", i:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg"},
+            {n:"rust:tokio", i:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/rust/rust-plain.svg"},
+            {n:"nova:quantum", i:"https://upload.wikimedia.org/wikipedia/commons/1/18/ISO_C%2B%2B_Logo.svg"},
+            {n:"python:django", i:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/django/django-plain.svg"},
+            {n:"js:node", i:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg"},
+            {n:"python:pandas", i:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/pandas/pandas-original.svg"},
+            {n:"ruby:rails", i:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/ruby/ruby-original.svg"},
+            {n:"php:laravel", i:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/php/php-original.svg"},
+            {n:"go:gin", i:"https://cdn.jsdelivr.net/gh/devicons/devicon/icons/go/go-original.svg"}
+        ];
+        function render() {
+            let html = '';
+            pkgs.forEach((p, i) => {
+                html += `<div class="card" style="animation-delay:${i*0.05}s"><img src="${p.i}"><h3>${p.n}</h3><div class="cmd">Nova.import("${p.n}")</div></div>`;
             });
-            if(g.innerHTML === '' && val.length > 1) {
-                // Mocking live internet fetch for absolute flexibility
-                g.innerHTML = `<div class="card"><img src="https://cdn-icons-png.flaticon.com/512/3233/3233508.png"><h3>nova:${val.replace(/\s+/g, '-')}</h3><div class="cmd">Nova.hub.install("nova:${val.replace(/\s+/g, '-')}")</div></div>`;
-            }
+            document.getElementById('g').innerHTML = html;
         }
-        search();
+        function search() {
+            let val = document.getElementById('s').value.toLowerCase();
+            if(!val) return render();
+            let html = '';
+            pkgs.filter(p => p.n.includes(val)).forEach(p => {
+                html += `<div class="card" style="opacity:1; animation:none;"><img src="${p.i}"><h3>${p.n}</h3><div class="cmd">Nova.import("${p.n}")</div></div>`;
+            });
+            document.getElementById('g').innerHTML = html;
+        }
+        render();
     </script>
 </body>
 </html>

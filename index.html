@@ -3,51 +3,106 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <title>Neura Studio | Nova</title>
     <style>
-        body { background: #050505; color: #fff; font-family: -apple-system, sans-serif; margin: 0; }
-        .nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 50px; background: rgba(10,10,10,0.8); backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #fff; text-decoration: none; }
-        .logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00CFFF; margin-right: 15px; }
-        .nav-links a { text-decoration: none; color: #aaa; font-weight: 600; margin: 0 15px; transition: 0.3s; }
+        /* Light Theme Core */
+        body { background: #fafafa; color: #111; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin: 0; overflow-x: hidden; }
+        
+        /* Animations */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes pulseShadow { 0% { box-shadow: 0 5px 15px rgba(0,207,255,0.2); } 50% { box-shadow: 0 10px 25px rgba(0,207,255,0.5); } 100% { box-shadow: 0 5px 15px rgba(0,207,255,0.2); } }
+        @keyframes popIn { 0% { transform: scale(0.8); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
+        
+        .anim-up { animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; }
+        .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; } .delay-3 { animation-delay: 0.4s; }
+
+        /* Navbar */
+        .nav { display: flex; justify-content: space-between; align-items: center; padding: 15px 50px; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(15px); position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.05); }
+        .nav-logo { display: flex; align-items: center; font-weight: 900; font-size: 22px; color: #111; text-decoration: none; }
+        
+        /* Circular Logo with Shadow & Click Animation */
+        .premium-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00CFFF; object-fit: cover; margin-right: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.15); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); animation: popIn 0.6s ease-out forwards; cursor: pointer; }
+        .premium-logo:hover { transform: rotate(15deg) scale(1.15); box-shadow: 0 10px 25px rgba(0,207,255,0.4); }
+        .premium-logo:active { transform: scale(0.9); } /* Click effect */
+
+        .nav-links a { text-decoration: none; color: #555; font-weight: 600; margin: 0 15px; transition: 0.3s; }
         .nav-links a:hover { color: #00CFFF; }
-        .btn { background: #00CFFF; color: #000; padding: 10px 25px; border-radius: 30px; font-weight: bold; text-decoration: none; }
+        .btn { background: #00CFFF; color: #fff; padding: 10px 24px; border-radius: 30px; font-weight: bold; text-decoration: none; box-shadow: 0 5px 15px rgba(0,207,255,0.3); transition: 0.3s; }
+        .btn:hover { background: #0099ff; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,153,255,0.4); }
 
-        .hero { text-align: center; padding: 100px 20px; }
-        h1 { font-size: 5em; font-weight: 900; margin-bottom: 20px; background: linear-gradient(to right, #fff, #888); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        /* Hero Section (7271.jpg Style) */
+        .hero { text-align: center; padding: 100px 20px 40px; }
+        h1 { font-size: 4.5em; font-weight: 900; letter-spacing: -2px; margin-bottom: 15px; color: #111; }
+        p { color: #666; font-size: 1.3em; max-width: 600px; margin: 0 auto 30px; line-height: 1.5; }
+        
+        .action-btns { display: flex; justify-content: center; gap: 15px; margin-bottom: 60px; }
+        .action-btn { background: #111; color: #fff; padding: 12px 25px; border-radius: 8px; font-weight: bold; text-decoration: none; display: flex; align-items: center; gap: 8px; transition: 0.3s; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .action-btn:hover { background: #333; transform: translateY(-3px); }
 
-        .code-box { background: #0d1117; color: #e2e8f0; max-width: 800px; margin: 0 auto 50px; border-radius: 12px; padding: 30px; font-family: monospace; text-align: left; border: 1px solid #333; }
-        .kw { color: #00CFFF; } .str { color: #27c93f; }
+        /* Images Row */
+        .image-row { display: flex; justify-content: center; gap: 20px; max-width: 1000px; margin: 0 auto 60px; align-items: center; }
+        .image-row img { border-radius: 12px; box-shadow: 0 15px 35px rgba(0,0,0,0.1); object-fit: cover; transition: 0.5s; cursor: pointer; }
+        .img-1 { width: 300px; height: 200px; } .img-2 { width: 400px; height: 250px; z-index: 10; transform: scale(1.05); box-shadow: 0 20px 40px rgba(0,0,0,0.15); } .img-3 { width: 300px; height: 200px; }
+        .image-row img:hover { transform: scale(1.1) translateY(-10px); z-index: 20; box-shadow: 0 25px 50px rgba(0,0,0,0.2); }
 
-        .comparison { max-width: 900px; margin: 50px auto; padding: 50px; background: rgba(20,20,20,0.5); border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); }
-        .bar-label { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 8px; color: #fff; }
-        .bar-bg { background: rgba(255,255,255,0.1); height: 12px; border-radius: 6px; margin-bottom: 25px; overflow: hidden; }
-        .bar-fill { height: 100%; border-radius: 6px; }
+        /* Code Editor */
+        .code-wrapper { background: #0d1117; max-width: 900px; margin: 0 auto 60px; border-radius: 16px; overflow: hidden; box-shadow: 0 25px 50px rgba(0,0,0,0.2); text-align: left; }
+        .code-header { background: #161b22; padding: 12px 20px; display: flex; align-items: center; color: #8b949e; font-family: monospace; font-size: 13px; }
+        .dots { display: flex; gap: 8px; margin-right: 15px; } .dot { width: 12px; height: 12px; border-radius: 50%; } .red{background:#ff5f56;} .ylw{background:#ffbd2e;} .grn{background:#27c93f;}
+        .code-body { padding: 30px; font-family: 'Courier New', monospace; font-size: 15px; color: #e2e8f0; line-height: 1.6; }
+        .kw { color: #00CFFF; font-weight: bold; } .str { color: #a5d6ff; } .cmnt { color: #8b949e; }
+
+        /* Comparison Chart (White Theme) */
+        .speed-section { background: #fff; max-width: 900px; margin: 0 auto 100px; padding: 50px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid #eaeaea; }
+        .speed-section h2 { text-align: center; font-size: 2em; margin-bottom: 40px; color: #111; }
+        .bar-container { margin-bottom: 25px; }
+        .bar-label { display: flex; justify-content: space-between; font-weight: bold; margin-bottom: 10px; color: #333; font-size: 15px; }
+        .bar-bg { background: #f0f0f0; border-radius: 10px; height: 12px; width: 100%; overflow: hidden; }
+        .bar-fill { height: 100%; border-radius: 10px; transition: width 2s cubic-bezier(0.16, 1, 0.3, 1); width: 0; }
     </style>
 </head>
 <body>
     <nav class="nav">
-        <!-- Cache Buster for Logo: ?v=3 ensures browsers load the fresh 5611_2.png -->
-        <a href="index.html" class="nav-logo"><img src="5611_2.png?v=3" class="logo" alt="Nova Logo"> NEURA STUDIO</a>
-        <div class="nav-links"><a href="index.html">Overview</a><a href="hub.html">Nova Hub</a><a href="nova_console.html">Nova Console</a></div>
-        <a href="installer.html" class="btn">Get Nova</a>
+        <a href="index.html" class="nav-logo"><img src="5611_2.png" class="premium-logo" alt="Logo"> NEURA STUDIO</a>
+        <div class="nav-links"><a href="index.html" style="color:#00CFFF;">Overview</a><a href="hub.html">Nova Hub</a><a href="nova_console.html">Nova Console</a></div>
+        <a href="installer.html" class="btn">Download Engine</a>
     </nav>
-    <section class="hero">
-        <h1>Bypass Reality.</h1>
-        <p style="color:#888; font-size:1.5em;">The ultimate language bridging Web, Apps, and AI.</p>
+
+    <section class="hero anim-up">
+        <h1>Make your code faster.</h1>
+        <p>Nova is the ultimate God-Mode alternative to Python, Java, and C++. Built for AI, Robotics, and Quantum computing.</p>
+        <div class="action-btns">
+            <a href="nova_docs.html" class="action-btn">📄 Learn Nova</a>
+            <a href="installer.html" class="action-btn">⚙️ Features & Arch</a>
+            <a href="Nova_Syntax_Master_Guide.pdf" class="action-btn" download>📘 Syntax Master</a>
+        </div>
     </section>
-    <div class="code-box">
-        <span class="kw">Nova</span>.ui.render_web({ <span class="str">theme</span>: <span class="str">"glass"</span> })<br>
-        <span class="kw">Nova</span>.show(<span class="str">"HTML is dead. Welcome to Nova Native Web."</span>)
+
+    <div class="image-row anim-up delay-1">
+        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=500&q=80" class="img-1">
+        <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=600&q=80" class="img-2">
+        <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=500&q=80" class="img-3">
     </div>
-    <section class="comparison">
-        <h2 style="text-align:center; margin-bottom:40px;">Execution Speed (ms)</h2>
-        <div class="bar-label"><span>Nova (NeuraVM)</span><span style="color:#00CFFF">0.01ms</span></div><div class="bar-bg"><div class="bar-fill" style="width:100%; background:#00CFFF;"></div></div>
-        <div class="bar-label"><span>C</span><span style="color:#10b981">0.015ms</span></div><div class="bar-bg"><div class="bar-fill" style="width:90%; background:#10b981;"></div></div>
-        <div class="bar-label"><span>Mojo</span><span style="color:#ff8a00">0.02ms</span></div><div class="bar-bg"><div class="bar-fill" style="width:80%; background:#ff8a00;"></div></div>
-        <div class="bar-label"><span>C++</span><span style="color:#64748b">0.05ms</span></div><div class="bar-bg"><div class="bar-fill" style="width:60%; background:#64748b;"></div></div>
-        <div class="bar-label"><span>Python 3.11</span><span style="color:#ef4444">5.20ms</span></div><div class="bar-bg"><div class="bar-fill" style="width:10%; background:#ef4444;"></div></div>
+
+    <div class="code-wrapper anim-up delay-2">
+        <div class="code-header"><div class="dots"><div class="dot red"></div><div class="dot ylw"></div><div class="dot grn"></div></div> CMD - Nova Interpreter</div>
+        <div class="code-body">
+            <span class="cmnt">// Enter your Nova code here</span><br>
+            <span class="kw">Nova</span>.show(<span class="str">"Hello, Neura Studio!"</span>)<br>
+            <span class="kw">Nova</span>.hardware.cpu.alloc(16, <span class="str">"exclusive"</span>)<br>
+            <span class="kw">Nova</span>.show(<span class="str">"System Hacked. 0.01ms."</span>)<br>
+        </div>
+    </div>
+
+    <section class="speed-section anim-up delay-3">
+        <h2>Unrivaled Execution Speed</h2>
+        <div class="bar-container"><div class="bar-label"><span>Nova (Native Bytecode)</span><span style="color:#00CFFF">0.01ms</span></div><div class="bar-bg"><div class="bar-fill" style="background:#00CFFF;" data-width="100%"></div></div></div>
+        <div class="bar-container"><div class="bar-label"><span>C++ (GCC 03)</span><span style="color:#64748b">0.05ms</span></div><div class="bar-bg"><div class="bar-fill" style="background:#64748b;" data-width="60%"></div></div></div>
+        <div class="bar-container"><div class="bar-label"><span>Python 3.11</span><span style="color:#ef4444">5.20ms</span></div><div class="bar-bg"><div class="bar-fill" style="background:#ef4444;" data-width="15%"></div></div></div>
     </section>
+
+    <script>
+        window.onload = () => { setTimeout(() => { document.querySelectorAll('.bar-fill').forEach(bar => { bar.style.width = bar.getAttribute('data-width'); }); }, 500); }
+    </script>
 </body>
 </html>

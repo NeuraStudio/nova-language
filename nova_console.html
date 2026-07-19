@@ -4,55 +4,52 @@
     <meta charset="UTF-8">
     <title>Nova Console</title>
     <style>
-        body { background-color: #ffffff; color: #111; font-family: -apple-system, sans-serif; margin: 0; padding: 30px;}
-        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 20px; margin-bottom: 30px;}
-        .header-left { display: flex; align-items: center; gap: 15px;}
-        .premium-logo { width: 45px; height: 45px; border-radius: 50%; border: 2px solid #00CFFF; object-fit: cover; }
-        .header h1 { margin: 0; color: #111; font-size: 24px; font-weight: 900;}
-        .btn-run { background: #00CFFF; color: #fff; padding: 12px 28px; border: none; border-radius: 30px; font-weight: bold; cursor: pointer; font-size: 16px;}
-        .editor-split { display: flex; gap: 20px; height: 75vh;}
+        body { background: #fafafa; color: #111; font-family: sans-serif; margin: 0; padding: 20px;}
+        .header { display: flex; justify-content: space-between; align-items: center; background: #fff; padding: 15px 30px; border-radius: 12px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); margin-bottom: 20px; }
+        .logo { width: 40px; height: 40px; border-radius: 50%; border: 2px solid #00CFFF; margin-right: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; transition: 0.3s;}
+        .logo:hover { transform: scale(1.1); }
+        .run-btn { background: #00CFFF; color: #fff; padding: 10px 25px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.3s;}
+        .run-btn:hover { background: #0099ff; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(0,207,255,0.4);}
         
-        textarea { width: 50%; background: #0d1117; color: #a5d6ff; padding: 25px; border-radius: 16px; font-family: monospace; font-size: 16px; border: none; outline: none; resize: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);}
-        .output { width: 50%; background: #161b22; color: #fff; padding: 25px; border-radius: 16px; font-family: monospace; overflow-y: auto;}
+        .split { display: flex; gap: 20px; height: 80vh; }
+        .box { flex: 1; background: #0d1117; border-radius: 16px; padding: 25px; box-shadow: 0 15px 35px rgba(0,0,0,0.15); display: flex; flex-direction: column; }
+        textarea { flex: 1; background: transparent; border: none; color: #a5d6ff; font-family: monospace; font-size: 15px; outline: none; resize: none; line-height: 1.6;}
+        .output { flex: 1; color: #fff; font-family: monospace; font-size: 15px; overflow-y: auto; line-height: 1.6;}
     </style>
 </head>
 <body>
     <div class="header">
-        <div class="header-left">
-            <img src="./5611_2.png" class="premium-logo" alt="Logo">
-            <h1>Nova Interactive Console</h1>
-        </div>
+        <div style="display:flex; align-items:center;"><img src="5611_2.png" class="logo"> <h2>Nova Interactive Console</h2></div>
         <div>
-            <a href="index.html" style="color:#555; margin-right:20px; text-decoration:none; font-weight:bold;">⬅ Back to Home</a>
-            <button class="btn-run" onclick="execute()">▶ Run Native</button>
+            <a href="index.html" style="margin-right:20px; text-decoration:none; color:#555; font-weight:bold;">⬅ Back to Home</a>
+            <button class="run-btn" onclick="runCode()">▶ Run Native</button>
         </div>
     </div>
-    <div class="editor-split">
-<textarea id="code-input" spellcheck="false">
-// Enter Nova Syntax
-Nova.hardware.cpu.alloc(16, "exclusive")
-Nova.show("System ready.")
-</textarea>
-        <div id="output" class="output">Awaiting execution...</div>
+    <div class="split">
+        <div class="box">
+            <span style="color:#8b949e; margin-bottom:10px;">// Enter Nova Syntax</span>
+            <textarea id="code" spellcheck="false">Nova.hardware.cpu.alloc(16, "exclusive")
+Nova.show("System ready.")</textarea>
+        </div>
+        <div class="box output" id="out">Awaiting execution...</div>
     </div>
-
     <script>
-        function execute() {
-            let code = document.getElementById('code-input').value;
-            let out = document.getElementById('output');
-            out.innerHTML = "<span style='color:#00CFFF;'>Compiling...</span><br><br>";
+        function runCode() {
+            let out = document.getElementById('out');
+            let code = document.getElementById('code').value;
+            out.innerHTML += "<br><br><span style='color:#00CFFF;'>[Compiling...]</span><br>";
             setTimeout(() => {
                 let lines = code.split('\n');
-                lines.forEach((line) => {
-                    line = line.trim();
-                    if(line.includes('Nova.show(')) {
-                        let match = line.match(/\((.*?)\)/);
-                        if(match) out.innerHTML += `> ${match[1].replace(/['"]/g, '')}<br>`;
-                    } else if(line.includes('Nova.')) {
-                        out.innerHTML += `<span style="color:#8b949e;">> Executed: ${line}</span><br>`;
+                lines.forEach(l => {
+                    if(l.includes('Nova.show')) {
+                        let m = l.match(/\((.*?)\)/);
+                        if(m) out.innerHTML += `> <b>${m[1].replace(/['"]/g, '')}</b><br>`;
+                    } else if(l.includes('Nova.')) {
+                        out.innerHTML += `<span style="color:#8b949e;">> Executed [0.01ms]: ${l}</span><br>`;
                     }
                 });
-            }, 300);
+                out.scrollTop = out.scrollHeight;
+            }, 600);
         }
     </script>
 </body>
